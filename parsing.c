@@ -15,18 +15,39 @@ size_t			ft_strlen(const char *s)
 	return (i);
 }
 
-int		get_size(char *s)
+int		get_size(char *command)
 {
 	int		i;
 	int		ret;
 
 	i = 0;
 	ret = 0;
-	while (s[i])
+	while (command[i])
 	{
-		if (s[i] == ' ' || s[i] == '"' || s[i] == 39)
+		while (command[i] == ' ')
+			i++;
+		if (command[i] && command[i] != '"' && command[i] != 39)
+		{
+			while (command[i] != ' ' && command[i] != '"' && command[i] != 39 && command[i])
+				i++;
 			ret++;
-		i++;
+		}
+		if (command[i] == '"')
+		{
+			i++;
+			while (command[i] != '"' && command[i])
+				i++;
+			ret++;
+		}
+		if (command[i] == 39)
+		{
+			i++;
+			while (command[i] != 39 && command[i])
+				i++;
+			ret++;
+		}
+		if (command[i])
+			i++;
 	}
 	return (ret);
 }
