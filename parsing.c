@@ -28,11 +28,10 @@ int		get_size(char *s)
 			ret++;
 		i++;
 	}
-	printf("--%d--", ret);
 	return (ret);
 }
 
-char	**allocate_array(char *s, char **yeet)
+void	allocate_array(char *s, t_simple_cmd *cmd)
 {
 	int		ret;
 	int		i;
@@ -41,23 +40,21 @@ char	**allocate_array(char *s, char **yeet)
 	i = 0;
 	j = 0;
 	ret = get_size(s);
-	yeet = malloc(sizeof(char *) * (ret + 1));
+	cmd->words = malloc(sizeof(char *) * (ret + 1));
 	while (i < (ret + 1))
-		yeet[i++] = malloc(sizeof(char) * ft_strlen(s));
-	return (yeet);
+		cmd->words[i++] = malloc(sizeof(char) * ft_strlen(s));
+	cmd->words[i] = NULL;
 }
 
-void	simple_cmd_lexer(char *command)
+void	simple_cmd_lexer(t_simple_cmd *cmd, char *command)
 {
 	int		i;
-	int		y;
 	int		x;
-	char	**yeet;
 
 	i = 0;
-	y = 0;
+	cmd->word_num = 0;
 	x = 0;
-	yeet = allocate_array(command, yeet);
+	allocate_array(command, cmd);
 	while (command[i])
 	{
 		while (command[i] == ' ')
@@ -66,48 +63,39 @@ void	simple_cmd_lexer(char *command)
 		{
 			x = 0;
 			while (command[i] != ' ' && command[i] != '"' && command[i] != 39 && command[i])
-				yeet[y][x++] = command[i++];
-			y++;
+				cmd->words[cmd->word_num][x++] = command[i++];
+			cmd->words[cmd->word_num][x] = '\0';
+			cmd->word_num++;
 		}
 		if (command[i] == '"')
 		{
 			x = 0;
 			i++;
 			while (command[i] != '"' && command[i])
-				yeet[y][x++] = command[i++];
+				cmd->words[cmd->word_num][x++] = command[i++];
+			cmd->words[cmd->word_num][x] = '\0';
 			if (command[i] != '"')
 			{
 				printf("Unclosed double quote");
 				exit(EXIT_FAILURE);
 			}
-			y++;
+			cmd->word_num++;
 		}
 		if (command[i] == 39)
 		{
 			x = 0;
 			i++;
 			while (command[i] != 39 && command[i])
-				yeet[y][x++] = command[i++];
+				cmd->words[cmd->word_num][x++] = command[i++];
+			cmd->words[cmd->word_num][x] = '\0';
 			if (command[i] != 39)
 			{
 				printf("Unclosed single quote");
 				exit(EXIT_FAILURE);
 			}
-			y++;
+			cmd->word_num++;
 		}
-		i++;
+		if (command[i])
+			i++;
 	}
-	printf("--%s--\n", yeet[0]);
-	printf("--%s--\n", yeet[1]);
-	printf("--%s--\n", yeet[2]);
-	printf("--%s--\n", yeet[3]);
-
-}
-
-int		main()
-{
-	t_simple_cmd	cmd;
-
-	simple_cmd_lexer("echo");
-	return (0);
 }
