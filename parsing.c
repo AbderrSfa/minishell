@@ -1,20 +1,5 @@
 #include "parsing.h"
 
-size_t			ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	while (*s != '\0')
-	{
-		i++;
-		s++;
-	}
-	return (i);
-}
-
 int		get_size(char *command)
 {
 	int		i;
@@ -67,6 +52,20 @@ void	allocate_array(char *s, t_simple_cmd *cmd)
 	cmd->words[i] = NULL;
 }
 
+void	env_var_parser(t_simple_cmd *cmd, char *word)
+{
+	int		i;
+
+	i = 0;
+	while (word[i] && word[i] != '$')
+		i++;
+	if (word[i++] == '$')
+	{
+		cmd->env_variable = ft_substr(word, i, (ft_strlen(word) - i));
+		printf("**%s**\n", cmd->env_variable);
+	}
+}
+
 int		double_quotes(t_simple_cmd *cmd, char *command, int i)
 {
 	int		x;
@@ -81,6 +80,7 @@ int		double_quotes(t_simple_cmd *cmd, char *command, int i)
 		printf("Unclosed double quote");
 		exit(EXIT_FAILURE);
 	}
+	env_var_parser(cmd, cmd->words[cmd->word_num]);
 	cmd->word_num++;
 	return (i);
 }
@@ -110,6 +110,7 @@ void	simple_cmd_lexer(t_simple_cmd *cmd, char *command)
 
 	i = 0;
 	cmd->word_num = 0;
+	cmd->env_variable = NULL;
 	x = 0;
 	allocate_array(command, cmd);
 	while (command[i])
@@ -122,6 +123,7 @@ void	simple_cmd_lexer(t_simple_cmd *cmd, char *command)
 			while (command[i] != ' ' && command[i] != '"' && command[i] != 39 && command[i])
 				cmd->words[cmd->word_num][x++] = command[i++];
 			cmd->words[cmd->word_num][x] = '\0';
+			env_var_parser(cmd, cmd->words[cmd->word_num]);
 			cmd->word_num++;
 		}
 		if (command[i] == '"')
