@@ -67,6 +67,42 @@ void	allocate_array(char *s, t_simple_cmd *cmd)
 	cmd->words[i] = NULL;
 }
 
+int		double_quotes(t_simple_cmd *cmd, char *command, int i)
+{
+	int		x;
+
+	x = 0;
+	i++;
+	while (command[i] != '"' && command[i])
+		cmd->words[cmd->word_num][x++] = command[i++];
+	cmd->words[cmd->word_num][x] = '\0';
+	if (command[i] != '"')
+	{
+		printf("Unclosed double quote");
+		exit(EXIT_FAILURE);
+	}
+	cmd->word_num++;
+	return (i);
+}
+
+int		single_quotes(t_simple_cmd *cmd, char *command, int i)
+{
+	int		x;
+
+	x = 0;
+	i++;
+	while (command[i] != 39 && command[i])
+		cmd->words[cmd->word_num][x++] = command[i++];
+	cmd->words[cmd->word_num][x] = '\0';
+	if (command[i] != 39)
+	{
+		printf("Unclosed single quote");
+		exit(EXIT_FAILURE);
+	}
+	cmd->word_num++;
+	return (i);
+}
+
 void	simple_cmd_lexer(t_simple_cmd *cmd, char *command)
 {
 	int		i;
@@ -89,33 +125,9 @@ void	simple_cmd_lexer(t_simple_cmd *cmd, char *command)
 			cmd->word_num++;
 		}
 		if (command[i] == '"')
-		{
-			x = 0;
-			i++;
-			while (command[i] != '"' && command[i])
-				cmd->words[cmd->word_num][x++] = command[i++];
-			cmd->words[cmd->word_num][x] = '\0';
-			if (command[i] != '"')
-			{
-				printf("Unclosed double quote");
-				exit(EXIT_FAILURE);
-			}
-			cmd->word_num++;
-		}
+			i = double_quotes(cmd, command, i);
 		if (command[i] == 39)
-		{
-			x = 0;
-			i++;
-			while (command[i] != 39 && command[i])
-				cmd->words[cmd->word_num][x++] = command[i++];
-			cmd->words[cmd->word_num][x] = '\0';
-			if (command[i] != 39)
-			{
-				printf("Unclosed single quote");
-				exit(EXIT_FAILURE);
-			}
-			cmd->word_num++;
-		}
+			i = single_quotes(cmd, command, i);
 		if (command[i])
 			i++;
 	}
