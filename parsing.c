@@ -62,7 +62,7 @@ void	env_var_parser(t_simple_cmd *cmd, char *word)
 	if (word[i++] == '$')
 	{
 		cmd->env_variable = ft_substr(word, i, (ft_strlen(word) - i));
-		printf("**%s**\n", cmd->env_variable);
+		printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
 	}
 }
 
