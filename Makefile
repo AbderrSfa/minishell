@@ -21,9 +21,12 @@ $(NAME): $(OBJECT)
 	gcc -c $<
 
 clean:
+	make -sC libft/ clean
 	/bin/rm -f $(OBJECT)
 
 fclean: clean
+	make -sC libft/ fclean
+	/bin/rm -f $(LIBNAME)
 	/bin/rm -f $(NAME)
 
 re: fclean all
