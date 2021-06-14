@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/14 17:42:42 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/14 19:09:52 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,18 @@ void	env_var_parser(t_simple_cmd *cmd, char *word)
 
 	i = 0;
 	j = 0;
-	while (word[i] && word[i] != '$')
-		i++;
-	if (word[i++] == '$')
+	while (word[i])
 	{
-		j = i;
-		while (word[j] && word[j] != ' ')
-			j++;
-		cmd->env_variable = ft_substr(word, i, j);
-		printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
+		while (word[i] && word[i] != '$')
+			i++;
+		if (word[i++] == '$')
+		{
+			j = i;
+			while (word[j] && word[j] != ' ' && word[j] != '$')
+				j++;
+			cmd->env_variable = ft_substr(word, i, j - 1);
+			printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
+		}
 	}
 }
 
