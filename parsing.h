@@ -12,10 +12,10 @@ typedef	struct	s_simple_cmd
 	int			word_num;
 }				t_simple_cmd;
 
-void	simple_cmd_lexer(t_simple_cmd *cmd, char *command);
-void	allocate_array(char *s, t_simple_cmd *cmd);
 int		get_size(char *s);
+void	allocate_array(char *s, t_simple_cmd *cmd);
+void	env_var_parser(t_simple_cmd *cmd, char *word);
+void	simple_cmd_lexer(t_simple_cmd *cmd, char *command);
 int		double_quotes(t_simple_cmd *cmd, char *command, int i);
 int		single_quotes(t_simple_cmd *cmd, char *command, int i);
-void	env_var_parser(t_simple_cmd *cmd, char *word);
 
