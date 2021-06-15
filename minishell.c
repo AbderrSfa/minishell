@@ -6,11 +6,27 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:52:25 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 18:52:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	check_for_pipes(t_cmd *cmd, char *input)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i] == '|')
+			simple_cmd_lexer(&cmd, temp = ft_substr(input, j, i - 1));
+		i++;
+	}
+}
 
 int	main(void)
 {
@@ -24,7 +40,8 @@ int	main(void)
 	while (1)
 	{
 		input = readline("\033[0;32mminishell\033[0;0m:$ ");
-		simple_cmd_lexer(&cmd, input);
+		check_for_pipes(&cmd, input);
+		//simple_cmd_lexer(&cmd, input);
 		temp = input;
 		free(temp);
 		cmd.cmd = cmd.args[0];
