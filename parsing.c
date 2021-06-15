@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 16:50:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:20:14 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	env_var_parser(t_cmd *cmd, char *word)
 {
 	int		i;
 	int		j;
+	char	*temp;
 
 	i = 0;
 	j = 0;
@@ -83,6 +84,8 @@ void	env_var_parser(t_cmd *cmd, char *word)
 			cmd->env_variable = ft_substr(word, i, j - 1);
 			printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
 		}
+		temp = cmd->env_variable;
+		free(temp);
 	}
 }
 
