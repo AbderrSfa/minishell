@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:24:05 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:50:14 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ struct					s_cmd
 };
 
 int		get_size(char *s);
+void	free_args(t_cmd *cmd);
 void	allocate_array(char *s, t_cmd *cmd);
 void	env_var_parser(t_cmd *cmd, char *word);
 void	simple_cmd_lexer(t_cmd *cmd, char *command);

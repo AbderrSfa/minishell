@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:26:41 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:52:25 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	t_cmd	cmd;
 
 	j = 0;
-	while (j < 5)
+	while (1)
 	{
 		input = readline("\033[0;32mminishell\033[0;0m:$ ");
 		simple_cmd_lexer(&cmd, input);
