@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
+/*   Updated: 2021/06/15 16:55:27 by asfaihi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PARSING_H
+# define PARSING_H
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,17 +20,22 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-typedef	struct	s_simple_cmd
+typedef struct	s_cmd t_cmd;
+struct	s_cmd
 {
-	char		**words;
+	char		*cmd;
+	char		**args;
+
+	int			arg_num;
 	char		*env_variable;
-	int			word_num;
-}				t_simple_cmd;
+	t_cmd		*next;
+};
 
 int		get_size(char *s);
-void	allocate_array(char *s, t_simple_cmd *cmd);
-void	env_var_parser(t_simple_cmd *cmd, char *word);
-void	simple_cmd_lexer(t_simple_cmd *cmd, char *command);
-int		double_quotes(t_simple_cmd *cmd, char *command, int i);
-int		single_quotes(t_simple_cmd *cmd, char *command, int i);
+void	allocate_array(char *s, t_cmd *cmd);
+void	env_var_parser(t_cmd *cmd, char *word);
+void	simple_cmd_lexer(t_cmd *cmd, char *command);
+int		double_quotes(t_cmd *cmd, char *command, int i);
+int		single_quotes(t_cmd *cmd, char *command, int i);
 
+#endif
