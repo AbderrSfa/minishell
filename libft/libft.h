@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file.h                                             :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfaihi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 16:55:35 by asfaihi           #+#    #+#             */
-/*   Updated: 2019/11/29 14:11:06 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:27:42 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __FT_LIBFT_H
+#ifndef LIBFT_H
 
-# define __FT_LIBFT_H
+# define LIBFT_H
 
 # include <string.h>
 # include <stdlib.h>

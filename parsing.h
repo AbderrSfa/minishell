@@ -6,29 +6,29 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 16:55:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:24:05 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include "libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
-typedef struct	s_cmd t_cmd;
-struct	s_cmd
+typedef struct s_cmd	t_cmd;
+struct					s_cmd
 {
-	char		*cmd;
-	char		**args;
+	char				*cmd;
+	char				**args;
 
-	int			arg_num;
-	char		*env_variable;
-	t_cmd		*next;
+	int					arg_num;
+	char				*env_variable;
+	t_cmd				*next;
 };
 
 int		get_size(char *s);

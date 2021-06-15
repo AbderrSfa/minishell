@@ -6,26 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:16:49 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:26:41 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	free_args(t_cmd *cmd)
-{
-	int		i;
-
-	i = 0;
-	while (cmd->args[i])
-	{
-		free(cmd->args[i]);
-		i++;
-	}
-	free(cmd->args);
-}
-
-int		main()
+int	main(void)
 {
 	int		i;
 	int		j;
