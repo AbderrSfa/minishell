@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 15:37:53 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 17:27:28 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 void	check_for_pipes(t_cmd *cmd, char *input)
 {
+	char	**commands;
 	int		i;
-	int		j;
-	char	*temp;
 
 	i = 0;
-	j = 0;
-	while (input[i])
+	commands = ft_split(input, '|');
+	while (commands[i])
+		simple_cmd_lexer(cmd, commands[i++]);
+	if (commands)
 	{
-		if (input[i] == '|')
-		{
-			simple_cmd_lexer(cmd, temp = ft_substr(input, j, i));
-			j = i + 1;
-			free(temp);
-		}
-		i++;
+		while (commands[i])
+			free(commands[i++]);
+		free(commands);
 	}
-	simple_cmd_lexer(cmd, temp = ft_substr(input, j, i));
 }
 
 int	main(void)
@@ -46,7 +42,6 @@ int	main(void)
 	{
 		input = readline("\033[0;32mminishell\033[0;0m:$ ");
 		check_for_pipes(&cmd, input);
-		//simple_cmd_lexer(&cmd, input);
 		temp = input;
 		//free(temp);
 		cmd.cmd = cmd.args[0];

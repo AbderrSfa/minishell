@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:28:12 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 17:28:06 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	free_args(t_cmd *cmd)
 	int		i;
 
 	i = 0;
-	while (cmd->args[i])
+	if (cmd->args)
 	{
-		free(cmd->args[i]);
-		i++;
+		while (cmd->args[i])
+			free(cmd->args[i++]);
+		free(cmd->args);
 	}
-	free(cmd->args);
 }
