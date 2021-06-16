@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 17:26:34 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 15:26:29 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	env_var_parser(t_cmd *cmd, char *word)
 			printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
 		}
 		temp = cmd->env_variable;
-		free(temp);
+		//free(temp);
 	}
 }
 

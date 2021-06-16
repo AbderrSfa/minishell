@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/15 18:52:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 15:37:53 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ void	check_for_pipes(t_cmd *cmd, char *input)
 	while (input[i])
 	{
 		if (input[i] == '|')
-			simple_cmd_lexer(&cmd, temp = ft_substr(input, j, i - 1));
+		{
+			simple_cmd_lexer(cmd, temp = ft_substr(input, j, i));
+			j = i + 1;
+			free(temp);
+		}
 		i++;
 	}
+	simple_cmd_lexer(cmd, temp = ft_substr(input, j, i));
 }
 
 int	main(void)
@@ -43,7 +48,7 @@ int	main(void)
 		check_for_pipes(&cmd, input);
 		//simple_cmd_lexer(&cmd, input);
 		temp = input;
-		free(temp);
+		//free(temp);
 		cmd.cmd = cmd.args[0];
 		i = 0;
 		while (i < cmd.arg_num)
@@ -52,7 +57,7 @@ int	main(void)
 				printf("\033[0;33mCommand:\033[0;0m %s\n", cmd.cmd);
 			printf("Arg: %s\n", cmd.args[i++]);
 		}
-		free_args(&cmd);
+		//free_args(&cmd);
 		j++;
 	}
 	return (0);

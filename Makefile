@@ -15,7 +15,7 @@ all: $(NAME)
 $(NAME): $(OBJECT)
 	make -sC libft/
 	ar rcs $(LIBNAME) $(OBJECT)
-	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o $(NAME)
+	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o $(NAME) -g
 
 %.o:%.c
 	gcc -c $<
