@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 15:26:29 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 17:32:55 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ void	env_var_parser(t_cmd *cmd, char *word)
 	}
 }
 
-int	double_quotes(t_cmd *cmd, char *command, int i)
+int	double_quotes(t_cmd *cmd, char *s, int i)
 {
 	int		x;
 
 	x = 0;
 	i++;
-	while (command[i] != '"' && command[i])
-		cmd->args[cmd->arg_num][x++] = command[i++];
+	while (s[i] != '"' && s[i])
+		cmd->args[cmd->arg_num][x++] = s[i++];
 	cmd->args[cmd->arg_num][x] = '\0';
-	if (command[i] != '"')
+	if (s[i] != '"')
 	{
 		printf("Unclosed double quote");
 		exit(EXIT_FAILURE);
@@ -56,16 +56,16 @@ int	double_quotes(t_cmd *cmd, char *command, int i)
 	return (i);
 }
 
-int	single_quotes(t_cmd *cmd, char *command, int i)
+int	single_quotes(t_cmd *cmd, char *s, int i)
 {
 	int		x;
 
 	x = 0;
 	i++;
-	while (command[i] != 39 && command[i])
-		cmd->args[cmd->arg_num][x++] = command[i++];
+	while (s[i] != 39 && s[i])
+		cmd->args[cmd->arg_num][x++] = s[i++];
 	cmd->args[cmd->arg_num][x] = '\0';
-	if (command[i] != 39)
+	if (s[i] != 39)
 	{
 		printf("Unclosed single quote");
 		exit(EXIT_FAILURE);
@@ -74,7 +74,7 @@ int	single_quotes(t_cmd *cmd, char *command, int i)
 	return (i);
 }
 
-void	simple_cmd_lexer(t_cmd *cmd, char *command)
+void	simple_cmd_lexer(t_cmd *cmd, char *s)
 {
 	int		i;
 	int		x;
@@ -83,26 +83,26 @@ void	simple_cmd_lexer(t_cmd *cmd, char *command)
 	cmd->arg_num = 0;
 	cmd->env_variable = NULL;
 	x = 0;
-	allocate_array(command, cmd);
-	while (command[i])
+	allocate_array(s, cmd);
+	while (s[i])
 	{
-		while (command[i] == ' ')
+		while (s[i] == ' ')
 			i++;
-		if (command[i] && command[i] != '"' && command[i] != 39)
+		if (s[i] && s[i] != '"' && s[i] != 39)
 		{
 			x = 0;
-			while (command[i] != ' ' && command[i] != '"' && command[i] != 39
-				&& command[i])
-				cmd->args[cmd->arg_num][x++] = command[i++];
+			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
+				&& s[i])
+				cmd->args[cmd->arg_num][x++] = s[i++];
 			cmd->args[cmd->arg_num][x] = '\0';
 			env_var_parser(cmd, cmd->args[cmd->arg_num]);
 			cmd->arg_num++;
 		}
-		if (command[i] == '"')
-			i = double_quotes(cmd, command, i);
-		if (command[i] == 39)
-			i = single_quotes(cmd, command, i);
-		if (command[i])
+		if (s[i] == '"')
+			i = double_quotes(cmd, s, i);
+		if (s[i] == 39)
+			i = single_quotes(cmd, s, i);
+		if (s[i])
 			i++;
 	}
 }

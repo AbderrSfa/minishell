@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 17:27:28 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 17:34:10 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	check_for_pipes(t_cmd *cmd, char *input)
+void	split_by_pipes(t_cmd *cmd, char *input)
 {
 	char	**commands;
 	int		i;
@@ -41,7 +41,7 @@ int	main(void)
 	while (1)
 	{
 		input = readline("\033[0;32mminishell\033[0;0m:$ ");
-		check_for_pipes(&cmd, input);
+		split_by_pipes(&cmd, input);
 		temp = input;
 		//free(temp);
 		cmd.cmd = cmd.args[0];

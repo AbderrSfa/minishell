@@ -6,45 +6,45 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 17:28:06 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/16 17:32:16 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	get_size(char *command)
+int	get_size(char *s)
 {
 	int		i;
 	int		ret;
 
 	i = 0;
 	ret = 0;
-	while (command[i])
+	while (s[i])
 	{
-		while (command[i] == ' ')
+		while (s[i] == ' ')
 			i++;
-		if (command[i] && command[i] != '"' && command[i] != 39)
+		if (s[i] && s[i] != '"' && s[i] != 39)
 		{
-			while (command[i] != ' ' && command[i] != '"' && command[i] != 39
-				&& command[i])
+			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
+				&& s[i])
 				i++;
 			ret++;
 		}
-		if (command[i] == '"')
+		if (s[i] == '"')
 		{
 			i++;
-			while (command[i] != '"' && command[i])
+			while (s[i] != '"' && s[i])
 				i++;
 			ret++;
 		}
-		if (command[i] == 39)
+		if (s[i] == 39)
 		{
 			i++;
-			while (command[i] != 39 && command[i])
+			while (s[i] != 39 && s[i])
 				i++;
 			ret++;
 		}
-		if (command[i])
+		if (s[i])
 			i++;
 	}
 	return (ret);
