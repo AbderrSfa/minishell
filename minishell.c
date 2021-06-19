@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 15:33:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 15:57:01 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 	commands = ft_split(input, '|');
 	while (commands[i])
 	{
-		temp = simple_cmd_lexer(commands[i]);
+		temp = new_node(commands[i]);
 		ft_list_add_back(&head, temp);
 		i++;
 	}

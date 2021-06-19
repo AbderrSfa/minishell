@@ -43,7 +43,6 @@ minishell
 *.idb
 *.pdb
 .vscode
-*.txt
 
 # Kernel Module Compile Results
 *.mod*

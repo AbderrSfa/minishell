@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 14:07:42 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 16:11:05 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,31 +74,24 @@ int	single_quotes(t_cmd *cmd, char *s, int i)
 	return (i);
 }
 
-t_cmd	*simple_cmd_lexer(char *s)
+void	get_args(t_cmd *new, char *s)
 {
-	t_cmd	*new;
 	int		i;
-	int		x;
+	int		j;
 
-	if (!(new = (t_cmd *)malloc(sizeof(t_cmd))))
-		return (NULL);
 	i = 0;
-	new->arg_num = 0;
-	new->env_variable = NULL;
-	new->next = NULL;
-	x = 0;
-	allocate_array(s, new);
+	j = 0;
 	while (s[i])
 	{
 		while (s[i] == ' ')
 			i++;
 		if (s[i] && s[i] != '"' && s[i] != 39)
 		{
-			x = 0;
+			j = 0;
 			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
 				&& s[i])
-				new->args[new->arg_num][x++] = s[i++];
-			new->args[new->arg_num][x] = '\0';
+				new->args[new->arg_num][j++] = s[i++];
+			new->args[new->arg_num][j] = '\0';
 			env_var_parser(new, new->args[new->arg_num]);
 			new->arg_num++;
 		}
@@ -109,6 +102,20 @@ t_cmd	*simple_cmd_lexer(char *s)
 		if (s[i])
 			i++;
 	}
+}
+
+t_cmd	*new_node(char *s)
+{
+	t_cmd	*new;
+	int		i;
+	int		x;
+
+	if (!(new = (t_cmd *)malloc(sizeof(t_cmd))))
+		return (NULL);
+	initialize_node(new, s);
+	i = 0;
+	x = 0;
+	get_args(new, s);
 	new->cmd = new->args[0];
 	return (new);
 }

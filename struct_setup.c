@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 15:25:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 16:11:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_size(char *s)
 	return (ret);
 }
 
-void	allocate_array(char *s, t_cmd *cmd)
+void	allocate_args(char *s, t_cmd *cmd)
 {
 	int		ret;
 	int		i;
@@ -78,4 +78,15 @@ void	free_args(t_cmd *cmd)
 	}
 	if (cmd)
 		free(cmd);
+}
+
+void	initialize_node(t_cmd *new, char *s)
+{
+	new->cmd = NULL;
+	new->args = NULL;
+	new->arg_num = 0;
+	new->env_variable = NULL;
+	new->next = NULL;
+	new->redirect = NULL;
+	allocate_args(s, new);
 }

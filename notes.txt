@@ -1,0 +1,6 @@
+Elements allocated and need to be freed:
+- input
+- commands
+- t_cmd node
+	- cmd->args
+	- cmd->env_variable
