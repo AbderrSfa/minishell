@@ -6,54 +6,81 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 17:34:10 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 14:07:27 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	split_by_pipes(t_cmd *cmd, char *input)
+void	ft_list_add_back(t_cmd **alst, t_cmd *new)
+{
+	t_cmd	*p;
+
+	if (alst != NULL)
+	{
+		if (*alst == NULL)
+			*alst = new;
+		else
+		{
+			p = *alst;
+			while (p->next != NULL)
+				p = p->next;
+			p->next = new;
+		}
+	}
+}
+
+t_cmd	*split_by_pipes(t_cmd *head, char *input)
 {
 	char	**commands;
+	t_cmd	*temp;
 	int		i;
 
 	i = 0;
 	commands = ft_split(input, '|');
+	head = temp;
 	while (commands[i])
-		simple_cmd_lexer(cmd, commands[i++]);
+	{
+		temp = simple_cmd_lexer(commands[i]);
+		ft_list_add_back(&head, temp);
+		i++;
+	}
 	if (commands)
 	{
 		while (commands[i])
 			free(commands[i++]);
 		free(commands);
 	}
+	return (head);
 }
 
 int	main(void)
 {
 	int		i;
-	int		j;
 	char	*input;
-	char	*temp;
-	t_cmd	cmd;
+	t_cmd	*head;
+	t_cmd	*templ;
 
-	j = 0;
 	while (1)
 	{
-		input = readline("\033[0;32mminishell\033[0;0m:$ ");
-		split_by_pipes(&cmd, input);
-		temp = input;
-		//free(temp);
-		cmd.cmd = cmd.args[0];
+		//input = readline("\033[0;32mminishell\033[0;0m:$ ");
+		head = split_by_pipes(head, "well hello there | wass good");
 		i = 0;
-		while (i < cmd.arg_num)
+		templ = head;
+		int		j = 1;
+		while (templ != NULL)
 		{
-			if (i == 0)
-				printf("\033[0;33mCommand:\033[0;0m %s\n", cmd.cmd);
-			printf("Arg: %s\n", cmd.args[i++]);
+			printf("********* Struct number %d ********\n", j++);
+			i = 0;
+			while (i < templ->arg_num)
+			{
+				if (i == 0)
+					printf("\033[0;33mCommand:\033[0;0m %s\n", templ->cmd);
+				printf("Arg: %s\n", templ->args[i++]);
+			}
+			templ = templ->next;
 		}
-		//free_args(&cmd);
-		j++;
+		//free_args(head);
 	}
 	return (0);
 }
