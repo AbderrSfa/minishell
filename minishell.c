@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 14:07:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 15:33:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 
 	i = 0;
 	commands = ft_split(input, '|');
-	head = temp;
 	while (commands[i])
 	{
 		temp = simple_cmd_lexer(commands[i]);
@@ -63,14 +62,15 @@ int	main(void)
 
 	while (1)
 	{
-		//input = readline("\033[0;32mminishell\033[0;0m:$ ");
-		head = split_by_pipes(head, "well hello there | wass good");
+		head = NULL;
+		input = readline("\033[0;32mminishell\033[0;0m:$ ");
+		head = split_by_pipes(head, input);
 		i = 0;
 		templ = head;
 		int		j = 1;
 		while (templ != NULL)
 		{
-			printf("********* Struct number %d ********\n", j++);
+			printf("\033[0;35m********* Struct number %d ********\033[0;0m\n", j++);
 			i = 0;
 			while (i < templ->arg_num)
 			{

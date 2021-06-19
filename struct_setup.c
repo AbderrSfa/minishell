@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/16 17:32:16 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 15:25:26 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,6 @@ void	free_args(t_cmd *cmd)
 			free(cmd->args[i++]);
 		free(cmd->args);
 	}
+	if (cmd)
+		free(cmd);
 }
