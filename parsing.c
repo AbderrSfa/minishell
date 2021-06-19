@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 16:11:05 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/19 19:00:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,18 @@ int	single_quotes(t_cmd *cmd, char *s, int i)
 	return (i);
 }
 
+void	redirections(t_cmd *new, char *s, int i)
+{
+	while (s[i])
+	{
+		
+	}
+	if (s[i] == '>' && s[i + 1] != '>')
+	else if (s[i] == '<' && s[i + 1] != '<')
+	else if (s[i] == '>' && s[i + 1] == '>')
+	else if (s[i] == '<' && s[i + 1] == '<')
+}
+
 void	get_args(t_cmd *new, char *s)
 {
 	int		i;
@@ -85,13 +97,19 @@ void	get_args(t_cmd *new, char *s)
 	{
 		while (s[i] == ' ')
 			i++;
+		if (s[i] == '<' || s[i] == '>')
+		{
+			redirections(new, s, i);
+			break;
+		}
 		if (s[i] && s[i] != '"' && s[i] != 39)
 		{
 			j = 0;
 			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
-				&& s[i])
+				&& s[i] && s[i] != '<' && s[i]!= '>') // and redirection symbols
 				new->args[new->arg_num][j++] = s[i++];
 			new->args[new->arg_num][j] = '\0';
+			// if s[i] == a redirection symbol send it to a function that treats it
 			env_var_parser(new, new->args[new->arg_num]);
 			new->arg_num++;
 		}
