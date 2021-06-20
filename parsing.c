@@ -53,6 +53,7 @@ int	double_quotes(t_cmd *cmd, char *s, int i)
 	}
 	env_var_parser(cmd, cmd->args[cmd->arg_num]);
 	cmd->arg_num++;
+	i++;
 	return (i);
 }
 
@@ -71,10 +72,11 @@ int	single_quotes(t_cmd *cmd, char *s, int i)
 		exit(EXIT_FAILURE);
 	}
 	cmd->arg_num++;
+	i++;
 	return (i);
 }
 
-void	get_file(t_redirect *redirect, char *s, int i)
+int	get_file(t_redirect *redirect, char *s, int i)
 {
 	int		j;
 
@@ -82,10 +84,9 @@ void	get_file(t_redirect *redirect, char *s, int i)
 		i++;
 	j = i;
 	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
-	{
 		i++;
-	}
 	redirect->file = ft_substr(s, j, i);
+	return (i);
 }
 
 t_redirect	*redirections(t_cmd *new, char *s, int i)
@@ -94,31 +95,36 @@ t_redirect	*redirections(t_cmd *new, char *s, int i)
 
 	if (!(redirect = (t_redirect *)malloc(sizeof(t_redirect))))
 		return (NULL);
-	if (s[i] == '>' && s[i + 1] != '>')
+	while (s[i])
 	{
-		redirect->type = 'G';
-		printf("--%c--", redirect->type);
-		get_file(redirect, s, i + 1);
+		while (s[i] == ' ')
+			i++;
+		if (s[i] == '>' && s[i + 1] != '>')
+		{
+			redirect->type = 'G';
+			printf("--%c--", redirect->type);
+			i = get_file(redirect, s, i + 1);
+		}
+		else if (s[i] == '<' && s[i + 1] != '<')
+		{
+			redirect->type = 'L';
+			printf("--%c--", redirect->type);
+			i = get_file(redirect, s, i + 1);
+		}
+		else if (s[i] == '>' && s[i + 1] == '>')
+		{
+			redirect->type = 'D';
+			printf("--%c--", redirect->type);
+			i = get_file(redirect, s, i + 2);
+		}
+		else if (s[i] == '<' && s[i + 1] == '<')
+		{
+			redirect->type = 'H';
+			printf("--%c--", redirect->type);
+			i = get_file(redirect, s, i + 2);
+		}
+		printf("(%s)", redirect->file);
 	}
-	else if (s[i] == '<' && s[i + 1] != '<')
-	{
-		redirect->type = 'L';
-		printf("--%c--", redirect->type);
-		get_file(redirect, s, i + 1);
-	}
-	else if (s[i] == '>' && s[i + 1] == '>')
-	{
-		redirect->type = 'D';
-		printf("--%c--", redirect->type);
-		get_file(redirect, s, i + 2);
-	}
-	else if (s[i] == '<' && s[i + 1] == '<')
-	{
-		redirect->type = 'H';
-		printf("--%c--", redirect->type);
-		get_file(redirect, s, i + 2);
-	}
-	printf("(%s)", redirect->file);
 }
 
 void	get_args(t_cmd *new, char *s)
@@ -151,8 +157,6 @@ void	get_args(t_cmd *new, char *s)
 			i = double_quotes(new, s, i);
 		if (s[i] == 39)
 			i = single_quotes(new, s, i);
-		if (s[i])
-			i++;
 	}
 }
 
