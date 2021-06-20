@@ -85,9 +85,11 @@ int	get_file(t_redirect *redirect, char *s, int i)
 	j = i;
 	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
 		i++;
-	redirect->file = ft_substr(s, j, i);
+	redirect->file = ft_substr(s, j, i - j);
 	return (i);
 }
+
+
 
 t_redirect	*redirections(t_cmd *new, char *s, int i)
 {
@@ -99,6 +101,10 @@ t_redirect	*redirections(t_cmd *new, char *s, int i)
 	{
 		while (s[i] == ' ')
 			i++;
+		
+		//new_redirection_node
+		//inside it allocate and assing everything
+		//listaddback
 		if (s[i] == '>' && s[i + 1] != '>')
 		{
 			redirect->type = 'G';
