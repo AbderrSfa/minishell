@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/21 13:51:01 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/21 16:02:14 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,23 @@ t_redirect	*new_redirection_node(t_redirect *count, char *s, int i)
 	if (s[i] == '>' && s[i + 1] != '>')
 	{
 		new->type = 'G';
-		printf("--%c--", new->type);
 		i = get_file(new, s, i + 1);
 	}
 	else if (s[i] == '<' && s[i + 1] != '<')
 	{
 		new->type = 'L';
-		printf("--%c--", new->type);
 		i = get_file(new, s, i + 1);
 	}
 	else if (s[i] == '>' && s[i + 1] == '>')
 	{
 		new->type = 'D';
-		printf("--%c--", new->type);
 		i = get_file(new, s, i + 2);
 	}
 	else if (s[i] == '<' && s[i + 1] == '<')
 	{
 		new->type = 'H';
-		printf("--%c--", new->type);
 		i = get_file(new, s, i + 2);
 	}
-	printf("(%s)", new->file);
 	count->counter = i;
 	return (new);
 }
