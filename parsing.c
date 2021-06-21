@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 19:00:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/21 13:51:01 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,55 +89,65 @@ int	get_file(t_redirect *redirect, char *s, int i)
 	return (i);
 }
 
-
-
-t_redirect	*redirections(t_cmd *new, char *s, int i)
+t_redirect	*new_redirection_node(t_redirect *count, char *s, int i)
 {
-	t_redirect	*redirect;
+	t_redirect	*new;
 
-	if (!(redirect = (t_redirect *)malloc(sizeof(t_redirect))))
+	if (!(new = (t_redirect *)malloc(sizeof(t_redirect))))
 		return (NULL);
-	while (s[i])
+	initialize_redir_node(new);
+	while (s[i] == ' ')
+		i++;
+	if (s[i] == '>' && s[i + 1] != '>')
 	{
-		while (s[i] == ' ')
-			i++;
-		
-		//new_redirection_node
-		//inside it allocate and assing everything
-		//listaddback
-		if (s[i] == '>' && s[i + 1] != '>')
-		{
-			redirect->type = 'G';
-			printf("--%c--", redirect->type);
-			i = get_file(redirect, s, i + 1);
-		}
-		else if (s[i] == '<' && s[i + 1] != '<')
-		{
-			redirect->type = 'L';
-			printf("--%c--", redirect->type);
-			i = get_file(redirect, s, i + 1);
-		}
-		else if (s[i] == '>' && s[i + 1] == '>')
-		{
-			redirect->type = 'D';
-			printf("--%c--", redirect->type);
-			i = get_file(redirect, s, i + 2);
-		}
-		else if (s[i] == '<' && s[i + 1] == '<')
-		{
-			redirect->type = 'H';
-			printf("--%c--", redirect->type);
-			i = get_file(redirect, s, i + 2);
-		}
-		printf("(%s)", redirect->file);
+		new->type = 'G';
+		printf("--%c--", new->type);
+		i = get_file(new, s, i + 1);
 	}
+	else if (s[i] == '<' && s[i + 1] != '<')
+	{
+		new->type = 'L';
+		printf("--%c--", new->type);
+		i = get_file(new, s, i + 1);
+	}
+	else if (s[i] == '>' && s[i + 1] == '>')
+	{
+		new->type = 'D';
+		printf("--%c--", new->type);
+		i = get_file(new, s, i + 2);
+	}
+	else if (s[i] == '<' && s[i + 1] == '<')
+	{
+		new->type = 'H';
+		printf("--%c--", new->type);
+		i = get_file(new, s, i + 2);
+	}
+	printf("(%s)", new->file);
+	count->counter = i;
+	return (new);
+}
+
+t_redirect	*redirections(t_redirect *redirect, char *s, int i)
+{
+	t_redirect	*count;
+	t_redirect	*temp;
+
+	if (!(count = (t_redirect *)malloc(sizeof(t_redirect))))
+		return (NULL);
+	count->counter = i;
+	while (s[count->counter])
+	{
+		temp = new_redirection_node(count, s, count->counter);
+		ft_list_add_back_redir(&redirect, temp);
+	}
+	return (redirect);
 }
 
 void	get_args(t_cmd *new, char *s)
 {
 	int			i;
 	int			j;
-	t_redirect	*redirect;
+
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -146,7 +156,7 @@ void	get_args(t_cmd *new, char *s)
 			i++;
 		if (s[i] == '<' || s[i] == '>')
 		{
-			redirect = redirections(new, s, i);
+			new->redirect = redirections(new->redirect, s, i);
 			break;
 		}
 		if (s[i] && s[i] != '"' && s[i] != 39)

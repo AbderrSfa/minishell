@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/19 15:57:01 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/21 13:17:38 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 void	ft_list_add_back(t_cmd **alst, t_cmd *new)
 {
 	t_cmd	*p;
+
+	if (alst != NULL)
+	{
+		if (*alst == NULL)
+			*alst = new;
+		else
+		{
+			p = *alst;
+			while (p->next != NULL)
+				p = p->next;
+			p->next = new;
+		}
+	}
+}
+
+void	ft_list_add_back_redir(t_redirect **alst, t_redirect *new)
+{
+	t_redirect	*p;
 
 	if (alst != NULL)
 	{
@@ -70,7 +88,7 @@ int	main(void)
 		int		j = 1;
 		while (templ != NULL)
 		{
-			printf("\033[0;35m********* Struct number %d ********\033[0;0m\n", j++);
+			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);
 			i = 0;
 			while (i < templ->arg_num)
 			{
