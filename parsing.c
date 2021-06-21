@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/21 16:02:14 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/21 19:39:27 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,18 @@ void	env_var_parser(t_cmd *cmd, char *word)
 			printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
 		}
 		temp = cmd->env_variable;
-		//free(temp);
 	}
 }
 
 int	double_quotes(t_cmd *cmd, char *s, int i)
 {
-	int		x;
+	int		j;
 
-	x = 0;
 	i++;
+	j = i;
 	while (s[i] != '"' && s[i])
-		cmd->args[cmd->arg_num][x++] = s[i++];
-	cmd->args[cmd->arg_num][x] = '\0';
+		i++;
+	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	if (s[i] != '"')
 	{
 		printf("Unclosed double quote");
@@ -59,13 +58,13 @@ int	double_quotes(t_cmd *cmd, char *s, int i)
 
 int	single_quotes(t_cmd *cmd, char *s, int i)
 {
-	int		x;
+	int		j;
 
-	x = 0;
 	i++;
+	j = i;
 	while (s[i] != 39 && s[i])
-		cmd->args[cmd->arg_num][x++] = s[i++];
-	cmd->args[cmd->arg_num][x] = '\0';
+		i++;
+	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	if (s[i] != 39)
 	{
 		printf("Unclosed single quote");
@@ -86,10 +85,12 @@ int	get_file(t_redirect *redirect, char *s, int i)
 	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
 		i++;
 	redirect->file = ft_substr(s, j, i - j);
+	while (s[i] == ' ')
+		i++;
 	return (i);
 }
 
-t_redirect	*new_redirection_node(t_redirect *count, char *s, int i)
+t_redirect	*new_redirection_node(char *s, int i, int *p)
 {
 	t_redirect	*new;
 
@@ -118,21 +119,21 @@ t_redirect	*new_redirection_node(t_redirect *count, char *s, int i)
 		new->type = 'H';
 		i = get_file(new, s, i + 2);
 	}
-	count->counter = i;
+	*p = i;
 	return (new);
 }
 
-t_redirect	*redirections(t_redirect *redirect, char *s, int i)
+t_redirect	*redirections(t_redirect *redirect, char *s)
 {
-	t_redirect	*count;
+	int			i;
+	int			*p;
 	t_redirect	*temp;
 
-	if (!(count = (t_redirect *)malloc(sizeof(t_redirect))))
-		return (NULL);
-	count->counter = i;
-	while (s[count->counter])
+	i = 0;
+	p = &i;
+	while (s[i])
 	{
-		temp = new_redirection_node(count, s, count->counter);
+		temp = new_redirection_node(s, i, p);
 		ft_list_add_back_redir(&redirect, temp);
 	}
 	return (redirect);
@@ -151,16 +152,16 @@ void	get_args(t_cmd *new, char *s)
 			i++;
 		if (s[i] == '<' || s[i] == '>')
 		{
-			new->redirect = redirections(new->redirect, s, i);
+			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)));
 			break;
 		}
 		if (s[i] && s[i] != '"' && s[i] != 39)
 		{
-			j = 0;
+			j = i;
 			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
 				&& s[i] && s[i] != '<' && s[i]!= '>')
-				new->args[new->arg_num][j++] = s[i++];
-			new->args[new->arg_num][j] = '\0';
+				i++;
+			new->args[new->arg_num] = ft_substr(s, j, i - j);
 			env_var_parser(new, new->args[new->arg_num]);
 			new->arg_num++;
 		}

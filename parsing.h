@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/21 13:51:20 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/21 19:38:21 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ struct						s_redirect
 {
 	char					type;
 	char					*file;
-	int						counter;
 	t_redirect				*next;
 };
 
@@ -54,7 +53,7 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input);
 int		double_quotes(t_cmd *cmd, char *s, int i);
 int		single_quotes(t_cmd *cmd, char *s, int i);
 void	ft_list_add_back(t_cmd **alst, t_cmd *new);
+t_redirect	*new_redirection_node(char *s, int i, int *p);
 void	ft_list_add_back_redir(t_redirect **alst, t_redirect *new);
-t_redirect	*new_redirection_node(t_redirect *count, char *s, int i);
 
 #endif
