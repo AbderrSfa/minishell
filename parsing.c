@@ -87,10 +87,12 @@ int	get_file(t_redirect *redirect, char *s, int i)
 	redirect->file = ft_substr(s, j, i - j);
 	while (s[i] == ' ')
 		i++;
+	//if (s[i] && s[i] != '>' && s[i] != '<')
+
 	return (i);
 }
 
-t_redirect	*new_redirection_node(char *s, int i, int *p)
+t_redirect	*new_redirection_node(char *s, int i, int *p2)
 {
 	t_redirect	*new;
 
@@ -119,23 +121,24 @@ t_redirect	*new_redirection_node(char *s, int i, int *p)
 		new->type = 'H';
 		i = get_file(new, s, i + 2);
 	}
-	*p = i;
+	*p2 = i;
 	return (new);
 }
 
-t_redirect	*redirections(t_redirect *redirect, char *s)
+t_redirect	*redirections(t_redirect *redirect, char *s, int *p)
 {
 	int			i;
-	int			*p;
+	int			*p2;
 	t_redirect	*temp;
 
 	i = 0;
-	p = &i;
+	p2 = &i;
 	while (s[i])
 	{
-		temp = new_redirection_node(s, i, p);
+		temp = new_redirection_node(s, i, p2);
 		ft_list_add_back_redir(&redirect, temp);
 	}
+	*p += i;
 	return (redirect);
 }
 
@@ -143,19 +146,21 @@ void	get_args(t_cmd *new, char *s)
 {
 	int			i;
 	int			j;
+	int			*p;
 
 	i = 0;
 	j = 0;
+	p = &i;
 	while (s[i])
 	{
 		while (s[i] == ' ')
 			i++;
 		if (s[i] == '<' || s[i] == '>')
 		{
-			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)));
-			break;
+			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)), p);
+			//Use an int pointer to change the value of i
 		}
-		if (s[i] && s[i] != '"' && s[i] != 39)
+		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
 		{
 			j = i;
 			while (s[i] != ' ' && s[i] != '"' && s[i] != 39

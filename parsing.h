@@ -54,6 +54,7 @@ int		double_quotes(t_cmd *cmd, char *s, int i);
 int		single_quotes(t_cmd *cmd, char *s, int i);
 void	ft_list_add_back(t_cmd **alst, t_cmd *new);
 t_redirect	*new_redirection_node(char *s, int i, int *p);
+t_redirect	*redirections(t_redirect *redirect, char *s, int *p);
 void	ft_list_add_back_redir(t_redirect **alst, t_redirect *new);
 
 #endif
