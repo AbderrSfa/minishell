@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/23 14:45:40 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/23 17:14:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main(void)
 	{
 		head = NULL;
 		input = readline("\033[0;32mminishell\033[0;0m:$ ");
+		if (ft_strncmp(input, "", ft_strlen(input)))
+			add_history(input);
 		head = split_by_pipes(head, input);
 		i = 0;
 		templ = head;
@@ -70,7 +72,6 @@ int	main(void)
 			}
 			templ = templ->next;
 		}
-		//free_args(head);
 	}
 	return (0);
 }
