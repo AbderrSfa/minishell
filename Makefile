@@ -28,5 +28,6 @@ fclean: clean
 	make -sC libft/ fclean
 	/bin/rm -f $(LIBNAME)
 	/bin/rm -f $(NAME)
+	/bin/rm -rf a.out.dSYM/
 
 re: fclean all

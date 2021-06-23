@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/21 19:39:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/23 14:09:25 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ int	get_file(t_redirect *redirect, char *s, int i)
 	redirect->file = ft_substr(s, j, i - j);
 	while (s[i] == ' ')
 		i++;
-	//if (s[i] && s[i] != '>' && s[i] != '<')
-
 	return (i);
 }
 
@@ -135,6 +133,8 @@ t_redirect	*redirections(t_redirect *redirect, char *s, int *p)
 	p2 = &i;
 	while (s[i])
 	{
+		if (s[i] && s[i] != '>' && s[i] != '<')
+			break;
 		temp = new_redirection_node(s, i, p2);
 		ft_list_add_back_redir(&redirect, temp);
 	}
