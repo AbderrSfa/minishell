@@ -6,47 +6,11 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/21 16:07:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/23 14:45:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	ft_list_add_back(t_cmd **alst, t_cmd *new)
-{
-	t_cmd	*p;
-
-	if (alst != NULL)
-	{
-		if (*alst == NULL)
-			*alst = new;
-		else
-		{
-			p = *alst;
-			while (p->next != NULL)
-				p = p->next;
-			p->next = new;
-		}
-	}
-}
-
-void	ft_list_add_back_redir(t_redirect **alst, t_redirect *new)
-{
-	t_redirect	*p;
-
-	if (alst != NULL)
-	{
-		if (*alst == NULL)
-			*alst = new;
-		else
-		{
-			p = *alst;
-			while (p->next != NULL)
-				p = p->next;
-			p->next = new;
-		}
-	}
-}
 
 t_cmd	*split_by_pipes(t_cmd *head, char *input)
 {
