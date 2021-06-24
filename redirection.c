@@ -15,13 +15,32 @@
 int	get_file(t_redirect *redirect, char *s, int i)
 {
 	int		j;
+	int		quote;
 
+	quote = 0;
 	while (s[i] == ' ')
 		i++;
-	j = i;
-	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
+	if (s[i] == '"' || s[i] == 39)
+	{
+		if (s[i] == '"')
+			quote = 1;
+		else
+			quote = 2;
 		i++;
+	}
+	j = i;
+	if (quote == 1)
+		while (s[i] && s[i] != '"')
+			i++;
+	else if (quote == 2)
+		while (s[i] && s[i] != 39)
+			i++;
+	else
+		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
+			i++;
 	redirect->file = ft_substr(s, j, i - j);
+	if (quote)
+		i++;
 	while (s[i] == ' ')
 		i++;
 	return (i);
