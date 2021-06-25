@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 13:27:09 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 15:11:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 			temp = single_quotes_redir(s, i + 1, p);
 			redirect->file = ft_strjoin(redirect->file, temp);
 		}
-		if (!s[i] || s[i] == ' ' || s[i] == '"' || s[i] == 39 || s[i] == '>' || s[i] == '<')
+		if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
 			break;
 	}
 	while (s[i] == ' ')

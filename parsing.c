@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 11:49:21 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 15:51:54 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	single_quotes(t_cmd *cmd, char *s, int i)
 
 void	simple_cmd_parse(t_cmd *new, char *s)
 {
+	char		*temp;
 	int			i;
 	int			j;
 	int			*p;
@@ -82,26 +83,38 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 	i = 0;
 	j = 0;
 	p = &i;
+	temp = NULL;
 	while (s[i])
 	{
 		while (s[i] == ' ')
 			i++;
 		if (s[i] == '<' || s[i] == '>')
 			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)), p);
-		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
+		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
 		{
 			j = i;
 			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
 				&& s[i] && s[i] != '<' && s[i]!= '>')
 				i++;
-			new->args[new->arg_num] = ft_substr(s, j, i - j);
+			new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
+			if (s[i] == '"')
+			{
+				temp = double_quotes_redir(s, i + 1, p);
+				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+			}
+			if (s[i] == 39)
+			{
+				temp = single_quotes_redir(s, i + 1, p);
+				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+			}
 			env_var_parser(new, new->args[new->arg_num]);
-			new->arg_num++;
+			if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
+				new->arg_num++;			
 		}
-		if (s[i] == '"')
-			i = double_quotes(new, s, i + 1);
-		if (s[i] == 39)
-			i = single_quotes(new, s, i + 1);
+	if (s[i] == '"')
+		i = double_quotes(new, s, i + 1);
+	if (s[i] == 39)
+		i = single_quotes(new, s, i + 1);
 	}
 }
 
