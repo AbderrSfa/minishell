@@ -6,72 +6,11 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 15:51:54 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 16:48:49 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	env_var_parser(t_cmd *cmd, char *word)
-{
-	int		i;
-	int		j;
-	char	*temp;
-
-	i = 0;
-	j = 0;
-	while (word[i])
-	{
-		while (word[i] && word[i] != '$')
-			i++;
-		if (word[i++] == '$')
-		{
-			j = i;
-			while (word[j] && word[j] != ' ' && word[j] != '$')
-				j++;
-			cmd->env_variable = ft_substr(word, i, j - 1);
-			printf("\033[0;33mEnv Var: %s\033[0;0m\n", cmd->env_variable);
-		}
-		temp = cmd->env_variable;
-	}
-}
-
-int	double_quotes(t_cmd *cmd, char *s, int i)
-{
-	int		j;
-
-	j = i;
-	while (s[i] != '"' && s[i])
-		i++;
-	if (s[i] != '"')
-	{
-		printf("Unclosed double quote");
-		exit(EXIT_FAILURE);
-	}
-	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
-	env_var_parser(cmd, cmd->args[cmd->arg_num]);
-	cmd->arg_num++;
-	i++;
-	return (i);
-}
-
-int	single_quotes(t_cmd *cmd, char *s, int i)
-{
-	int		j;
-
-	j = i;
-	while (s[i] != 39 && s[i])
-		i++;
-	if (s[i] != 39)
-	{
-		printf("Unclosed single quote");
-		exit(EXIT_FAILURE);
-	}
-	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
-	cmd->arg_num++;
-	i++;
-	return (i);
-}
 
 void	simple_cmd_parse(t_cmd *new, char *s)
 {
@@ -99,22 +38,27 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 			new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
 			if (s[i] == '"')
 			{
-				temp = double_quotes_redir(s, i + 1, p);
+				temp = double_quotes(s, i + 1, p);
 				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
 			}
 			if (s[i] == 39)
 			{
-				temp = single_quotes_redir(s, i + 1, p);
+				temp = single_quotes(s, i + 1, p);
 				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
 			}
-			env_var_parser(new, new->args[new->arg_num]);
 			if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
 				new->arg_num++;			
 		}
-	if (s[i] == '"')
-		i = double_quotes(new, s, i + 1);
-	if (s[i] == 39)
-		i = single_quotes(new, s, i + 1);
+		if (s[i] == '"')
+		{
+			new->args[new->arg_num] = double_quotes(s, i + 1, p);
+			new->arg_num++;			
+		}
+		if (s[i] == 39)
+		{
+			new->args[new->arg_num] = single_quotes(s, i + 1, p);
+			new->arg_num++;			
+		}
 	}
 }
 

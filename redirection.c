@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 15:11:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 16:48:59 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*double_quotes_redir(char *s, int i, int *p)
+char	*double_quotes(char *s, int i, int *p)
 {
 	int		j;
 	char	*file;
@@ -30,7 +30,7 @@ char	*double_quotes_redir(char *s, int i, int *p)
 	*p = i;
 	return (file);
 }
-char	*single_quotes_redir(char *s, int i, int *p)
+char	*single_quotes(char *s, int i, int *p)
 {
 	int		j;
 	char	*file;
@@ -70,12 +70,12 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 		}
 		if (s[i] == '"')
 		{
-			temp = double_quotes_redir(s, i + 1, p);
+			temp = double_quotes(s, i + 1, p);
 			redirect->file = ft_strjoin(redirect->file, temp);
 		}
 		if (s[i] == 39)
 		{
-			temp = single_quotes_redir(s, i + 1, p);
+			temp = single_quotes(s, i + 1, p);
 			redirect->file = ft_strjoin(redirect->file, temp);
 		}
 		if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
