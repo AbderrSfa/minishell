@@ -6,11 +6,38 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 16:48:49 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 17:04:28 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	get_arg(t_cmd *new, char *s, int i, int *p)
+{
+	char	*temp;
+	int		j;
+	int		*p2;
+
+	j = i;
+	p2 = &i;
+	while (s[i] != ' ' && s[i] != '"' && s[i] != 39
+		&& s[i] && s[i] != '<' && s[i]!= '>')
+		i++;
+	new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
+	if (s[i] == '"')
+	{
+		temp = double_quotes(s, i + 1, p2);
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+	}
+	if (s[i] == 39)
+	{
+		temp = single_quotes(s, i + 1, p2);
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+	}
+	if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
+		new->arg_num++;
+	*p = i;
+}
 
 void	simple_cmd_parse(t_cmd *new, char *s)
 {
@@ -30,25 +57,7 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 		if (s[i] == '<' || s[i] == '>')
 			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)), p);
 		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
-		{
-			j = i;
-			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
-				&& s[i] && s[i] != '<' && s[i]!= '>')
-				i++;
-			new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
-			if (s[i] == '"')
-			{
-				temp = double_quotes(s, i + 1, p);
-				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
-			}
-			if (s[i] == 39)
-			{
-				temp = single_quotes(s, i + 1, p);
-				new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
-			}
-			if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
-				new->arg_num++;			
-		}
+			get_arg(new, s, i, p);
 		if (s[i] == '"')
 		{
 			new->args[new->arg_num] = double_quotes(s, i + 1, p);
