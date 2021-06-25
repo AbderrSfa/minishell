@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/23 14:41:13 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 11:49:21 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ int	double_quotes(t_cmd *cmd, char *s, int i)
 {
 	int		j;
 
-	i++;
 	j = i;
 	while (s[i] != '"' && s[i])
 		i++;
-	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	if (s[i] != '"')
 	{
 		printf("Unclosed double quote");
 		exit(EXIT_FAILURE);
 	}
+	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	env_var_parser(cmd, cmd->args[cmd->arg_num]);
 	cmd->arg_num++;
 	i++;
@@ -60,16 +59,15 @@ int	single_quotes(t_cmd *cmd, char *s, int i)
 {
 	int		j;
 
-	i++;
 	j = i;
 	while (s[i] != 39 && s[i])
 		i++;
-	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	if (s[i] != 39)
 	{
 		printf("Unclosed single quote");
 		exit(EXIT_FAILURE);
 	}
+	cmd->args[cmd->arg_num] = ft_substr(s, j, i - j);
 	cmd->arg_num++;
 	i++;
 	return (i);
@@ -101,9 +99,9 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 			new->arg_num++;
 		}
 		if (s[i] == '"')
-			i = double_quotes(new, s, i);
+			i = double_quotes(new, s, i + 1);
 		if (s[i] == 39)
-			i = single_quotes(new, s, i);
+			i = single_quotes(new, s, i + 1);
 	}
 }
 

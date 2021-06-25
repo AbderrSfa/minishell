@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/23 17:03:32 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 13:28:33 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ t_cmd		*split_by_pipes(t_cmd *head, char *input);
 int			double_quotes(t_cmd *cmd, char *s, int i);
 int			single_quotes(t_cmd *cmd, char *s, int i);
 void		ft_list_add_back(t_cmd **alst, t_cmd *new);
+char		*double_quotes_redir(char *s, int i, int *p);
+char		*single_quotes_redir(char *s, int i, int *p);
 t_redirect	*new_redirection_node(char *s, int i, int *p);
-int			get_file(t_redirect *redirect, char *s, int i);
+int			get_filepath(t_redirect *redirect, char *s, int i);
 t_redirect	*redirections(t_redirect *redirect, char *s, int *p);
 void		ft_list_add_back_redir(t_redirect **alst, t_redirect *new);
 

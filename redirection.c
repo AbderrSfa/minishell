@@ -6,41 +6,81 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/23 14:43:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/25 13:27:09 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	get_file(t_redirect *redirect, char *s, int i)
+char	*double_quotes_redir(char *s, int i, int *p)
 {
 	int		j;
-	int		quote;
+	char	*file;
 
-	quote = 0;
+	j = i;
+	while (s[i] && s[i] != '"')
+		i++;
+	if (s[i] != '"')
+	{
+		printf("Unclosed double quote");
+		exit(EXIT_FAILURE);
+	}
+	file = ft_substr(s, j, i - j);
+	i++;
+	*p = i;
+	return (file);
+}
+char	*single_quotes_redir(char *s, int i, int *p)
+{
+	int		j;
+	char	*file;
+
+	j = i;
+	while (s[i] && s[i] != 39)
+		i++;
+	if (s[i] != 39)
+	{
+		printf("Unclosed single quote");
+		exit(EXIT_FAILURE);
+	}
+	file = ft_substr(s, j, i - j);
+	i++;
+	*p = i;
+	return (file);
+}
+
+int	get_filepath(t_redirect *redirect, char *s, int i)
+{
+	int		j;
+	int		*p;
+	char	*temp;
+
+	j = 0;
+	p = &i;
 	while (s[i] == ' ')
 		i++;
-	if (s[i] == '"' || s[i] == 39)
-	{
-		if (s[i] == '"')
-			quote = 1;
-		else
-			quote = 2;
-		i++;
-	}
 	j = i;
-	if (quote == 1)
-		while (s[i] && s[i] != '"')
-			i++;
-	else if (quote == 2)
-		while (s[i] && s[i] != 39)
-			i++;
-	else
-		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
-			i++;
-	redirect->file = ft_substr(s, j, i - j);
-	if (quote)
-		i++;
+	while (s[i])
+	{
+		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
+		{
+			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != 39)
+				i++;
+			redirect->file = ft_substr(s, j, i - j);
+		}
+		if (s[i] == '"')
+		{
+			temp = double_quotes_redir(s, i + 1, p);
+			redirect->file = ft_strjoin(redirect->file, temp);
+		}
+		if (s[i] == 39)
+		{
+			temp = single_quotes_redir(s, i + 1, p);
+			redirect->file = ft_strjoin(redirect->file, temp);
+		}
+		if (!s[i] || s[i] == ' ' || s[i] == '"' || s[i] == 39 || s[i] == '>' || s[i] == '<')
+			break;
+	}
 	while (s[i] == ' ')
 		i++;
 	return (i);
@@ -58,22 +98,22 @@ t_redirect	*new_redirection_node(char *s, int i, int *p2)
 	if (s[i] == '>' && s[i + 1] != '>')
 	{
 		new->type = 'G';
-		i = get_file(new, s, i + 1);
+		i = get_filepath(new, s, i + 1);
 	}
 	else if (s[i] == '<' && s[i + 1] != '<')
 	{
 		new->type = 'L';
-		i = get_file(new, s, i + 1);
+		i = get_filepath(new, s, i + 1);
 	}
 	else if (s[i] == '>' && s[i + 1] == '>')
 	{
 		new->type = 'D';
-		i = get_file(new, s, i + 2);
+		i = get_filepath(new, s, i + 2);
 	}
 	else if (s[i] == '<' && s[i + 1] == '<')
 	{
 		new->type = 'H';
-		i = get_file(new, s, i + 2);
+		i = get_filepath(new, s, i + 2);
 	}
 	*p2 = i;
 	return (new);
