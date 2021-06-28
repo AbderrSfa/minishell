@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 11:44:13 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 13:56:32 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*double_quotes(char *s, int i, int *p)
 		exit(EXIT_FAILURE);
 	}
 	file = ft_substr(s, j, i - j);
-	env_var_checker(file);
+	file = env_var_checker(file);
 	i++;
 	*p = i;
 	return (file);
@@ -68,6 +68,8 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != 39)
 				i++;
 			redirect->file = ft_substr(s, j, i - j);
+			redirect->file = env_var_checker(redirect->file);
+
 		}
 		if (s[i] == '"')
 		{

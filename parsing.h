@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 11:32:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 13:54:15 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct					s_cmd
 int			get_size(char *s);
 t_cmd		*new_node(char *s);
 void		free_args(t_cmd *cmd);
-void		env_var_checker(char *s);
+char		*env_var_checker(char *s);
 void		allocate_args(char *s, t_cmd *cmd);
 void		initialize_node(t_cmd *new, char *s);
 void		simple_cmd_parse(t_cmd *new, char *s);
