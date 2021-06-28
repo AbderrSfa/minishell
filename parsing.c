@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 13:54:47 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:21:59 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@ void	get_arg(t_cmd *new, char *s, int i, int *p)
 
 	j = i;
 	p2 = &i;
-	while (s[i] != ' ' && s[i] != '"' && s[i] != 39
+	if (s[i] != ' ' && s[i] != '"' && s[i] != 39
 		&& s[i] && s[i] != '<' && s[i]!= '>')
-		i++;
-	new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
-	new->args[new->arg_num] = env_var_checker(temp);
+	{
+		while (s[i] != ' ' && s[i] != '"' && s[i] != 39
+			&& s[i] && s[i] != '<' && s[i]!= '>')
+			i++;
+		temp = ft_substr(s, j, i - j);
+		temp = env_var_checker(temp);
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+	}
 	if (s[i] == '"')
 	{
 		temp = double_quotes(s, i + 1, p2);
