@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfaihi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:26:43 by asfaihi           #+#    #+#             */
-/*   Updated: 2019/11/24 18:39:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:32:10 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		how_long(long nb)
+static int	how_long(long nb)
 {
 	int		l;
 
@@ -32,7 +32,7 @@ static int		how_long(long nb)
 	return (l);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*a;
 	long	nb;

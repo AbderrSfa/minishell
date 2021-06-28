@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 12:27:19 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:52:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	main(void)
 		head = split_by_pipes(head, input);
 		i = 0;
 		templ = head;
-		int		j = 1;
-		int		k = 1;
+		int		j;
+		int		k;
+		j = 1;
+		k = 1;
 		while (templ != NULL)
 		{
 			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);

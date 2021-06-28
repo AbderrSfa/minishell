@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfaihi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:51:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2019/11/27 13:33:46 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:45:30 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static int		count(char const *s, char c)
+static int	count(char const *s, char c)
 {
 	int		count;
 
@@ -29,7 +29,7 @@ static int		count(char const *s, char c)
 	return (count);
 }
 
-static char		*ft_word_splitter(char *d, char *f)
+static char	*ft_word_splitter(char *d, char *f)
 {
 	char	*p;
 	size_t	i;
@@ -48,9 +48,9 @@ static char		*ft_word_splitter(char *d, char *f)
 	return (p);
 }
 
-static void		freeall(int i, char **p)
+static void	freeall(int i, char **p)
 {
-	int j;
+	int	j;
 
 	j = -1;
 	while (j++ <= i)
@@ -58,13 +58,14 @@ static void		freeall(int i, char **p)
 	free(p);
 }
 
-char			**ft_split(char const *s, char v)
+char	**ft_split(char const *s, char v)
 {
 	char	**p;
 	char	*f;
 	size_t	i;
 
-	if (s == NULL || !(p = (char **)malloc(sizeof(char*) * (count(s, v) + 1))))
+	p = (char **)malloc(sizeof(char *) * (count(s, v) + 1));
+	if (s == NULL || !p)
 		return (NULL);
 	i = 0;
 	while (*s != '\0')
@@ -76,7 +77,8 @@ char			**ft_split(char const *s, char v)
 			f++;
 		if (s == f)
 			break ;
-		if (!(p[i] = ft_word_splitter((char *)s, f)))
+		p[i] = ft_word_splitter((char *)s, f);
+		if (!p[i])
 			freeall(i, p);
 		s = f;
 		i++;

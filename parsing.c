@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 16:21:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 17:02:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,21 @@ void	get_arg(t_cmd *new, char *s, int i, int *p)
 
 	j = i;
 	p2 = &i;
-	if (s[i] != ' ' && s[i] != '"' && s[i] != 39
-		&& s[i] && s[i] != '<' && s[i]!= '>')
+	if (s[i] != ' ' && s[i] != '"' && s[i] != 39 && s[i]
+		&& s[i] != '<' && s[i] != '>')
 	{
 		while (s[i] != ' ' && s[i] != '"' && s[i] != 39
-			&& s[i] && s[i] != '<' && s[i]!= '>')
+			&& s[i] && s[i] != '<' && s[i] != '>')
 			i++;
-		temp = ft_substr(s, j, i - j);
-		temp = env_var_checker(temp);
+		temp = env_var_checker(temp = ft_substr(s, j, i - j));
 		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
 	}
 	if (s[i] == '"')
-	{
-		temp = double_quotes(s, i + 1, p2);
-		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
-	}
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num],
+				temp = double_quotes(s, i + 1, p2));
 	if (s[i] == 39)
-	{
-		temp = single_quotes(s, i + 1, p2);
-		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
-	}
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num],
+				temp = single_quotes(s, i + 1, p2));
 	if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
 		new->arg_num++;
 	*p = i;
@@ -61,19 +56,14 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 		while (s[i] == ' ')
 			i++;
 		if (s[i] == '<' || s[i] == '>')
-			new->redirect = redirections(new->redirect, ft_substr(s, i, ft_strlen(s)), p);
+			new->redirect = redirections(new->redirect,
+					temp = ft_substr(s, i, ft_strlen(s)), p);
 		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
 			get_arg(new, s, i, p);
 		if (s[i] == '"')
-		{
-			new->args[new->arg_num] = double_quotes(s, i + 1, p);
-			new->arg_num++;			
-		}
+			new->args[new->arg_num++] = double_quotes(s, i + 1, p);
 		if (s[i] == 39)
-		{
-			new->args[new->arg_num] = single_quotes(s, i + 1, p);
-			new->arg_num++;			
-		}
+			new->args[new->arg_num++] = single_quotes(s, i + 1, p);
 	}
 }
 
@@ -83,7 +73,8 @@ t_cmd	*new_node(char *s)
 	int		i;
 	int		x;
 
-	if (!(new = (t_cmd *)malloc(sizeof(t_cmd))))
+	new = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!new)
 		return (NULL);
 	initialize_node(new, s);
 	i = 0;

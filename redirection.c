@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 14:57:45 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 17:21:19 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*double_quotes(char *s, int i, int *p)
 	*p = i;
 	return (file);
 }
+
 char	*single_quotes(char *s, int i, int *p)
 {
 	int		j;
@@ -56,7 +57,6 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	int		*p;
 	char	*temp;
 
-	j = 0;
 	p = &i;
 	while (s[i] == ' ')
 		i++;
@@ -65,24 +65,19 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	{
 		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
 		{
-			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>' && s[i] != '"' && s[i] != 39)
+			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>'
+				&& s[i] != '"' && s[i] != 39)
 				i++;
-			redirect->file = ft_substr(s, j, i - j);
-			redirect->file = env_var_checker(redirect->file);
-
+			redirect->file = env_var_checker(temp = ft_substr(s, j, i - j));
 		}
 		if (s[i] == '"')
-		{
-			temp = double_quotes(s, i + 1, p);
-			redirect->file = ft_strjoin(redirect->file, temp);
-		}
+			redirect->file = ft_strjoin(redirect->file,
+					temp = double_quotes(s, i + 1, p));
 		if (s[i] == 39)
-		{
-			temp = single_quotes(s, i + 1, p);
-			redirect->file = ft_strjoin(redirect->file, temp);
-		}
+			redirect->file = ft_strjoin(redirect->file,
+					temp = single_quotes(s, i + 1, p));
 		if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
-			break;
+			break ;
 	}
 	while (s[i] == ' ')
 		i++;
@@ -93,31 +88,24 @@ t_redirect	*new_redirection_node(char *s, int i, int *p2)
 {
 	t_redirect	*new;
 
-	if (!(new = (t_redirect *)malloc(sizeof(t_redirect))))
+	new = (t_redirect *)malloc(sizeof(t_redirect));
+	if (!new)
 		return (NULL);
 	initialize_redir_node(new);
 	while (s[i] == ' ')
 		i++;
 	if (s[i] == '>' && s[i + 1] != '>')
-	{
 		new->type = 'G';
-		i = get_filepath(new, s, i + 1);
-	}
 	else if (s[i] == '<' && s[i + 1] != '<')
-	{
 		new->type = 'L';
-		i = get_filepath(new, s, i + 1);
-	}
 	else if (s[i] == '>' && s[i + 1] == '>')
-	{
 		new->type = 'D';
-		i = get_filepath(new, s, i + 2);
-	}
 	else if (s[i] == '<' && s[i + 1] == '<')
-	{
 		new->type = 'H';
+	if (new->type == 'G' || new->type == 'L')
+		i = get_filepath(new, s, i + 1);
+	else
 		i = get_filepath(new, s, i + 2);
-	}
 	*p2 = i;
 	return (new);
 }
@@ -133,7 +121,7 @@ t_redirect	*redirections(t_redirect *redirect, char *s, int *p)
 	while (s[i])
 	{
 		if (s[i] && s[i] != '>' && s[i] != '<')
-			break;
+			break ;
 		temp = new_redirection_node(s, i, p2);
 		ft_list_add_back_redir(&redirect, temp);
 	}
