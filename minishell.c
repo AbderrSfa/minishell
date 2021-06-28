@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/23 17:30:21 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 10:39:00 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	main(void)
 	while (1)
 	{
 		head = NULL;
-		input = readline("\033[0;32mminishell\033[0;0m:$ ");
+		//printf("\033[0;32m");
+		input = readline("minishell-1.0$ ");
+		//printf("\033[0;0m");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
 		head = split_by_pipes(head, input);
