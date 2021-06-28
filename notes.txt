@@ -4,3 +4,13 @@ Elements allocated and need to be freed:
 - t_cmd node
 	- cmd->args
 	- cmd->env_variable
+
+Elements that need to be checked for environment variables:
+- get_arg:
+	- temp.
+	- double_quotes
+	- single_quotes
+- redirections:
+	- redirect->file
+	- double_quotes
+	- single_quotes

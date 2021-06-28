@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 17:04:28 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 11:32:33 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	get_arg(t_cmd *new, char *s, int i, int *p)
 		&& s[i] && s[i] != '<' && s[i]!= '>')
 		i++;
 	new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp = ft_substr(s, j, i - j));
+	env_var_checker(temp);
 	if (s[i] == '"')
 	{
 		temp = double_quotes(s, i + 1, p2);

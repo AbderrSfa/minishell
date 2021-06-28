@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/25 16:48:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/28 11:44:13 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*double_quotes(char *s, int i, int *p)
 		exit(EXIT_FAILURE);
 	}
 	file = ft_substr(s, j, i - j);
+	env_var_checker(file);
 	i++;
 	*p = i;
 	return (file);
