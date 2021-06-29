@@ -67,15 +67,32 @@ void	allocate_args(char *s, t_cmd *cmd)
 
 void	free_args(t_cmd *cmd)
 {
+	t_cmd	*temp;
 	int		i;
 
+
 	i = 0;
-	if (cmd->args)
+	while (cmd)
 	{
-		while (cmd->args[i])
-			free(cmd->args[i++]);
-		free(cmd->args);
+		temp = cmd;
+		if (temp->args)
+		{
+			while (temp->args[i])
+				free(temp->args[i++]);
+			free(temp->args);
+		}
+		if (temp->redirect)
+		{
+			while (temp->redirect)
+			{
+				temp->redirect = cmd->redirect;
+				if (temp->redirect->file)
+					free(temp->redirect->file);
+				free(temp->redirect);
+				cmd->redirect = cmd->redirect->next;
+			}
+		}
+		cmd = cmd->next;
+		free(temp);
 	}
-	if (cmd)
-		free(cmd);
 }

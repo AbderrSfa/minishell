@@ -15,6 +15,7 @@
 void	get_arg(t_cmd *new, char *s, int i, int *p)
 {
 	char	*temp;
+	char	*temp2;
 	int		j;
 	int		*p2;
 
@@ -26,15 +27,29 @@ void	get_arg(t_cmd *new, char *s, int i, int *p)
 		while (s[i] != ' ' && s[i] != '"' && s[i] != 39
 			&& s[i] && s[i] != '<' && s[i] != '>')
 			i++;
-		temp = env_var_checker(temp = ft_substr(s, j, i - j));
+		temp = env_var_checker(temp2 = ft_substr(s, j, i - j));
+		free(temp2);
+		temp2 = new->args[new->arg_num];
 		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+		free(temp2);
+		free(temp);
 	}
 	if (s[i] == '"')
-		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num],
-				temp = double_quotes(s, i + 1, p2));
+	{
+		temp = double_quotes(s, i + 1, p2);
+		temp2 = new->args[new->arg_num];
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+		free(temp2);
+		free(temp);
+	}
 	if (s[i] == 39)
-		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num],
-				temp = single_quotes(s, i + 1, p2));
+	{
+		temp = single_quotes(s, i + 1, p2);
+		temp2 = new->args[new->arg_num];
+		new->args[new->arg_num] = ft_strjoin(new->args[new->arg_num], temp);
+		free(temp2);
+		free(temp);
+	}
 	if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
 		new->arg_num++;
 	*p = i;
@@ -56,8 +71,11 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 		while (s[i] == ' ')
 			i++;
 		if (s[i] == '<' || s[i] == '>')
-			new->redirect = redirections(new->redirect,
-					temp = ft_substr(s, i, ft_strlen(s)), p);
+		{
+			temp = ft_substr(s, i, ft_strlen(s));
+			new->redirect = redirections(new->redirect, temp, p);
+			free(temp);
+		}
 		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<')
 			get_arg(new, s, i, p);
 		if (s[i] == '"')

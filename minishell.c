@@ -45,19 +45,18 @@ int	main(void)
 	while (1)
 	{
 		head = NULL;
-		//printf("\033[0;32m");
 		input = readline("minishell-1.0$ ");
-		//printf("\033[0;0m");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
 		head = split_by_pipes(head, input);
+		free(input);
 		i = 0;
 		templ = head;
 		int		j;
 		int		k;
 		j = 1;
 		k = 1;
-		while (templ != NULL)
+/* 		while (templ != NULL)
 		{
 			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);
 			i = 0;
@@ -76,6 +75,8 @@ int	main(void)
 			}
 			templ = templ->next;
 		}
+		templ = head; */
+		free_args(templ);
 	}
 	return (0);
 }

@@ -16,6 +16,7 @@ char	*double_quotes(char *s, int i, int *p)
 {
 	int		j;
 	char	*file;
+	char	*temp;
 
 	j = i;
 	while (s[i] && s[i] != '"')
@@ -25,8 +26,9 @@ char	*double_quotes(char *s, int i, int *p)
 		printf("Unclosed double quote");
 		exit(EXIT_FAILURE);
 	}
-	file = ft_substr(s, j, i - j);
-	file = env_var_checker(file);
+	temp = ft_substr(s, j, i - j);
+	file = env_var_checker(temp);
+	free(temp);
 	i++;
 	*p = i;
 	return (file);
@@ -36,6 +38,7 @@ char	*single_quotes(char *s, int i, int *p)
 {
 	int		j;
 	char	*file;
+	char	*temp;
 
 	j = i;
 	while (s[i] && s[i] != 39)
@@ -56,6 +59,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	int		j;
 	int		*p;
 	char	*temp;
+	char	*temp2;
 
 	p = &i;
 	while (s[i] == ' ')
@@ -68,14 +72,26 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>'
 				&& s[i] != '"' && s[i] != 39)
 				i++;
-			redirect->file = env_var_checker(temp = ft_substr(s, j, i - j));
+			temp = ft_substr(s, j, i - j);
+			redirect->file = env_var_checker(temp);
+			free(temp);
 		}
 		if (s[i] == '"')
-			redirect->file = ft_strjoin(redirect->file,
-					temp = double_quotes(s, i + 1, p));
+		{
+			temp = double_quotes(s, i + 1, p);
+			temp2 = redirect->file;
+			redirect->file = ft_strjoin(redirect->file, temp);
+			free(temp);
+			free(temp2);
+		}
 		if (s[i] == 39)
-			redirect->file = ft_strjoin(redirect->file,
-					temp = single_quotes(s, i + 1, p));
+		{
+			temp = single_quotes(s, i + 1, p);
+			temp2 = redirect->file;
+			redirect->file = ft_strjoin(redirect->file, temp);
+			free(temp);
+			free(temp2);
+		}
 		if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
 			break ;
 	}
