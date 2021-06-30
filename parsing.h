@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/30 15:34:56 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 16:31:23 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ struct						s_cmd
 	t_cmd					*next;
 };
 
+void		program_loop();
 int			get_size(char *s);
 t_cmd		*new_node(char *s);
 void		free_args(t_cmd *cmd);
