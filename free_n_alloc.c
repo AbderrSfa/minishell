@@ -6,46 +6,46 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 17:05:12 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 15:07:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	get_size(char *s)
+int		get_size(char *s)
 {
 	int		i;
+	int		quote;
 	int		ret;
 
 	i = 0;
 	ret = 0;
+	quote = 0;
 	while (s[i])
 	{
 		while (s[i] == ' ')
 			i++;
-		if (s[i] && s[i] != '"' && s[i] != 39)
-		{
-			while (s[i] != ' ' && s[i] != '"' && s[i] != 39
-				&& s[i])
-				i++;
-			ret++;
-		}
-		if (s[i] == '"')
+		while (s[i] == '>' || s[i] == '<')
 		{
 			i++;
-			while (s[i] != '"' && s[i])
+			while (s[i] == ' ')
 				i++;
-			ret++;
+			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
+				i++;
 		}
-		if (s[i] == 39)
+		if (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
 		{
-			i++;
-			while (s[i] != 39 && s[i])
+			while ((s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>') || (s[i] == ' ' && quote)
+				|| ((s[i] == '>' || s[i] == '<') && quote))
+			{
+				if ((s[i] == '"' || s[i] == 39) && quote == 0)
+					quote = 1;
+				else if ((s[i] == '"' || s[i] == 39) && quote == 1)
+					quote = 0;
 				i++;
+			}
 			ret++;
 		}
-		if (s[i])
-			i++;
 	}
 	return (ret);
 }
@@ -67,32 +67,31 @@ void	allocate_args(char *s, t_cmd *cmd)
 
 void	free_args(t_cmd *cmd)
 {
-	t_cmd	*temp;
 	int		i;
 
 
 	i = 0;
 	while (cmd)
 	{
-		temp = cmd;
-		if (temp->args)
+		if (cmd->args)
 		{
-			while (temp->args[i])
-				free(temp->args[i++]);
-			free(temp->args);
+			i = 0;
+			while (cmd->args[i])
+				free(cmd->args[i++]);
+			free(cmd->args);
 		}
-		if (temp->redirect)
+		if (cmd->redirect)
 		{
-			while (temp->redirect)
+			while (cmd->redirect)
 			{
-				temp->redirect = cmd->redirect;
-				if (temp->redirect->file)
-					free(temp->redirect->file);
-				free(temp->redirect);
+				cmd->redirect = cmd->redirect;
+				if (cmd->redirect->file)
+					free(cmd->redirect->file);
+				free(cmd->redirect);
 				cmd->redirect = cmd->redirect->next;
 			}
 		}
+		free(cmd);
 		cmd = cmd->next;
-		free(temp);
 	}
 }

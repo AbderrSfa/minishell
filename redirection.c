@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 17:21:19 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 14:35:51 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,18 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	j = i;
 	while (s[i])
 	{
+		j = i;
 		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
 		{
 			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>'
 				&& s[i] != '"' && s[i] != 39)
 				i++;
 			temp = ft_substr(s, j, i - j);
-			redirect->file = env_var_checker(temp);
+			temp2 = env_var_checker(temp);
+			free(temp);
+			temp = redirect->file;
+			redirect->file = ft_strjoin(redirect->file, temp2);
+			free(temp2);
 			free(temp);
 		}
 		if (s[i] == '"')

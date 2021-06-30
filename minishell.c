@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 16:52:40 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 14:58:57 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 		ft_list_add_back(&head, temp);
 		i++;
 	}
+	i = 0;
 	if (commands)
 	{
 		while (commands[i])
@@ -52,11 +53,12 @@ int	main(void)
 		free(input);
 		i = 0;
 		templ = head;
+		
 		int		j;
 		int		k;
 		j = 1;
 		k = 1;
-/* 		while (templ != NULL)
+		while (templ != NULL)
 		{
 			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);
 			i = 0;
@@ -75,7 +77,8 @@ int	main(void)
 			}
 			templ = templ->next;
 		}
-		templ = head; */
+		templ = head;
+		
 		free_args(templ);
 	}
 	return (0);

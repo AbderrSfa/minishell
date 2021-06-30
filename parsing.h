@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 17:38:52 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 15:34:56 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ struct						s_cmd
 	char					**args;
 
 	int						arg_num;
-	char					*env_variable;
 
 	t_redirect				*redirect;
 	t_cmd					*next;

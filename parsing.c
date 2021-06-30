@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 17:02:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 13:29:54 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,11 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 t_cmd	*new_node(char *s)
 {
 	t_cmd	*new;
-	int		i;
-	int		x;
 
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
 	initialize_node(new, s);
-	i = 0;
-	x = 0;
 	simple_cmd_parse(new, s);
 	new->cmd = new->args[0];
 	return (new);
