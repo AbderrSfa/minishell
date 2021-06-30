@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/30 15:07:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/06/30 15:43:52 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		get_size(char *s)
 			ret++;
 		}
 	}
+	printf("^^^%d^", ret);
 	return (ret);
 }
 
@@ -60,7 +61,7 @@ void	allocate_args(char *s, t_cmd *cmd)
 	j = 0;
 	ret = get_size(s);
 	cmd->args = malloc(sizeof(char *) * (ret + 1));
-	while (i < (ret + 1))
+	while (i < ret)
 		cmd->args[i++] = malloc(sizeof(char) * ft_strlen(s));
 	cmd->args[i] = NULL;
 }
