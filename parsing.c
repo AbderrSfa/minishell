@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/30 16:34:00 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/02 10:55:20 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	simple_cmd_parse(t_cmd *new, char *s)
 	j = 0;
 	p = &i;
 	temp = NULL;
+	free(new->args[new->arg_num]);
 	new->args[new->arg_num] = NULL;
 	while (s[i])
 	{
