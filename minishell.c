@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/02 10:53:46 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/02 14:35:21 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 	return (head);
 }
 
+void	signal_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(0, "\b\b  \b\b", 6);
+		write(0, "\n", 1);
+		write(0, "minishell-1.0$ ", ft_strlen("minishell-1.0$ "));
+	}
+	else
+		write(0, "\b\b  \b\b", 6);
+}
 
 int	main(void)
 {
@@ -47,6 +58,8 @@ int	main(void)
 	while (1)
 	{
 		head = NULL;
+		signal(SIGQUIT, signal_handler);
+		signal(SIGINT, signal_handler);
 		input = readline("minishell-1.0$ ");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);

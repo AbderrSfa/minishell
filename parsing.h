@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/30 16:31:23 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/02 14:34:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include "libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -40,7 +41,6 @@ struct						s_cmd
 	t_cmd					*next;
 };
 
-void		program_loop();
 int			get_size(char *s);
 t_cmd		*new_node(char *s);
 void		free_args(t_cmd *cmd);
