@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/02 16:45:56 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 11:25:50 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ char	*double_quotes(char *s, int i, int *p)
 	j = i;
 	while (s[i] && s[i] != '"')
 		i++;
-	if (s[i] != '"')
-	{
-		ft_putstr("minishell: syntax error near unexpected token `");
-		if (!s[i])
-			ft_putstr("newline");
-		else
-			ft_putchar(s[i]);
-		ft_putchar(39);
-	}
 	temp = ft_substr(s, j, i - j);
 	file = env_var_checker(temp);
 	free(temp);
@@ -47,15 +38,6 @@ char	*single_quotes(char *s, int i, int *p)
 	j = i;
 	while (s[i] && s[i] != 39)
 		i++;
-	if (s[i] != 39)
-	{
-		ft_putstr("minishell: syntax error near unexpected token `");
-		if (!s[i])
-			ft_putstr("newline");
-		else
-			ft_putchar(s[i]);
-		ft_putchar(39);
-	}
 	file = ft_substr(s, j, i - j);
 	i++;
 	*p = i;
@@ -110,15 +92,6 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	}
 	while (s[i] == ' ')
 		i++;
-	if (redirect->file == NULL)
-	{
-		ft_putstr("minishell: syntax error near unexpected token `");
-		if (!s[i])
-			ft_putstr("newline");
-		else
-			ft_putchar(s[i]);
-		ft_putchar(39);
-	}
 	return (i);
 }
 
