@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   set_env_pa.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 11:54:38 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:02:05 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,47 @@ t_env	*make_env_node(char *key, char *value)
 	return (new);
 }
 
+char	*get_key(char *s)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (s[i] != '=')
+		i++;
+	temp = ft_substr(s, 0, i);
+	return (temp);
+}
+
+char	*get_value(char *s)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (s[i] != '=')
+		i++;
+	temp = ft_substr(s, i + 1, ft_strlen(s) - i);
+	return (temp);
+}
+
 t_env	*prep_env_list(t_env *env_list, char **env)
 {
 	t_env	*temp;
 	int		i;
 	int		j;
-	char	**key_val;
+	char	*key;
+	char	*value;
 
 	i = 0;
 	while (env[i])
 	{
-		key_val = ft_split(env[i], '=');
-		temp = make_env_node(key_val[0], key_val[1]);
+		key = get_key(env[i]);
+		value = get_value(env[i]);
+		temp = make_env_node(key, value);
 		ft_list_add_back_env(&env_list, temp);
-		j = 0;
-		while (key_val[j])
-			free(key_val[j++]);
-		free(key_val);
+		free(key);
+		free(value);
 		i++;
 	}
 	return (env_list);
