@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 15:59:29 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 16:09:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,6 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input, t_env *env_list)
 		free(commands);
 	}
 	return (head);
-}
-
-void	check_syntax_errors(t_cmd *cmd)
-{
-	int		i;
-
-
-	i = 0;
-	while (cmd)
-	{
-		while (cmd->redirect)
-		{
-			if (cmd->redirect->file == NULL)
-			{
-				ft_putstr("minishell: syntax error near unexpected token `");
-				if (cmd->redirect->type == 'G')
-					ft_putchar('>');
-				if (cmd->redirect->type == 'L')
-					ft_putchar('<');
-				if (cmd->redirect->type == 'D' || cmd->redirect->type == 'H')
-					ft_putstr("newline");
-				ft_putchar(39);
-			}
-			cmd->redirect = cmd->redirect->next;
-		}
-		cmd = cmd->next;
-	}
 }
 
 int	main(int argc, char **argv, char **env)
