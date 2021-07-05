@@ -5,22 +5,8 @@ Elements allocated and need to be freed:
 	- cmd->args
 	- cmd->env_variable
 
-Elements that need to be checked for environment variables:
-- get_arg:
-	- temp.
-	- double_quotes
-	- single_quotes
-- redirections:
-	- redirect->file
-	- double_quotes
-	- single_quotes
-
-env_var expansion function:
-- Look for $ sign.
-- substr everything before in a temp.
-- strjoin it into result.
-- Skip & sign, and send variable into expander function.
-- strjoin what the expander returns.
-- Update counters.
-- Look for next $ sign.
-- Repeat until end of string.
+Syntax errors:
+- Put some variable in the structure that lets you know
+	whether to execute or not. Set it whenever there is:
+	- An unclosed quote.
+	- A NULL filepath.

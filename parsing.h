@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/02 14:34:11 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/02 17:13:42 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ struct						s_cmd
 
 	t_redirect				*redirect;
 	t_cmd					*next;
+};
+
+typedef struct s_env		t_env;
+struct						s_env
+{
+	char					*key;
+	char					*value;
+	t_env					*next;
 };
 
 int			get_size(char *s);
