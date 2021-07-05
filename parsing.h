@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 14:50:52 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:56:34 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ struct						s_env
 {
 	char					*key;
 	char					*value;
-	t_env					*next;
 };
 
 /* typedef struct s_env		t_env;
@@ -78,7 +77,7 @@ t_cmd		*new_node(char *s, t_env *env_list);
 void		free_cmds(t_cmd *cmd);
 char		*change_pipe(char *s);
 char		*env_var_checker(char *s, t_env *env_list);
-void		free_env_list(t_env *env_list);
+void		free_env_list(t_list *env_list);
 void		initialize_env_node(t_env *new);
 void		allocate_args(char *s, t_cmd *cmd);
 void		initialize_node(t_cmd *new, char *s);
@@ -90,7 +89,7 @@ char		*single_quotes(char *s, int i, int *p);
 t_env		*make_env_node(char *key, char *value);
 t_cmd		*split_by_pipes(t_cmd *head, char *input, t_env *env_list);
 void		ft_list_add_back(t_cmd **alst, t_cmd *new);
-t_env		*prep_env_list(t_env *env_list, char **env);
+t_list	*prep_env_list(t_list *env_list, char **env);
 t_redirect	*new_redirection_node(char *s, int i, int *p, t_env *env_list);
 void		ft_list_add_back_env(t_env **alst, t_env *new);
 int			get_filepath(t_redirect *redirect, char *s, int i, t_env *env_list);

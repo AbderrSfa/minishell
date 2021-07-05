@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 15:05:13 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:59:29 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,22 @@ int	main(int argc, char **argv, char **env)
 {
 	int		i;
 	char	*input;
-	t_cmd	*cmds;
-	t_cmd	*templ;
-	t_env	*env_list;
-	t_env	*temp;
+	//t_cmd	*cmds;
+	//t_cmd	*templ;
+	t_env	*temp2;
+	t_list	*env_list;
+	t_list	*temp;
 
 	env_list = NULL;
 	env_list = prep_env_list(env_list, env);
-	while (1)
+	temp = env_list;
+	while (temp != NULL)
+	{
+		temp2 = temp->content;
+		printf("\033[0;32m%s\033[0;0m --- \033[0;34m%s\033[0;0m\n", temp2->key, temp2->value);
+		temp = temp->next;
+	}
+/* 	while (1)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
@@ -141,7 +149,7 @@ int	main(int argc, char **argv, char **env)
 			templ = templ->next;
 		}
 		free_cmds(cmds);
-	}
+	} */
 	free_env_list(env_list);
 	return (0);
 }

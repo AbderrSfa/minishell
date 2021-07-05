@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_variable.c                                     :+:      :+:    :+:   */
+/*   env_variable_pa.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 13:52:33 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:51:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*variable_expander(char *key, t_env *env_list)
 	{
 		if (!(ft_strncmp(key, env_list->key, ft_strlen(env_list->key))))
 			expanded = ft_strdup(env_list->value);	
-		env_list = env_list->next;
+		//env_list = env_list->next;
 	}
 	return (expanded);
 }
