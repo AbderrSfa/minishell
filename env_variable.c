@@ -6,21 +6,27 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 16:49:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 13:30:10 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*variable_expander(char *temp)
+char	*variable_expander(char *key, t_env *env_list)
 {
 	char	*expanded;
 
-	expanded = ft_strdup("(expanded)");
+	expanded = NULL;
+	while (env_list != NULL)
+	{
+		if (!(ft_strncmp(key, env_list->key, ft_strlen(env_list->key))))
+			expanded = ft_strdup(env_list->value);	
+		env_list = env_list->next;
+	}
 	return (expanded);
 }
 
-char	*env_var_checker(char *s)
+char	*env_var_checker(char *s, t_env *env_list)
 {
 	int		i;
 	int		j;
@@ -47,7 +53,7 @@ char	*env_var_checker(char *s)
 			while (s[i] && s[i] != ' ' && s[i] != 39 && s[i] != '$')
 				i++;
 			temp2 = ft_substr(s, j, i - j);
-			temp = variable_expander(temp2);
+			temp = variable_expander(temp2, env_list);
 			free(temp2);
 			temp2 = result;
 			result = ft_strjoin(result, temp);

@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 11:25:50 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 13:10:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*double_quotes(char *s, int i, int *p)
+char	*double_quotes(char *s, int i, int *p, t_env *env_list)
 {
 	int		j;
 	char	*file;
@@ -22,7 +22,7 @@ char	*double_quotes(char *s, int i, int *p)
 	while (s[i] && s[i] != '"')
 		i++;
 	temp = ft_substr(s, j, i - j);
-	file = env_var_checker(temp);
+	file = env_var_checker(temp, env_list);
 	free(temp);
 	i++;
 	*p = i;
@@ -44,7 +44,7 @@ char	*single_quotes(char *s, int i, int *p)
 	return (file);
 }
 
-int	get_filepath(t_redirect *redirect, char *s, int i)
+int	get_filepath(t_redirect *redirect, char *s, int i, t_env *env_list)
 {
 	int		j;
 	int		*p;
@@ -64,7 +64,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 				&& s[i] != '"' && s[i] != 39)
 				i++;
 			temp = ft_substr(s, j, i - j);
-			temp2 = env_var_checker(temp);
+			temp2 = env_var_checker(temp, env_list);
 			free(temp);
 			temp = redirect->file;
 			redirect->file = ft_strjoin(redirect->file, temp2);
@@ -73,7 +73,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 		}
 		if (s[i] == '"')
 		{
-			temp = double_quotes(s, i + 1, p);
+			temp = double_quotes(s, i + 1, p, env_list);
 			temp2 = redirect->file;
 			redirect->file = ft_strjoin(redirect->file, temp);
 			free(temp);
@@ -95,7 +95,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i)
 	return (i);
 }
 
-t_redirect	*new_redirection_node(char *s, int i, int *p2)
+t_redirect	*new_redirection_node(char *s, int i, int *p2, t_env *env_list)
 {
 	t_redirect	*new;
 
@@ -114,14 +114,14 @@ t_redirect	*new_redirection_node(char *s, int i, int *p2)
 	else if (s[i] == '<' && s[i + 1] == '<')
 		new->type = 'H';
 	if (new->type == 'G' || new->type == 'L')
-		i = get_filepath(new, s, i + 1);
+		i = get_filepath(new, s, i + 1, env_list);
 	else
-		i = get_filepath(new, s, i + 2);
+		i = get_filepath(new, s, i + 2, env_list);
 	*p2 = i;
 	return (new);
 }
 
-t_redirect	*redirections(t_redirect *redirect, char *s, int *p)
+t_redirect	*redirections(t_redirect *redirect, char *s, int *p, t_env *env_list)
 {
 	int			i;
 	int			*p2;
@@ -133,7 +133,7 @@ t_redirect	*redirections(t_redirect *redirect, char *s, int *p)
 	{
 		if (s[i] && s[i] != '>' && s[i] != '<')
 			break ;
-		temp = new_redirection_node(s, i, p2);
+		temp = new_redirection_node(s, i, p2, env_list);
 		ft_list_add_back_redir(&redirect, temp);
 	}
 	*p += i;

@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 11:22:14 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 13:24:46 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*change_pipe(char *s)
 	return (temp);
 }
 
-t_cmd	*split_by_pipes(t_cmd *head, char *input)
+t_cmd	*split_by_pipes(t_cmd *head, char *input, t_env *env_list)
 {
 	char	**commands;
 	t_cmd	*temp;
@@ -50,7 +50,7 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
-		temp = new_node(commands[i]);
+		temp = new_node(commands[i], env_list);
 		ft_list_add_back(&head, temp);
 		i++;
 	}
@@ -64,7 +64,7 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input)
 	return (head);
 }
 
-void	signal_handler(int signal)
+/* void	signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -74,7 +74,7 @@ void	signal_handler(int signal)
 	}
 	else
 		write(0, "\b\b  \b\b", 6);
-}
+} */
 
 void	check_syntax_errors(t_cmd *cmd)
 {
@@ -109,26 +109,28 @@ int	main(int argc, char **argv, char **env)
 	char	*input;
 	t_cmd	*cmds;
 	t_cmd	*templ;
+	t_env	*env_list;
+	t_env	*temp;
 
+	env_list = NULL;
+	env_list = prep_env_list(env_list, env);
 	while (1)
 	{
 		cmds = NULL;
-		signal(SIGQUIT, signal_handler);
-		signal(SIGINT, signal_handler);
+ 		//signal(SIGQUIT, signal_handler);
+		//signal(SIGINT, signal_handler);
 		input = readline("minishell-1.0$ ");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
-		cmds = split_by_pipes(cmds, input);
-		templ = cmds;
-		//check_syntax_errors(templ);		
+		temp = env_list;
+		cmds = split_by_pipes(cmds, input, temp);
 		free(input);
 		i = 0;
-		templ = cmds;
-		
 		int		j;
 		int		k;
 		j = 1;
 		k = 1;
+		templ = cmds;
 		while (templ != NULL)
 		{
 			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);
@@ -148,9 +150,15 @@ int	main(int argc, char **argv, char **env)
 			}
 			templ = templ->next;
 		}
-		templ = cmds;
-		
-		free_args(templ);
+/* 		temp = env_list;
+		while (temp != NULL)
+		{
+			printf("\033[0;32m%s\033[0;0m --- \033[0;34m%s\033[0;0m\n", temp->key, temp->value);
+			temp = temp->next;
+		} */
+		free_cmds(cmds);
 	}
+
+	free_env_list(env_list);
 	return (0);
 }
