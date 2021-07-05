@@ -4,7 +4,7 @@ LIBNAME = minishell.a
 
 LIBFT = libft/libft.a
 
-SRC = minishell.c parsing.c node_setup.c env_variable.c free_n_alloc.c redirection.c
+SRC = minishell_pa.c parsing_pa.c node_setup_pa.c env_variable_pa.c set_env_pa.c free_and_alloc_pa.c redirection_pa.c
 
 INCLUDES = -lreadline
 
