@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 13:09:58 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 14:50:52 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,30 @@ struct						s_env
 	char					*value;
 	t_env					*next;
 };
+
+/* typedef struct s_env		t_env;
+struct						s_env
+{
+	char					*key;
+	char					*value;
+};
+
+typedef struct s_cmd		t_cmd;
+struct						s_cmd
+{
+	char					*cmd;
+	char					**args;
+	int						arg_num;
+	t_list					*redirect;
+};
+
+typedef struct s_redirect	t_redirect;
+struct						s_redirect
+{
+	char					type;
+	char					*file;
+}; */
+
 
 int			get_size(char *s);
 t_cmd		*new_node(char *s, t_env *env_list);

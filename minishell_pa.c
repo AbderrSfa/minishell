@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell_pa.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 13:24:46 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/05 14:33:32 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ t_cmd	*split_by_pipes(t_cmd *head, char *input, t_env *env_list)
 	input = change_pipe(input);
 	//There's a mem leak here
 	commands = ft_split(input, -124);
+	//t_list *head ???
+	//t_LIST *new;
+	//new = ft_lstnew(temp);
+	//ft_lst_add_back(&head ,new);
 	while (commands[i])
 	{
 		temp = new_node(commands[i], env_list);
