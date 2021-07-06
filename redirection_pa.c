@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirection_pa.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 13:10:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 11:17:26 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*double_quotes(char *s, int i, int *p, t_env *env_list)
+char	*double_quotes(char *s, int i, int *p, t_list *env_list)
 {
 	int		j;
 	char	*file;
@@ -44,7 +44,7 @@ char	*single_quotes(char *s, int i, int *p)
 	return (file);
 }
 
-int	get_filepath(t_redirect *redirect, char *s, int i, t_env *env_list)
+int	get_filepath(t_redirect *redirect, char *s, int i, t_list *env_list)
 {
 	int		j;
 	int		*p;
@@ -95,7 +95,7 @@ int	get_filepath(t_redirect *redirect, char *s, int i, t_env *env_list)
 	return (i);
 }
 
-t_redirect	*new_redirection_node(char *s, int i, int *p2, t_env *env_list)
+t_redirect	*new_redirection_node(char *s, int i, int *p2, t_list *env_list)
 {
 	t_redirect	*new;
 
@@ -121,10 +121,11 @@ t_redirect	*new_redirection_node(char *s, int i, int *p2, t_env *env_list)
 	return (new);
 }
 
-t_redirect	*redirections(t_redirect *redirect, char *s, int *p, t_env *env_list)
+t_list	*redirections(t_list *redirect, char *s, int *p, t_list *env_list)
 {
 	int			i;
 	int			*p2;
+	t_list		*new;
 	t_redirect	*temp;
 
 	i = 0;
@@ -134,7 +135,8 @@ t_redirect	*redirections(t_redirect *redirect, char *s, int *p, t_env *env_list)
 		if (s[i] && s[i] != '>' && s[i] != '<')
 			break ;
 		temp = new_redirection_node(s, i, p2, env_list);
-		ft_list_add_back_redir(&redirect, temp);
+		new = ft_lstnew(temp);
+		ft_lstadd_back(&redirect, new);
 	}
 	*p += i;
 	return (redirect);

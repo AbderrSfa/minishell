@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_n_alloc.c                                     :+:      :+:    :+:   */
+/*   free_and_alloc_pa.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 12:02:10 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 11:16:32 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	allocate_args(char *s, t_cmd *cmd)
 	cmd->args[i] = NULL;
 }
 
-void	free_cmds(t_cmd *cmd)
+/* void	free_cmds(t_cmd *cmd)
 {
 	int		i;
 
@@ -94,4 +94,4 @@ void	free_cmds(t_cmd *cmd)
 		free(cmd);
 		cmd = cmd->next;
 	}
-}
+} */

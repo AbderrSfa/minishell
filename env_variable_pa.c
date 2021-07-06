@@ -6,27 +6,29 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 15:51:47 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 11:11:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*variable_expander(char *key, t_env *env_list)
+char	*variable_expander(char *key, t_list *env_list)
 {
+	t_env	*temp;
 	char	*expanded;
 
 	expanded = NULL;
 	while (env_list != NULL)
 	{
-		if (!(ft_strncmp(key, env_list->key, ft_strlen(env_list->key))))
-			expanded = ft_strdup(env_list->value);	
-		//env_list = env_list->next;
+		temp = env_list->content;
+		if (!(ft_strncmp(key, temp->key, ft_strlen(temp->key))))
+			expanded = ft_strdup(temp->value);	
+		env_list = env_list->next;
 	}
 	return (expanded);
 }
 
-char	*env_var_checker(char *s, t_env *env_list)
+char	*env_var_checker(char *s, t_list *env_list)
 {
 	int		i;
 	int		j;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_pa.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/05 13:55:43 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 11:09:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	get_arg(t_cmd *new, char *s, int i, int *p, t_env *env_list)
+void	get_arg(t_cmd *new, char *s, int i, int *p, t_list *env_list)
 {
 	char	*temp;
 	char	*temp2;
@@ -55,7 +55,7 @@ void	get_arg(t_cmd *new, char *s, int i, int *p, t_env *env_list)
 	*p = i;
 }
 
-void	simple_cmd_parse(t_cmd *new, char *s, t_env *env_list)
+void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_list)
 {
 	char		*temp;
 	int			i;
@@ -87,7 +87,7 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_env *env_list)
 	}
 }
 
-t_cmd	*new_node(char *s, t_env *env_list)
+t_cmd	*new_node(char *s, t_list *env_list)
 {
 	t_cmd	*new;
 
