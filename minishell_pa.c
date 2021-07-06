@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 11:25:03 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:02:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 	input = change_pipe(input);
 	//There's a mem leak here
 	commands = ft_split(input, -124);
-	//t_list *head ???
-	//t_LIST *new;
-	//new = ft_lstnew(temp);
-	//ft_lst_add_back(&head ,new);
 	while (commands[i])
 	{
 		temp = new_node(commands[i], env_list);
@@ -74,8 +70,6 @@ int	main(int argc, char **argv, char **env)
 {
 	int		i;
 	char	*input;
-	//t_cmd	*cmds;
-	//t_cmd	*templ;
 	t_list	*cmds;
 	t_list	*templ;
 	t_cmd	*temp3;
@@ -133,7 +127,7 @@ int	main(int argc, char **argv, char **env)
 			}
 			templ = templ->next;
 		}
-		//free_cmds(cmds);
+		free_cmds(cmds);
 	}
 	free_env_list(env_list);
 	return (0);

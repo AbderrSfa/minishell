@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 11:16:32 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:00:46 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,33 +65,39 @@ void	allocate_args(char *s, t_cmd *cmd)
 	cmd->args[i] = NULL;
 }
 
-/* void	free_cmds(t_cmd *cmd)
+void	free_cmds(t_list *cmd)
 {
+	t_cmd		*temp;
+	t_list		*redir;
+	t_redirect	*temp2;
 	int		i;
 
-
 	i = 0;
-	while (cmd)
+	while (cmd != NULL)
 	{
-		if (cmd->args)
+		temp = cmd->content;
+		if (temp->args)
 		{
 			i = 0;
-			while (cmd->args[i])
-				free(cmd->args[i++]);
-			free(cmd->args);
+			while (temp->args[i])
+				free(temp->args[i++]);
+			free(temp->args);
 		}
-		if (cmd->redirect)
+		if (temp->redirect)
 		{
-			while (cmd->redirect)
+			redir = temp->redirect;
+			while (redir != NULL)
 			{
-				cmd->redirect = cmd->redirect;
-				if (cmd->redirect->file)
-					free(cmd->redirect->file);
-				free(cmd->redirect);
-				cmd->redirect = cmd->redirect->next;
+				temp2 = redir->content;
+				if (temp2->file)
+					free(temp2->file);
+				free(temp2);
+				free(redir);
+				redir = redir->next;
 			}
 		}
+		free(temp);
 		free(cmd);
 		cmd = cmd->next;
 	}
-} */
+}
