@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 14:43:37 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 15:10:16 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ struct						s_redirect
 	char					*file;
 };
 
-
 int			get_size(char *s);
 char		*change_pipe(char *s);
 void		free_cmds(t_list *cmd);
@@ -65,6 +64,7 @@ char		*double_quotes(char *s, int i, int *p, t_list *env_list);
 t_list		*split_by_pipes(t_list *head, char *input, t_list *env_list);
 t_redirect	*new_redirection_node(char *s, int i, int *p, t_list *env_list);
 t_list		*redirections(t_list *redirect, char *s, int *p, t_list *env_list);
-int			get_filepath(t_redirect *redirect, char *s, int i, t_list *env_list);
+int			get_filepath(t_redirect *redirect, char *s, int i,
+				t_list *env_list);
 
 #endif
