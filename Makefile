@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/06 12:07:32 by asfaihi           #+#    #+#              #
+#    Updated: 2021/07/06 12:08:26 by asfaihi          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
 LIBNAME = minishell.a
@@ -13,7 +25,7 @@ OBJECT = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJECT)
-	make -sC libft/
+	make bonus -C libft/
 	ar rcs $(LIBNAME) $(OBJECT)
 	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o $(NAME) -g
 
@@ -21,11 +33,11 @@ $(NAME): $(OBJECT)
 	gcc -c $<
 
 clean:
-	make -sC libft/ clean
+	make -C libft/ clean
 	/bin/rm -f $(OBJECT)
 
 fclean: clean
-	make -sC libft/ fclean
+	make -C libft/ fclean
 	/bin/rm -f $(LIBNAME)
 	/bin/rm -f $(NAME)
 	/bin/rm -rf a.out.dSYM/

@@ -6,26 +6,11 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 11:49:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:11:49 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-void	free_env_list(t_list *env_list)
-{
-	t_env	*temp;
-
-	while (env_list != NULL)
-	{
-		temp = env_list->content;
-		free(temp->key);
-		free(temp->value);
-		free(env_list->content);
-		free(env_list);
-		env_list = env_list->next;
-	}
-}
 
 char	*get_key(char *s)
 {

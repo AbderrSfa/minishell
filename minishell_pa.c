@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 12:02:11 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:10:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,6 @@ int	main(int argc, char **argv, char **env)
 
 	env_list = NULL;
 	env_list = prep_env_list(env_list, env);
-/* 	temp = env_list;
-	while (temp != NULL)
-	{
-		temp2 = temp->content;
-		printf("\033[0;32m%s\033[0;0m --- \033[0;34m%s\033[0;0m\n", temp2->key, temp2->value);
-		temp = temp->next;
-	} */
 	while (1)
 	{
 		cmds = NULL;
