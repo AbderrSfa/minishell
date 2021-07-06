@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 12:10:47 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:51:30 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 
 	i = 0;
 	input = change_pipe(input);
-	//There's a mem leak here
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
@@ -68,17 +67,17 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 
 int	main(int argc, char **argv, char **env)
 {
-	int		i;
-	char	*input;
-	t_list	*cmds;
-	t_list	*templ;
-	t_cmd	*temp3;
+	int			i;
+	char		*input;
+	t_list		*cmds;
+	t_list		*templ;
+	t_cmd		*temp3;
 
-	t_list	*env_list;
-	t_list	*temp;
-	t_env	*temp2;
+	t_list		*env_list;
+	t_list		*temp;
+	t_env		*temp2;
 
-	t_list	*tempredir;
+	t_list		*tempredir;
 	t_redirect	*tempredir2;
 
 	env_list = NULL;

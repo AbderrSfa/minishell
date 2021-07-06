@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 12:11:55 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:47:26 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int		get_size(char *s)
+int	get_size(char *s)
 {
 	int		i;
 	int		quote;
@@ -35,7 +35,8 @@ int		get_size(char *s)
 		}
 		if (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
 		{
-			while ((s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>') || (s[i] == ' ' && quote)
+			while ((s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>')
+				|| (s[i] == ' ' && quote)
 				|| ((s[i] == '>' || s[i] == '<') && quote))
 			{
 				if ((s[i] == '"' || s[i] == 39) && quote == 0)
@@ -70,7 +71,7 @@ void	free_cmds(t_list *cmd)
 	t_cmd		*temp;
 	t_list		*redir;
 	t_redirect	*temp2;
-	int		i;
+	int			i;
 
 	i = 0;
 	while (cmd != NULL)
