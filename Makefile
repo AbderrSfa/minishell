@@ -6,7 +6,7 @@
 #    By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/06 12:07:32 by asfaihi           #+#    #+#              #
-#    Updated: 2021/07/06 12:08:26 by asfaihi          ###   ########.fr        #
+#    Updated: 2021/07/06 15:07:39 by asfaihi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBNAME = minishell.a
 
 LIBFT = libft/libft.a
 
-SRC = minishell_pa.c parsing_pa.c node_setup_pa.c env_variable_pa.c set_env_pa.c free_and_alloc_pa.c redirection_pa.c
+SRC = minishell_pa.c parsing_pa.c init_nodes_pa.c env_variable_pa.c set_env_pa.c free_pa.c allocate_pa.c redirection_pa.c
 
 INCLUDES = -lreadline
 

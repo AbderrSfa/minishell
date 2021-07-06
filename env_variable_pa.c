@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 12:45:30 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 14:37:42 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ char	*variable_expander(char *key, t_list *env_list)
 
 char	*env_var_checker(char *s, t_list *env_list)
 {
-	int		i;
-	int		j;
 	char	*result;
 	char	*temp;
 	char	*temp2;
+	int		i;
+	int		j;
 
 	result = NULL;
 	temp = NULL;

@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 11:52:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 14:43:37 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ struct						s_redirect
 int			get_size(char *s);
 char		*change_pipe(char *s);
 void		free_cmds(t_list *cmd);
+void		free_redirect(t_list *redir);
 void		free_env_list(t_list *env_list);
 void		initialize_env_node(t_env *new);
 void		allocate_args(char *s, t_cmd *cmd);
