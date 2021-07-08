@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 14:19:38 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:10:27 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*variable_expander(char *key, t_list *env_list)
 	t_env	*temp;
 	char	*expanded;
 	size_t	len;
-	
+
 	len = 0;
 	expanded = NULL;
 	while (env_list != NULL)
@@ -28,46 +28,52 @@ char	*variable_expander(char *key, t_list *env_list)
 		else
 			len = ft_strlen(key);
 		if (!(ft_strncmp(key, temp->key, len)))
-			expanded = ft_strdup(temp->value);	
+			expanded = ft_strdup(temp->value);
 		env_list = env_list->next;
 	}
 	return (expanded);
 }
 
-char	*env_var_checker(char *s, t_list *env_list)
+void	get_variable(char *s, t_list *env_list, t_var *var)
 {
-	int		i;
 	int		j;
-	char	*result;
 	char	*temp;
 	char	*temp2;
 
-	result = NULL;
+	var->i++;
+	j = var->i;
+	while (s[var->i] && s[var->i] != ' ' && s[var->i] != 39 && s[var->i] != '$')
+		var->i++;
+	temp2 = ft_substr(s, j, var->i - j);
+	temp = variable_expander(temp2, env_list);
+	free(temp2);
+	temp2 = var->result;
+	var->result = ft_strjoin(var->result, temp);
+	free(temp);
+	free(temp2);
+}
+
+char	*env_var_checker(char *s, t_list *env_list)
+{
+	int		j;
+	char	*temp;
+	char	*temp2;
+	t_var	var;
+
+	var.result = NULL;
 	temp = NULL;
-	i = 0;
-	while (s[i])
+	var.i = 0;
+	while (s[var.i])
 	{
-		j = i;
-		while (s[i] && s[i] != '$')
-			i++;
-		temp2 = result;
-		result = ft_strjoin(result, temp = ft_substr(s, j, i - j));
+		j = var.i;
+		while (s[var.i] && s[var.i] != '$')
+			var.i++;
+		temp2 = var.result;
+		var.result = ft_strjoin(var.result, temp = ft_substr(s, j, var.i - j));
 		free(temp);
 		free(temp2);
-		if (s[i] == '$')
-		{
-			i++;
-			j = i;
-			while (s[i] && s[i] != ' ' && s[i] != 39 && s[i] != '$')
-				i++;
-			temp2 = ft_substr(s, j, i - j);
-			temp = variable_expander(temp2, env_list);
-			free(temp2);
-			temp2 = result;
-			result = ft_strjoin(result, temp);
-			free(temp);
-			free(temp2);
-		}
+		if (s[var.i] == '$')
+			get_variable(s, env_list, &var);
 	}
-	return (result);
+	return (var.result);
 }
