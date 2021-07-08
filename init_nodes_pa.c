@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:43:49 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:24:13 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	initialize_node(t_cmd *new, char *s)
 	i = 0;
 	new->cmd = NULL;
 	new->args = NULL;
-	new->redirect = NULL;
+	new->redir = NULL;
 	allocate_args(s, new);
 }
 
-void	initialize_redir_node(t_redirect *new)
+void	initialize_redir_node(t_redir *new)
 {
 	new->file = NULL;
 	new->type = '\0';

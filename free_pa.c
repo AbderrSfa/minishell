@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:02 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:47:04 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:23:56 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_redirect(t_list *redir)
 {
-	t_redirect	*temp;
+	t_redir	*temp;
 
 	while (redir != NULL)
 	{
@@ -44,8 +44,8 @@ void	free_cmds(t_list *cmd)
 				free(temp->args[i++]);
 			free(temp->args);
 		}
-		if (temp->redirect)
-			free_redirect(temp->redirect);
+		if (temp->redir)
+			free_redirect(temp->redir);
 		free(temp);
 		free(cmd);
 		cmd = cmd->next;

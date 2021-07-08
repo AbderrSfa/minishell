@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:47:28 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:23:01 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 	t_env	*temp2;
 
 	t_list	*tempredir;
-	t_redirect	*tempredir2;
+	t_redir	*tempredir2;
 
 	env_lst = NULL;
 	env_lst = prep_env_lst(env_lst, env);
@@ -116,14 +116,14 @@ int	main(int argc, char **argv, char **env)
 					printf("\033[0;33mCommand:\033[0;0m %s\n", temp3->cmd);
 				printf("Arg: %s\n", temp3->args[i++]);
 			}
-			while (temp3->redirect != NULL)
+			while (temp3->redir != NULL)
 			{
-				tempredir = temp3->redirect;
+				tempredir = temp3->redir;
 				tempredir2 = tempredir->content;
 				printf("\033[0;36m********* Redirection %d *********\033[0;0m\n", k++);
 				printf("\033[0;37mType:\033[0;0m %c\n", tempredir2->type);
 				printf("\033[0;38mFile:\033[0;0m %s\n", tempredir2->file);
-				temp3->redirect = temp3->redirect->next;
+				temp3->redir = temp3->redir->next;
 			}
 			templ = templ->next;
 		}

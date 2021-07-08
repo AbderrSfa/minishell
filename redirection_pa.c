@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:49:57 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:27:57 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,30 @@ char	*single_quotes(char *s, t_prs *prs)
 	return (file);
 }
 
-void	get_filepath(t_redirect *redirect, char *s, t_list *env_lst, t_prs * prs)
+void	file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
+{
+	char	*temp;
+	char	*temp2;
+
+	if (s[prs->i] == '"')
+	{
+		temp = double_quotes(s, env_lst, prs);
+		temp2 = redir->file;
+		redir->file = ft_strjoin(redir->file, temp);
+		free(temp);
+		free(temp2);
+	}
+	if (s[prs->i] == 39)
+	{
+		temp = single_quotes(s, prs);
+		temp2 = redir->file;
+		redir->file = ft_strjoin(redir->file, temp);
+		free(temp);
+		free(temp2);
+	}
+}
+
+void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
 	char	*temp;
@@ -56,47 +79,34 @@ void	get_filepath(t_redirect *redirect, char *s, t_list *env_lst, t_prs * prs)
 	while (s[prs->i])
 	{
 		j = prs->i;
-		if (s[prs->i] && s[prs->i] != '"' && s[prs->i] != 39 && s[prs->i] != '>' && s[prs->i] != '<')
+		if (s[prs->i] && s[prs->i] != '"' && s[prs->i] != 39
+			&& s[prs->i] != '>' && s[prs->i] != '<')
 		{
-			while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<' && s[prs->i] != '>'
-				&& s[prs->i] != '"' && s[prs->i] != 39)
+			while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<'
+				&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != 39)
 				prs->i++;
 			temp = ft_substr(s, j, prs->i - j);
 			temp2 = env_var_checker(temp, env_lst);
 			free(temp);
-			temp = redirect->file;
-			redirect->file = ft_strjoin(redirect->file, temp2);
+			temp = redir->file;
+			redir->file = ft_strjoin(redir->file, temp2);
 			free(temp2);
 			free(temp);
 		}
-		if (s[prs->i] == '"')
-		{
-			temp = double_quotes(s, env_lst, prs);
-			temp2 = redirect->file;
-			redirect->file = ft_strjoin(redirect->file, temp);
-			free(temp);
-			free(temp2);
-		}
-		if (s[prs->i] == 39)
-		{
-			temp = single_quotes(s, prs);
-			temp2 = redirect->file;
-			redirect->file = ft_strjoin(redirect->file, temp);
-			free(temp);
-			free(temp2);
-		}
-		if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
+		file_dbl_sgl_quote(redir, s, env_lst, prs);
+		if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>'
+			|| s[prs->i] == '<')
 			break ;
 	}
 	while (s[prs->i] == ' ')
 		prs->i++;
 }
 
-t_redirect	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
+t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
 {
-	t_redirect	*new;
+	t_redir	*new;
 
-	new = (t_redirect *)malloc(sizeof(t_redirect));
+	new = (t_redir *)malloc(sizeof(t_redir));
 	if (!new)
 		return (NULL);
 	initialize_redir_node(new);
@@ -123,10 +133,10 @@ t_redirect	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
 	return (new);
 }
 
-t_list	*redirections(t_list *redirect, char *s, t_list *env_lst, t_prs *prs)
+t_list	*redirections(t_list *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	t_list		*new;
-	t_redirect	*temp;
+	t_redir		*temp;
 
 	while (s[prs->i])
 	{
@@ -134,7 +144,7 @@ t_list	*redirections(t_list *redirect, char *s, t_list *env_lst, t_prs *prs)
 			break ;
 		temp = new_redirection_node(s, env_lst, prs);
 		new = ft_lstnew(temp);
-		ft_lstadd_back(&redirect, new);
+		ft_lstadd_back(&redir, new);
 	}
-	return (redirect);
+	return (redir);
 }
