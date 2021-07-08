@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:49:11 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:10:02 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ struct						s_redirect
 	char					*file;
 };
 
-
 int			get_size(char *s);
 char		*change_pipe(char *s);
 void		free_cmds(t_list *cmd);
@@ -74,11 +73,13 @@ char		*env_var_checker(char *s, t_list *env_lst);
 t_list		*prep_env_lst(t_list *env_lst, char **env);
 void		get_variable(char *s, t_list *env_lst, t_var *var);
 char		*double_quotes(char *s, t_list *env_lst, t_prs *prs);
-t_list		*split_by_pipes(t_list *head, char *input, t_list *env_lst);
 void		get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
+t_list		*split_by_pipes(t_list *head, char *input, t_list *env_lst);
 t_redirect	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs);
 void		simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
-t_list		*redirections(t_list *redirect, char *s, t_list *env_lst, t_prs *prs);
-void		get_filepath(t_redirect *redirect, char *s, t_list *env_lst, t_prs * prs);
+t_list		*redirections(t_list *redirect, char *s, t_list *env_lst,
+				t_prs *prs);
+void		get_filepath(t_redirect *redirect, char *s, t_list *env_lst,
+				t_prs *prs);
 
 #endif
