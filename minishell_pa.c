@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 12:02:11 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:29:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char **argv, char **env)
 			temp3 = templ->content;
 			printf("\033[0;35m****************** Simple command %d ******************\033[0;0m\n", j++);
 			i = 0;
-			while (i < temp3->arg_num)
+			while (temp3->args[i])
 			{
 				if (i == 0)
 					printf("\033[0;33mCommand:\033[0;0m %s\n", temp3->cmd);

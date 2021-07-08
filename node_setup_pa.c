@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 11:49:46 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:29:48 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	initialize_node(t_cmd *new, char *s)
 	i = 0;
 	new->cmd = NULL;
 	new->args = NULL;
-	new->arg_num = 0;
 	new->redirect = NULL;
 	allocate_args(s, new);
 }

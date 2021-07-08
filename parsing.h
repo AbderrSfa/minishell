@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 11:44:54 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 12:40:30 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 typedef struct s_parser		t_parser;
 struct						s_parser
 {
-	int						i;	
+	int						arg_num;
+	int						i;
 };
 
 typedef struct s_env		t_env;
@@ -39,7 +40,6 @@ struct						s_cmd
 {
 	char					*cmd;
 	char					**args;
-	int						arg_num;
 	t_list					*redirect;
 };
 
