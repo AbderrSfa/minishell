@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:23:01 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:53:59 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 
 	i = 0;
 	input = change_pipe(input);
-	//There's a mem leak here
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
@@ -76,20 +75,12 @@ int	main(int argc, char **argv, char **env)
 
 	t_list	*env_lst;
 	t_list	*temp;
-	t_env	*temp2;
 
 	t_list	*tempredir;
 	t_redir	*tempredir2;
 
 	env_lst = NULL;
 	env_lst = prep_env_lst(env_lst, env);
-/* 	temp = env_lst;
-	while (temp != NULL)
-	{
-		temp2 = temp->content;
-		printf("\033[0;32m%s\033[0;0m --- \033[0;34m%s\033[0;0m\n", temp2->key, temp2->value);
-		temp = temp->next;
-	} */
 	while (1)
 	{
 		cmds = NULL;
@@ -132,3 +123,32 @@ int	main(int argc, char **argv, char **env)
 	free_env_lst(env_lst);
 	return (0);
 }
+
+/*
+*****************************************
+*** Version free of norminette errors ***
+*****************************************
+
+int	main(int argc, char **argv, char **env)
+{
+	char	*input;
+	t_list	*cmds;
+	t_list	*env_lst;
+	t_list	*temp;
+
+	env_lst = NULL;
+	env_lst = prep_env_lst(env_lst, env);
+	while (1)
+	{
+		cmds = NULL;
+		input = readline("minishell-1.0$ ");
+		if (ft_strncmp(input, "", ft_strlen(input)))
+			add_history(input);
+		temp = env_lst;
+		cmds = split_by_pipes(cmds, input, temp);
+		free(input);
+		free_cmds(cmds);
+	}
+	free_env_lst(env_lst);
+	return (0);
+} */
