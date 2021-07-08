@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:41:37 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:50:15 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env	*make_env_node(char *key, char *value)
 	return (new);
 }
 
-t_list	*prep_env_list(t_list *env_list, char **env)
+t_list	*prep_env_lst(t_list *env_lst, char **env)
 {
 	t_list	*new;
 	t_env	*temp;
@@ -64,10 +64,10 @@ t_list	*prep_env_list(t_list *env_list, char **env)
 		value = get_value(env[i]);
 		temp = make_env_node(key, value);
 		new = ft_lstnew(temp);
-		ft_lstadd_back(&env_list, new);
+		ft_lstadd_back(&env_lst, new);
 		free(key);
 		free(value);
 		i++;
 	}
-	return (env_list);
+	return (env_lst);
 }

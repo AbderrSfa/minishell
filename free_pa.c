@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:02 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:43:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:47:04 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ void	free_cmds(t_list *cmd)
 	}
 }
 
-void	free_env_list(t_list *env_list)
+void	free_env_lst(t_list *env_lst)
 {
 	t_env	*temp;
 
-	while (env_list != NULL)
+	while (env_lst != NULL)
 	{
-		temp = env_list->content;
+		temp = env_lst->content;
 		free(temp->key);
 		free(temp->value);
-		free(env_list->content);
-		free(env_list);
-		env_list = env_list->next;
+		free(env_lst->content);
+		free(env_lst);
+		env_lst = env_lst->next;
 	}
 }

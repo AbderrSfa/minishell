@@ -6,87 +6,87 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 13:35:40 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:48:48 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	get_arg(t_cmd *new, char *s, t_list *env_list, t_parser *parser)
+void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*temp2;
 	int		j;
 
-	j = parser->i;
-	if (s[parser->i] != ' ' && s[parser->i] != '"' && s[parser->i] != 39 && s[parser->i]
-		&& s[parser->i] != '<' && s[parser->i] != '>')
+	j = prs->i;
+	if (s[prs->i] != ' ' && s[prs->i] != '"' && s[prs->i] != 39 && s[prs->i]
+		&& s[prs->i] != '<' && s[prs->i] != '>')
 	{
-		while (s[parser->i] != ' ' && s[parser->i] != '"' && s[parser->i] != 39
-			&& s[parser->i] && s[parser->i] != '<' && s[parser->i] != '>')
-			parser->i++;
-		temp = env_var_checker(temp2 = ft_substr(s, j, parser->i - j), env_list);
+		while (s[prs->i] != ' ' && s[prs->i] != '"' && s[prs->i] != 39
+			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
+			prs->i++;
+		temp = env_var_checker(temp2 = ft_substr(s, j, prs->i - j), env_lst);
 		free(temp2);
-		temp2 = new->args[parser->arg_num];
-		new->args[parser->arg_num] = ft_strjoin(new->args[parser->arg_num], temp);
+		temp2 = new->args[prs->arg_num];
+		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
 	}
-	if (s[parser->i] == '"')
+	if (s[prs->i] == '"')
 	{
-		temp = double_quotes(s, env_list, parser);
-		temp2 = new->args[parser->arg_num];
-		new->args[parser->arg_num] = ft_strjoin(new->args[parser->arg_num], temp);
+		temp = double_quotes(s, env_lst, prs);
+		temp2 = new->args[prs->arg_num];
+		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
 	}
-	if (s[parser->i] == 39)
+	if (s[prs->i] == 39)
 	{
-		temp = single_quotes(s, parser);
-		temp2 = new->args[parser->arg_num];
-		new->args[parser->arg_num] = ft_strjoin(new->args[parser->arg_num], temp);
+		temp = single_quotes(s, prs);
+		temp2 = new->args[prs->arg_num];
+		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
 	}
-	if (!s[parser->i] || s[parser->i] == ' ' || s[parser->i] == '>' || s[parser->i] == '<')
-		parser->arg_num++;
+	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
+		prs->arg_num++;
 }
 
-void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_list, t_parser *parser)
+void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
-	free(new->args[parser->arg_num]);
-	new->args[parser->arg_num] = NULL;
-	while (s[parser->i])
+	free(new->args[prs->arg_num]);
+	new->args[prs->arg_num] = NULL;
+	while (s[prs->i])
 	{
-		while (s[parser->i] == ' ')
-			parser->i++;
-		if (s[parser->i] == '<' || s[parser->i] == '>')
-			new->redirect = redirections(new->redirect, s, env_list, parser);
-		while (s[parser->i] && s[parser->i] != ' ' && s[parser->i] != '>' && s[parser->i] != '<')
-			get_arg(new, s, env_list, parser);
-/* 		if (s[parser->i] == '"')
+		while (s[prs->i] == ' ')
+			prs->i++;
+		if (s[prs->i] == '<' || s[prs->i] == '>')
+			new->redirect = redirections(new->redirect, s, env_lst, prs);
+		while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '>' && s[prs->i] != '<')
+			get_arg(new, s, env_lst, prs);
+/* 		if (s[prs->i] == '"')
 		{
-			new->args[parser->arg_num++] = double_quotes(s, env_list, parser);
+			new->args[prs->arg_num++] = double_quotes(s, env_lst, prs);
 		}
-		if (s[parser->i] == 39)
+		if (s[prs->i] == 39)
 		{
-			new->args[parser->arg_num++] = single_quotes(s, parser);
+			new->args[prs->arg_num++] = single_quotes(s, prs);
 		} */
 	}
 }
 
-t_cmd	*new_node(char *s, t_list *env_list)
+t_cmd	*new_node(char *s, t_list *env_lst)
 {
-	t_parser	parser;
+	t_prs	prs;
 	t_cmd		*new;
 
-	parser.i = 0;
-	parser.arg_num = 0;
+	prs.i = 0;
+	prs.arg_num = 0;
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
 	initialize_node(new, s);
-	simple_cmd_parse(new, s, env_list, &parser);
+	simple_cmd_parse(new, s, env_lst, &prs);
 	new->cmd = new->args[0];
 	return (new);
 }

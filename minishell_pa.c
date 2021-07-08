@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 12:29:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:47:28 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*change_pipe(char *s)
 	return (temp);
 }
 
-t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
+t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 {
 	char	**commands;
 	t_cmd	*temp;
@@ -51,7 +51,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
-		temp = new_node(commands[i], env_list);
+		temp = new_node(commands[i], env_lst);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&head, new);
 		i++;
@@ -74,16 +74,16 @@ int	main(int argc, char **argv, char **env)
 	t_list	*templ;
 	t_cmd	*temp3;
 
-	t_list	*env_list;
+	t_list	*env_lst;
 	t_list	*temp;
 	t_env	*temp2;
 
 	t_list	*tempredir;
 	t_redirect	*tempredir2;
 
-	env_list = NULL;
-	env_list = prep_env_list(env_list, env);
-/* 	temp = env_list;
+	env_lst = NULL;
+	env_lst = prep_env_lst(env_lst, env);
+/* 	temp = env_lst;
 	while (temp != NULL)
 	{
 		temp2 = temp->content;
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline("minishell-1.0$ ");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
-		temp = env_list;
+		temp = env_lst;
 		cmds = split_by_pipes(cmds, input, temp);
 		free(input);
 		i = 0;
@@ -129,6 +129,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		free_cmds(cmds);
 	}
-	free_env_list(env_list);
+	free_env_lst(env_lst);
 	return (0);
 }
