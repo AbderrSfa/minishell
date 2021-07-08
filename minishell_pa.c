@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 14:23:31 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 12:02:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 
 	i = 0;
 	input = change_pipe(input);
+	//There's a mem leak here
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
@@ -67,28 +68,34 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_list)
 
 int	main(int argc, char **argv, char **env)
 {
-	int			i;
-	char		*input;
-	t_list		*cmds;
-	t_list		*templ;
-	t_cmd		*temp3;
+	int		i;
+	char	*input;
+	t_list	*cmds;
+	t_list	*templ;
+	t_cmd	*temp3;
 
-	t_list		*env_list;
-	t_list		*temp;
-	t_env		*temp2;
+	t_list	*env_list;
+	t_list	*temp;
+	t_env	*temp2;
 
-	t_list		*tempredir;
+	t_list	*tempredir;
 	t_redirect	*tempredir2;
 
 	env_list = NULL;
 	env_list = prep_env_list(env_list, env);
+/* 	temp = env_list;
+	while (temp != NULL)
+	{
+		temp2 = temp->content;
+		printf("\033[0;32m%s\033[0;0m --- \033[0;34m%s\033[0;0m\n", temp2->key, temp2->value);
+		temp = temp->next;
+	} */
 	while (1)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
-		//check_for_syntax_errors(input);
 		temp = env_list;
 		cmds = split_by_pipes(cmds, input, temp);
 		free(input);

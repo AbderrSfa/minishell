@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 14:37:42 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/06 11:11:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*variable_expander(char *key, t_list *env_list)
 	{
 		temp = env_list->content;
 		if (!(ft_strncmp(key, temp->key, ft_strlen(temp->key))))
-			expanded = ft_strdup(temp->value);
+			expanded = ft_strdup(temp->value);	
 		env_list = env_list->next;
 	}
 	return (expanded);
@@ -30,11 +30,11 @@ char	*variable_expander(char *key, t_list *env_list)
 
 char	*env_var_checker(char *s, t_list *env_list)
 {
+	int		i;
+	int		j;
 	char	*result;
 	char	*temp;
 	char	*temp2;
-	int		i;
-	int		j;
 
 	result = NULL;
 	temp = NULL;

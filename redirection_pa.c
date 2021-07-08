@@ -6,64 +6,62 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/06 15:18:55 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 11:58:08 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*double_quotes(char *s, int i, int *p, t_list *env_list)
+char	*double_quotes(char *s, t_list *env_list, t_parser *parser)
 {
 	int		j;
 	char	*file;
 	char	*temp;
 
-	j = i;
-	while (s[i] && s[i] != '"')
-		i++;
-	temp = ft_substr(s, j, i - j);
+	parser->i++;
+	j = parser->i;
+	while (s[parser->i] && s[parser->i] != '"')
+		parser->i++;
+	temp = ft_substr(s, j, parser->i - j);
 	file = env_var_checker(temp, env_list);
 	free(temp);
-	i++;
-	*p = i;
+	parser->i++;
 	return (file);
 }
 
-char	*single_quotes(char *s, int i, int *p)
+char	*single_quotes(char *s, t_parser *parser)
 {
 	int		j;
 	char	*file;
 	char	*temp;
 
-	j = i;
-	while (s[i] && s[i] != 39)
-		i++;
-	file = ft_substr(s, j, i - j);
-	i++;
-	*p = i;
+	parser->i++;
+	j = parser->i;
+	while (s[parser->i] && s[parser->i] != 39)
+		parser->i++;
+	file = ft_substr(s, j, parser->i - j);
+	parser->i++;
 	return (file);
 }
 
-int	get_filepath(t_redirect *redirect, char *s, int i, t_list *env_list)
+void	get_filepath(t_redirect *redirect, char *s, t_list *env_list, t_parser * parser)
 {
 	int		j;
-	int		*p;
 	char	*temp;
 	char	*temp2;
 
-	p = &i;
-	while (s[i] == ' ')
-		i++;
-	j = i;
-	while (s[i])
+	while (s[parser->i] == ' ')
+		parser->i++;
+	j = parser->i;
+	while (s[parser->i])
 	{
-		j = i;
-		if (s[i] && s[i] != '"' && s[i] != 39 && s[i] != '>' && s[i] != '<')
+		j = parser->i;
+		if (s[parser->i] && s[parser->i] != '"' && s[parser->i] != 39 && s[parser->i] != '>' && s[parser->i] != '<')
 		{
-			while (s[i] && s[i] != ' ' && s[i] != '<' && s[i] != '>'
-				&& s[i] != '"' && s[i] != 39)
-				i++;
-			temp = ft_substr(s, j, i - j);
+			while (s[parser->i] && s[parser->i] != ' ' && s[parser->i] != '<' && s[parser->i] != '>'
+				&& s[parser->i] != '"' && s[parser->i] != 39)
+				parser->i++;
+			temp = ft_substr(s, j, parser->i - j);
 			temp2 = env_var_checker(temp, env_list);
 			free(temp);
 			temp = redirect->file;
@@ -71,31 +69,30 @@ int	get_filepath(t_redirect *redirect, char *s, int i, t_list *env_list)
 			free(temp2);
 			free(temp);
 		}
-		if (s[i] == '"')
+		if (s[parser->i] == '"')
 		{
-			temp = double_quotes(s, i + 1, p, env_list);
+			temp = double_quotes(s, env_list, parser);
 			temp2 = redirect->file;
 			redirect->file = ft_strjoin(redirect->file, temp);
 			free(temp);
 			free(temp2);
 		}
-		if (s[i] == 39)
+		if (s[parser->i] == 39)
 		{
-			temp = single_quotes(s, i + 1, p);
+			temp = single_quotes(s, parser);
 			temp2 = redirect->file;
 			redirect->file = ft_strjoin(redirect->file, temp);
 			free(temp);
 			free(temp2);
 		}
-		if (!s[i] || s[i] == ' ' || s[i] == '>' || s[i] == '<')
+		if (!s[parser->i] || s[parser->i] == ' ' || s[parser->i] == '>' || s[parser->i] == '<')
 			break ;
 	}
-	while (s[i] == ' ')
-		i++;
-	return (i);
+	while (s[parser->i] == ' ')
+		parser->i++;
 }
 
-t_redirect	*new_redirection_node(char *s, int i, int *p2, t_list *env_list)
+t_redirect	*new_redirection_node(char *s, t_list *env_list, t_parser *parser)
 {
 	t_redirect	*new;
 
@@ -103,41 +100,41 @@ t_redirect	*new_redirection_node(char *s, int i, int *p2, t_list *env_list)
 	if (!new)
 		return (NULL);
 	initialize_redir_node(new);
-	while (s[i] == ' ')
-		i++;
-	if (s[i] == '>' && s[i + 1] != '>')
+	while (s[parser->i] == ' ')
+		parser->i++;
+	if (s[parser->i] == '>' && s[parser->i + 1] != '>')
 		new->type = 'G';
-	else if (s[i] == '<' && s[i + 1] != '<')
+	else if (s[parser->i] == '<' && s[parser->i + 1] != '<')
 		new->type = 'L';
-	else if (s[i] == '>' && s[i + 1] == '>')
+	else if (s[parser->i] == '>' && s[parser->i + 1] == '>')
 		new->type = 'D';
-	else if (s[i] == '<' && s[i + 1] == '<')
+	else if (s[parser->i] == '<' && s[parser->i + 1] == '<')
 		new->type = 'H';
 	if (new->type == 'G' || new->type == 'L')
-		i = get_filepath(new, s, i + 1, env_list);
+	{
+		parser->i++;
+		get_filepath(new, s, env_list, parser);
+	}
 	else
-		i = get_filepath(new, s, i + 2, env_list);
-	*p2 = i;
+	{
+		parser->i += 2;
+		get_filepath(new, s, env_list, parser);
+	}
 	return (new);
 }
 
-t_list	*redirections(t_list *redirect, char *s, int *p, t_list *env_list)
+t_list	*redirections(t_list *redirect, char *s, t_list *env_list, t_parser *parser)
 {
-	int			i;
-	int			*p2;
 	t_list		*new;
 	t_redirect	*temp;
 
-	i = 0;
-	p2 = &i;
-	while (s[i])
+	while (s[parser->i])
 	{
-		if (s[i] && s[i] != '>' && s[i] != '<')
+		if (s[parser->i] && s[parser->i] != '>' && s[parser->i] != '<')
 			break ;
-		temp = new_redirection_node(s, i, p2, env_list);
+		temp = new_redirection_node(s, env_list, parser);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&redirect, new);
 	}
-	*p += i;
 	return (redirect);
 }
