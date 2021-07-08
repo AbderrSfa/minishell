@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 14:23:55 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/30 11:30:44 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 14:10:13 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	if (s == NULL)
 		return (0);
-	while (*s != '\0')
-	{
+	while (s[i])
 		i++;
-		s++;
-	}
 	return (i);
 }

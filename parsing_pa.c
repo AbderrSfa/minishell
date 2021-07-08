@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 12:41:55 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 13:35:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,14 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_list, t_parser *parser)
 			new->redirect = redirections(new->redirect, s, env_list, parser);
 		while (s[parser->i] && s[parser->i] != ' ' && s[parser->i] != '>' && s[parser->i] != '<')
 			get_arg(new, s, env_list, parser);
-		if (s[parser->i] == '"')
+/* 		if (s[parser->i] == '"')
+		{
 			new->args[parser->arg_num++] = double_quotes(s, env_list, parser);
+		}
 		if (s[parser->i] == 39)
+		{
 			new->args[parser->arg_num++] = single_quotes(s, parser);
+		} */
 	}
 }
 
