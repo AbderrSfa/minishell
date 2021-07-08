@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:27:57 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:47:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,62 +44,17 @@ char	*single_quotes(char *s, t_prs *prs)
 	return (file);
 }
 
-void	file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
+char	get_redir_type(char first, char second)
 {
-	char	*temp;
-	char	*temp2;
-
-	if (s[prs->i] == '"')
-	{
-		temp = double_quotes(s, env_lst, prs);
-		temp2 = redir->file;
-		redir->file = ft_strjoin(redir->file, temp);
-		free(temp);
-		free(temp2);
-	}
-	if (s[prs->i] == 39)
-	{
-		temp = single_quotes(s, prs);
-		temp2 = redir->file;
-		redir->file = ft_strjoin(redir->file, temp);
-		free(temp);
-		free(temp2);
-	}
-}
-
-void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
-{
-	int		j;
-	char	*temp;
-	char	*temp2;
-
-	while (s[prs->i] == ' ')
-		prs->i++;
-	j = prs->i;
-	while (s[prs->i])
-	{
-		j = prs->i;
-		if (s[prs->i] && s[prs->i] != '"' && s[prs->i] != 39
-			&& s[prs->i] != '>' && s[prs->i] != '<')
-		{
-			while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<'
-				&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != 39)
-				prs->i++;
-			temp = ft_substr(s, j, prs->i - j);
-			temp2 = env_var_checker(temp, env_lst);
-			free(temp);
-			temp = redir->file;
-			redir->file = ft_strjoin(redir->file, temp2);
-			free(temp2);
-			free(temp);
-		}
-		file_dbl_sgl_quote(redir, s, env_lst, prs);
-		if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>'
-			|| s[prs->i] == '<')
-			break ;
-	}
-	while (s[prs->i] == ' ')
-		prs->i++;
+	if (first == '>' && second != '>')
+		return ('G');
+	else if (first == '<' && second != '<')
+		return ('L');
+	else if (first == '>' && second == '>')
+		return ('D');
+	else if (first == '<' && second == '<')
+		return ('H');
+	return (0);
 }
 
 t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
@@ -112,14 +67,7 @@ t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
 	initialize_redir_node(new);
 	while (s[prs->i] == ' ')
 		prs->i++;
-	if (s[prs->i] == '>' && s[prs->i + 1] != '>')
-		new->type = 'G';
-	else if (s[prs->i] == '<' && s[prs->i + 1] != '<')
-		new->type = 'L';
-	else if (s[prs->i] == '>' && s[prs->i + 1] == '>')
-		new->type = 'D';
-	else if (s[prs->i] == '<' && s[prs->i + 1] == '<')
-		new->type = 'H';
+	new->type = get_redir_type(s[prs->i], s[prs->i + 1]);
 	if (new->type == 'G' || new->type == 'L')
 	{
 		prs->i++;

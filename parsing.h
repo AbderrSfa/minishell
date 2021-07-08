@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:27:41 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/08 16:32:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ struct						s_cmd
 	t_list					*redir;
 };
 
-typedef struct s_redir	t_redir;
+typedef struct s_redir		t_redir;
 struct						s_redir
 {
 	char					type;
@@ -79,6 +79,7 @@ t_redir		*new_redirection_node(char *s, t_list *env_lst, t_prs *prs);
 void		get_file(t_redir *redir, char *s, t_list *env_lst, t_prs *prs);
 void		simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
 t_list		*redirections(t_list *redir, char *s, t_list *env_lst, t_prs *prs);
-void		file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs);
+void		file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst,
+				t_prs *prs);
 
 #endif
