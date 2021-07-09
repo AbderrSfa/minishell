@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/09 14:16:29 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/09 14:48:02 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ struct						s_redir
 	char					type;
 	char					*file;
 };
-
 
 
 char		*get_key(char *s);
