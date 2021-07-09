@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 17:01:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/09 14:16:29 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include "libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define GREEN	"\033[1;32m"
+# define RED	"\033[0;31m"
+# define WHITE	"\033[0m"
+# define BLUE "\033[0;34m"
 
 typedef struct s_var		t_var;
 struct						s_var
@@ -57,11 +62,15 @@ struct						s_redir
 	char					*file;
 };
 
+
+
 char		*get_key(char *s);
 int			get_size(char *s);
 char		*get_value(char *s);
 char		*change_pipe(char *s);
 void		free_cmds(t_list *cmd);
+int			ft_put_error(char *error);
+int			check_syntax_errors(char *s);
 void		free_redirect(t_list *redir);
 void		free_env_lst(t_list *env_lst);
 void		initialize_env_node(t_env *new);

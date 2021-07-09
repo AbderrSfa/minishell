@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:53:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/09 14:06:43 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	main(int argc, char **argv, char **env)
 		if (ft_strncmp(input, "", ft_strlen(input)))
 			add_history(input);
 		temp = env_lst;
-		cmds = split_by_pipes(cmds, input, temp);
+		if (!check_syntax_errors(input))
+			cmds = split_by_pipes(cmds, input, temp);
 		free(input);
 		i = 0;
 		int		j;
