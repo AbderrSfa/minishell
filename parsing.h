@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/09 14:48:02 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/09 15:56:03 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,20 @@ struct						s_redir
 	char					*file;
 };
 
-
 char		*get_key(char *s);
 int			get_size(char *s);
 char		*get_value(char *s);
 char		*change_pipe(char *s);
 void		free_cmds(t_list *cmd);
 int			ft_put_error(char *error);
+int			check_quote_errors(char *s);
+int			check_syntax_errors(char *s);
 int			check_syntax_errors(char *s);
 void		free_redirect(t_list *redir);
+int			check_redir_errors(char *str);
+int			skip_quotes(char *str, int i);
 void		free_env_lst(t_list *env_lst);
+int			pipe_and_semi_errors(char *str);
 void		initialize_env_node(t_env *new);
 int			check_for_quote(char c, int quote);
 void		allocate_args(char *s, t_cmd *cmd);
@@ -85,6 +89,7 @@ t_env		*make_env_node(char *key, char *value);
 char		get_redir_type(char first, char second);
 char		*env_var_checker(char *s, t_list *env_lst);
 t_list		*prep_env_lst(t_list *env_lst, char **env);
+int			redirection_syntax_errors(char *str, int i);
 char		*variable_expander(char *key, t_list *env_lst);
 void		get_variable(char *s, t_list *env_lst, t_var *var);
 char		*double_quotes(char *s, t_list *env_lst, t_prs *prs);
