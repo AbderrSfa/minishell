@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/09 14:51:12 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/09 15:31:06 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_put_error(char *error)
 {
 	ft_putstr(error);
-	ft_putstr("\n");
+	ft_putchar('\n');
 	return (1);
 }
 
@@ -51,8 +51,42 @@ int		skip_quotes(char *str, int i)
 {
 	if (str[i] == '"')
 	{
-		while (str[i] && str[i] != )
+		while (str[i] && str[i] != '"')
+			i++;
 	}
+	if (str[i] == '\'')
+	{
+		while (str[i] && str[i] != '\'')
+			i++;
+	}
+	return (i + 1);
+}
+
+int		redirection_syntax_errors(char *str, int i)
+{
+	if ((str[i] == '>' && str[i + 1] == '>') || (str[i] == '<' && str[i + 1] == '<'))
+		i += 2;
+	else
+		i++;
+	while (str[i] == ' ')
+		i++;
+	if (!str[i] || str[i] == '|' || str[i] == '>' || str[i] == '<')
+	{
+		if (!str[i])
+		{
+			ft_putstr("minishell: syntax error near unexpected token `newline'");
+			ft_putchar('\n');
+		}
+		else
+		{
+			ft_putstr("minishell: syntax error near unexpected token `");
+			ft_putchar(str[i]);
+			ft_putchar('\'');	
+			ft_putchar('\n');
+		}
+		return (-100);
+	}
+	return (i);
 }
 
 int		check_redir_errors(char *str)
@@ -64,27 +98,16 @@ int		check_redir_errors(char *str)
 	{
 		if (str[i] == '"' || str[i] == '\'')
 			i = skip_quotes(str, i);
-	}
-}
-
-int		check_for_trailing_pipe(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != '|')
-		i++;
-	if (str[i] == '|')
-	{
-		i++;
 		while (str[i] == ' ')
 			i++;
-		if (!str[i])
-			return (1);	
+		if (str[i] == '>' || str[i] == '<')
+			i = redirection_syntax_errors(str, i);
+		if (i == -100)
+			return (1);
+		i++;
 	}
 	return (0);
 }
-
 
 int		check_syntax_errors(char *s)
 {
@@ -107,9 +130,11 @@ int		check_syntax_errors(char *s)
 		else
 			return (ft_put_error("minishell: syntax error near unexpected token `;'"));
 	}
-	if (check_for_trailing_pipe(str))
+	if ((ret = check_quote_errors(str)))
+		return (ret);
+	if ((ret = check_redir_errors(str)))
+		return (ret);
+	if (str[ft_strlen(str) - 1] == '|')
 		return (ft_put_error("minishell: syntax error near unexpected token `newline'"));
-	ret = check_quote_errors(str);
-	//ret = check_redir_errors(str);
 	return (ret);
 }
