@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/13 15:10:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/13 15:12:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int	main(int argc, char **argv, char **env)
 	t_list	*tempredir;
 	t_redir	*tempredir2;
 
-	//signal(SIGQUIT, signal_handler);
-	signal(SIGINT, sigint_handler);
 	env_lst = NULL;
 	env_lst = prep_env_lst(env_lst, env);
 	while (1)
