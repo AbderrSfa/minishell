@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/09 15:57:32 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/22 13:36:03 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_put_error(char *error)
 {
-	ft_putstr(error);
-	ft_putchar('\n');
+	ft_putendl_fd(error, 1);
 	return (1);
 }
 
@@ -47,6 +46,32 @@ int	check_quote_errors(char *s)
 	return (0);
 }
 
+int	check_pipe_errors(char *s)
+{
+	int		i;
+	int		quote;
+	int		pipe;
+
+	i = 0;
+	quote = 0;
+	pipe = 0;
+	while (s[i])
+	{
+		if (s[i] == '"' || s[i] == '\'')
+			check_for_quote(s[i++], quote);
+		if (s[i] == '|' && !quote)
+		{
+			i++;
+			while (s[i] == ' ')
+				i++;
+			if (s[i] == '|')
+				return (ft_put_error("minishell: syntax error near unexpected token `|'"));
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	pipe_and_semi_errors(char *str)
 {
 	if (str[0] == '|')
@@ -67,6 +92,8 @@ int	pipe_and_semi_errors(char *str)
 			return (ft_put_error
 				("minishell: syntax error near unexpected token `;'"));
 	}
+	if (check_pipe_errors(str))
+		return (1);
 	return (0);
 }
 
