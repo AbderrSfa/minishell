@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:53:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/09 15:57:57 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:35:17 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,12 @@ int	redirection_syntax_errors(char *str, int i)
 	if (!str[i] || str[i] == '|' || str[i] == '>' || str[i] == '<')
 	{
 		if (!str[i])
-		{
-			ft_putstr
-			("minishell: syntax error near unexpected token `newline'");
-			ft_putchar('\n');
-		}
+			ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 1);
 		else
 		{
 			ft_putstr("minishell: syntax error near unexpected token `");
 			ft_putchar(str[i]);
-			ft_putchar('\'');
-			ft_putchar('\n');
+			ft_putendl_fd("'", 1);
 		}
 		return (-100);
 	}

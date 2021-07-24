@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/19 13:23:16 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:23:27 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,4 @@ int	main(int argc, char **argv, char **env)
 	}
 	free_env_lst(envp);
 	return (0);
-} 
+}
