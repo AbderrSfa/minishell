@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 17:04:48 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:08:09 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:22:13 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void	allocate_args(char *s, t_cmd *cmd)
 	ret = get_size(s);
 	cmd->args = malloc(sizeof(char *) * (ret + 1));
 	while (i < ret)
-		cmd->args[i++] = malloc(sizeof(char) * ft_strlen(s));
+		cmd->args[i++] = malloc(sizeof(char));
 	cmd->args[i] = NULL;
 }
