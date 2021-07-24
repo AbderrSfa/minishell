@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/19 13:23:04 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:09:17 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 			free(commands[i++]);
 		free(commands);
 	}
+	free(input);
 	return (head);
 }
 

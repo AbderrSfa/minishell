@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/22 13:36:03 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/24 11:53:31 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ int	check_syntax_errors(char *s)
 		return (ft_put_error
 			("minishell: syntax error near unexpected token `newline'"));
 	}
+	free(str);
 	return (0);
 }
