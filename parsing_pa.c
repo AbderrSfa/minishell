@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/24 12:22:21 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/26 11:51:54 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,17 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	get_dbl_and_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
 		prs->arg_num++;
+/* 	if (!ft_strncmp(new->args[prs->arg_num - 1], "", ft_strlen(new->args[prs->arg_num - 1])))
+	{
+		new->args[prs->arg_num] = NULL;
+		prs->arg_num--;
+	} */
 }
 
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
-	free(new->args[prs->arg_num]);
-	new->args[prs->arg_num] = NULL;
+	//free(new->args[prs->arg_num]);
+	//new->args[prs->arg_num] = NULL;
 	while (s[prs->i])
 	{
 		while (s[prs->i] == ' ')
