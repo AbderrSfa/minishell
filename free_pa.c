@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:02 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:23:56 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:52:14 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	free_redirect(t_list *redir)
 void	free_cmds(t_list *cmd)
 {
 	t_cmd		*temp;
-	t_list		*redir;
 	int			i;
 
 	i = 0;

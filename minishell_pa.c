@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/27 14:44:24 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:51:28 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,16 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 	return (head);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(void)
 {
+	extern char **environ;
 	char	*input;
 	t_list	*cmds;
 	t_list	*envp;
 	t_list	*temp;
 
 	envp = NULL;
-	envp = prep_env_lst(envp, env);
+	envp = prep_env_lst(envp, environ);
 	while (1)
 	{
 		cmds = NULL;

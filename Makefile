@@ -12,7 +12,7 @@ INCLUDES = -lreadline
 
 HEADERS = parsing.h exec.h libft/libft.h
 
-####FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 OBJECT = $(SRC:.c=.o)
 

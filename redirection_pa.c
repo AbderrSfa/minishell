@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:47:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:52:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*single_quotes(char *s, t_prs *prs)
 {
 	int		j;
 	char	*file;
-	char	*temp;
 
 	prs->i++;
 	j = prs->i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_ex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/14 15:18:24 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/07/27 14:53:01 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void my_redirect(t_list *redir)
 }
 void    exec_cmd(t_list *cmds, int *pfds, int i)
 {
-    int j;
     int nbr_pipes;
 	t_cmd *cmd;
 
