@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 16:55:35 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/06/28 16:43:58 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:38:00 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char				*ft_strdup(const char *s1);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
+int					ft_strcmp(char *s1, char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *hay, const char *ndl, size_t len);
 char				*ft_strrchr(const char *s, int c);

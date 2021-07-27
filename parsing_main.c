@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/27 12:49:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:44:20 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
-		if (ft_strncmp(input, "", ft_strlen(input)))
+		if (ft_strcmp(input, ""))
 			add_history(input);
 		temp = env_lst;
 		if (!check_syntax_errors(input))
