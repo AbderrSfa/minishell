@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/26 11:54:34 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:49:59 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,3 +125,31 @@ int	main(int argc, char **argv, char **env)
 	free_env_lst(env_lst);
 	return (0);
 }
+
+/* int	main(int argc, char **argv, char **env)
+{
+	char	*input;
+	t_list	*cmds;
+	t_list	*envp;
+	t_list	*temp;
+
+	envp = NULL;
+	envp = prep_env_lst(envp, env);
+	while (1)
+	{
+		cmds = NULL;
+		input = readline("minishell-1.0$ ");
+		if (ft_strncmp(input, "", ft_strlen(input)))
+			add_history(input);
+		temp = envp;
+		if (!check_syntax_errors(input))
+		{
+			cmds = split_by_pipes(cmds, input, temp);
+			my_exec(cmds, envp);
+		}
+		free(input);
+		free_cmds(cmds);
+	}
+	free_env_lst(envp);
+	return (0);
+} */
