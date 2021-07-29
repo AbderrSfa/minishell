@@ -21,7 +21,7 @@ all: $(NAME)
 $(NAME): $(OBJECT) $(HEADERS)
 	make bonus -sC libft/
 	ar rcs $(LIBNAME) $(OBJECT)
-	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o $(NAME) -g
+	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME) -g
 
 %.o:%.c
 	gcc -c $<
