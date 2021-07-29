@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/27 14:51:28 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/29 11:14:46 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(void)
 	t_list	*cmds;
 	t_list	*envp;
 	t_list	*temp;
+	t_cmd *cmd;
 
 	envp = NULL;
 	envp = prep_env_lst(envp, environ);
@@ -86,7 +87,10 @@ int	main(void)
 		if (!check_syntax_errors(input))
 		{
 			cmds = split_by_pipes(cmds, input, temp);
-			my_exec(cmds, envp);
+			cmd = cmds->content;
+			printf("--%s--\n",cmd->args[0]);
+			printf("--%s--\n",cmd->args[1]);
+			//	my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);
