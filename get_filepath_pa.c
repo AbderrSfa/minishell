@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_filepath.c                                     :+:      :+:    :+:   */
+/*   get_filepath_pa.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:47:43 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/07/29 15:52:28 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,45 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		redir->file = ft_strjoin(redir->file, temp2);
 		free(temp2);
 		free(temp);
-	}	
+	}
+}
+
+int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
+{
+	char	*temp;
+	char	*expanded;
+	int		i;
+
+	temp  = NULL;
+	expanded = NULL;
+	i = prs->i + 1;
+	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i] != '$')
+		i++;
+	temp = ft_substr(s, prs->i + 1, i - prs->i - 1);
+	if (ft_strchr(temp, '"') || ft_strchr(temp, '\''))
+	{
+		free(temp);
+		return (0);
+	}
+	expanded = variable_expander(temp, env_lst);
+	free(temp);
+	if (!expanded)
+	{
+		ft_putstr("minishell-1.0$ $");
+		ft_putstr(temp);
+		ft_put_error(": ambiguous redirect");
+		return (-1);
+	}
+	free(expanded);
+	return (0);
 }
 
 void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	while (s[prs->i] == ' ')
 		prs->i++;
+	if (s[prs->i] == '$')
+		check_ambigous_redirect(s, env_lst, prs);
 	while (s[prs->i])
 	{
 		join_filepath(redir, s, env_lst, prs);

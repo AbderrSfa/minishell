@@ -1,8 +1,3 @@
-Elements allocated and need to be freed:
-- input
-- commands
-- t_cmd node
-	- cmd->args
-	- cmd->env_variable
-
-//////There's a mem leak in split_pipe/change_pipe function
+Ambigous redirect if:
+	- filepath starts with $
+	- has no double or single quotes
