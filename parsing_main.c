@@ -121,7 +121,7 @@ int	main(void)
 			}
 			templ = templ->next;
 		}
-		//free_cmds(cmds);
+		free_cmds(cmds);
 	}
 	free_env_lst(env_lst);
 	return (0);

@@ -29,12 +29,14 @@ void	free_redirect(t_list *redir)
 
 void	free_cmds(t_list *cmd)
 {
+	t_list		*list_temp;
 	t_cmd		*temp;
 	int			i;
 
 	i = 0;
 	while (cmd != NULL)
 	{
+		list_temp = cmd;
 		temp = cmd->content;
 		if (temp->args)
 		{
@@ -46,8 +48,8 @@ void	free_cmds(t_list *cmd)
 		if (temp->redir)
 			free_redirect(temp->redir);
 		free(temp);
-		free(cmd);
 		cmd = cmd->next;
+		free(list_temp);
 	}
 }
 
