@@ -64,8 +64,6 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
-/* 	free(new->args[prs->arg_num]);
-	new->args[prs->arg_num] = NULL; */
 	while (s[prs->i])
 	{
 		while (s[prs->i] == ' ')
