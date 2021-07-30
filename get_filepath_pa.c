@@ -60,30 +60,48 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 
 int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 {
+	char	*var;
 	char	*temp;
 	char	*expanded;
+	char	*joined;
 	int		i;
+	int		j;
 
+	var = NULL;
 	temp  = NULL;
 	expanded = NULL;
-	i = prs->i + 1;
-	while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i] != '$')
-		i++;
-	temp = ft_substr(s, prs->i + 1, i - prs->i - 1);
-	if (ft_strchr(temp, '"') || ft_strchr(temp, '\''))
+	joined = NULL;
+	i = prs->i;
+	while (!expanded && s[i] == '$')
 	{
+		i++;
+		j = i;
+		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i] != '$')
+			i++;
+		var = ft_substr(s, j, i - j);
+		if (ft_strchr(var, '"') || ft_strchr(var, '\''))
+		{
+			free(var);
+			free(joined);
+			return (0);
+		}
+		temp = joined;
+		joined = ft_strjoin(joined, "$");
 		free(temp);
-		return (0);
+		joined = ft_strjoin(joined, var);
+		expanded = variable_expander(var, env_lst);
+		free(var);
 	}
-	expanded = variable_expander(temp, env_lst);
-	free(temp);
 	if (!expanded)
 	{
-		ft_putstr("minishell-1.0$ $");
-		ft_putstr(temp);
+		ft_putstr("minishell-1.0$ ");
+		ft_putstr(joined);
 		ft_put_error(": ambiguous redirect");
+		free(joined);
+		prs->i = i;
 		return (-1);
 	}
+	free(joined);
 	free(expanded);
 	return (0);
 }

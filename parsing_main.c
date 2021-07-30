@@ -121,7 +121,7 @@ int	main(void)
 			}
 			templ = templ->next;
 		}
-		free_cmds(cmds);
+		//free_cmds(cmds);
 	}
 	free_env_lst(env_lst);
 	return (0);
@@ -146,7 +146,7 @@ int	main(void)
 		if (!check_syntax_errors(input))
 		{
 			cmds = split_by_pipes(cmds, input, temp);
-			my_exec(cmds, envp);
+			//my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);
