@@ -89,7 +89,7 @@ int	main(void)
 			my_exec(cmds, envp);
 		}
 		free(input);
-		free_cmds(cmds);
+		//free_cmds(cmds);
 	}
 	free_env_lst(envp);
 	return (0);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parsing.h"
 
 int ft_valid_env_name(char *value)
 {
@@ -56,5 +57,37 @@ int ft_unset(t_list *envp, char *value)
 			pre = pre->next;
 		envp = pre->next;
 	}
+	return (0);
+}
+
+int ft_export(t_list *envp, char *arg)
+{
+	int i;
+	char *key;
+	char *value;
+	t_env *env;
+
+	key = get_key(arg);
+	value = get_value(arg);
+	while (envp->next != NULL)
+	{
+		env = envp->content;
+		if (strncmp(env->key, key, ft_strlen(key) + 1) == 0)
+		{
+			if (value != NULL)
+			{
+				free(env->value);
+				env->value = value;
+			}
+			return (0);
+		}	
+		envp = envp->next;
+	}
+	env = make_env_node(key, value);
+	envp->next = ft_lstnew(env);
+	envp = envp->next;
+	env = envp->content;
+//	free(key);
+//	free(value);
 	return (0);
 }

@@ -39,6 +39,7 @@ int	exec_cd(t_cmd *cmd, t_list *envp)
 
 int is_builtin(t_cmd *cmd, t_list *envp)
 {
+	int i;
 	t_env *env;
 	if (ft_strncmp(cmd->cmd,"cd",3) == 0)
 	{
@@ -69,7 +70,22 @@ int is_builtin(t_cmd *cmd, t_list *envp)
 	}
 	else if (ft_strncmp(cmd->cmd,"unset",6) == 0)
 	{
-		ft_unset(envp, cmd->args[1]);
+		i = 1;
+		while(cmd->args[i] != NULL)
+		{
+			ft_unset(envp, cmd->args[i]);
+			i++;
+		}
+		return(1);
+	}
+	else if (ft_strncmp(cmd->cmd,"export",7) == 0)
+	{
+		i = 1;
+		while(cmd->args[i] != NULL)
+		{
+			ft_export(envp, cmd->args[i]);
+			i++;
+		}
 		return(1);
 	}
 	return (0);
