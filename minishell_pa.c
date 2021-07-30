@@ -73,7 +73,6 @@ int	main(void)
 	t_list	*cmds;
 	t_list	*envp;
 	t_list	*temp;
-	t_cmd *cmd;
 
 	envp = NULL;
 	envp = prep_env_lst(envp, environ);
@@ -87,10 +86,7 @@ int	main(void)
 		if (!check_syntax_errors(input))
 		{
 			cmds = split_by_pipes(cmds, input, temp);
-			cmd = cmds->content;
-			printf("--%s--\n",cmd->args[0]);
-			printf("--%s--\n",cmd->args[1]);
-			//	my_exec(cmds, envp);
+			my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);
