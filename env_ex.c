@@ -20,11 +20,11 @@ void ft_env(t_list *envp)
 	while (envp)
 	{
 		env = envp->content;
-	//	if(env->value != NULL)
-	//	{
+		if(env->value != NULL)
+		{
 			printf("%s=",env->key);
 			printf("%s\n",env->value);
-	//	}
+		}
 		envp = envp->next;
 	}
 }
