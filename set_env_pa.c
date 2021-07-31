@@ -59,11 +59,10 @@ t_list	*prep_env_lst(t_list *env_lst, char **env)
 	char	*value;
 	int		i;
 
-	i = 0;
 	temp = make_env_node("MINISHELL_VERSION", "1.0");
 	new = ft_lstnew(temp);
 	ft_lstadd_back(&env_lst, new);
-
+	i = 0;
 	while (env[i])
 	{
 		key = get_key(env[i]);

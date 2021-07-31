@@ -43,9 +43,9 @@ int	get_size(char *s)
 	int		quote;
 	int		ret;
 
-	i = 0;
 	ret = 0;
 	quote = 0;
+	i = 0;
 	while (s[i])
 	{
 		i = skip_space_and_redir(s, i);
@@ -67,10 +67,10 @@ void	allocate_args(char *s, t_cmd *cmd)
 	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
 	ret = get_size(s);
 	cmd->args = malloc(sizeof(char *) * (ret + 1));
+	i = 0;
 	while (i <= ret)
 		cmd->args[i++] = NULL;
 }

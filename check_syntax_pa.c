@@ -52,9 +52,9 @@ int	check_pipe_errors(char *s)
 	int		quote;
 	int		pipe;
 
-	i = 0;
 	quote = 0;
 	pipe = 0;
+	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')

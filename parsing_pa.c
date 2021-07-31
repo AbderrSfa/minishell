@@ -84,7 +84,6 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	t_cmd	*new;
 	int		i;
 
-	i = 0;
 	prs.i = 0;
 	prs.arg_num = 0;
 	prs.ambigous = 0;
@@ -94,6 +93,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	initialize_node(new, s);
 	simple_cmd_parse(new, s, env_lst, &prs);
 	new->cmd = new->args[0];
+	i = 0;
 	while (new->args[i])
 	{
 		if (!ft_strcmp(new->args[i], ""))
@@ -104,6 +104,14 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 		i++;
 	}
 	if (prs.ambigous == 1)
+	{
 		new->cmd = NULL;
+/* 		i = 0;
+		while (new->args[i])
+		{
+			free(new->args[i]);
+			new->args[i++] = NULL;
+		} */
+	}
 	return (new);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_pa.c                                     :+:      :+:    :+:   */
+/*   minishell.c    	                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,10 +20,10 @@ char	*change_pipe(char *s)
 	char	*temp;
 
 	quote = 0;
-	i = 0;
 	temp = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (temp == NULL)
 		return (NULL);
+	i = 0;
 	while (s[i])
 	{
 		if ((s[i] == '"' || s[i] == 39) && quote == 0)
@@ -89,7 +89,7 @@ int	main(void)
 			my_exec(cmds, envp);
 		}
 		free(input);
-		//free_cmds(cmds);
+		free_cmds(cmds);
 	}
 	free_env_lst(envp);
 	return (0);
