@@ -24,6 +24,8 @@ void	file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		redir->file = ft_strjoin(redir->file, temp);
 		free(temp);
 		free(temp2);
+		if (redir->file == NULL)
+			redir->file = ft_strdup("");
 	}
 	if (s[prs->i] == 39)
 	{
