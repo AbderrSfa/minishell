@@ -38,6 +38,7 @@ struct						s_prs
 {
 	int						arg_num;
 	int						i;
+	int						ambigous;
 };
 
 typedef struct s_env		t_env;

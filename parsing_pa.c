@@ -57,9 +57,11 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 	get_dbl_and_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
+	{
 		prs->arg_num++;
-	if (!ft_strcmp(new->args[prs->arg_num - 1], ""))
-		prs->arg_num--;
+		if (!ft_strcmp(new->args[prs->arg_num - 1], ""))
+			prs->arg_num--;
+	}
 }
 
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
@@ -85,6 +87,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	i = 0;
 	prs.i = 0;
 	prs.arg_num = 0;
+	prs.ambigous = 0;
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -100,5 +103,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 		}
 		i++;
 	}
+	if (prs.ambigous == 1)
+		new->cmd = NULL;
 	return (new);
 }

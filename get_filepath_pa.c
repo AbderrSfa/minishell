@@ -111,7 +111,8 @@ void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	while (s[prs->i] == ' ')
 		prs->i++;
 	if (s[prs->i] == '$')
-		check_ambigous_redirect(s, env_lst, prs);
+		if (check_ambigous_redirect(s, env_lst, prs) == -1)
+			prs->ambigous = 1;
 	while (s[prs->i])
 	{
 		join_filepath(redir, s, env_lst, prs);
