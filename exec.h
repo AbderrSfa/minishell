@@ -38,13 +38,16 @@ char    **get_paths();
 char    *get_envp(t_list *envp, char *key);
 char    *get_cmd_path(char *cmd, char **paths);
 
+void my_redirect(t_list *redir);
+
 void	pwd();
-int ft_export(t_list *envp, char *arg);
+int		ft_export(t_list *envp, char *arg);
 int		ft_unset(t_list *envp, char *value);
 void	ft_env(t_list *envp);
 int		echo(char **argv, char option);
 void	ft_exit(int status);
-int		is_builtin(t_cmd *cmd, t_list *envp);
+int		is_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd, t_list *envp);
 int		cd(char **pwd, char **oldpwd, char *dir, char *home);
 
 #endif

@@ -62,32 +62,32 @@ int ft_unset(t_list *envp, char *value)
 
 int ft_export(t_list *envp, char *arg)
 {
-	int i;
-	char *key;
-	char *value;
-	t_env *env;
+	int		i;
+	char	*key;
+	char	*val;
+	t_env	*env;
+	t_list	*tmp;
 
 	key = get_key(arg);
-	value = get_value(arg);
-	while (envp->next != NULL)
+	val = get_value(arg);
+	while (envp != NULL)
 	{
 		env = envp->content;
 		if (strncmp(env->key, key, ft_strlen(key) + 1) == 0)
 		{
-			if (value != NULL)
+			if (val != NULL)
 			{
 				free(env->value);
-				env->value = value;
+				env->value = val;
 			}
 			return (0);
-		}	
+		}
+		tmp	= envp;
 		envp = envp->next;
 	}
-	env = make_env_node(key, value);
-	envp->next = ft_lstnew(env);
-	envp = envp->next;
-	env = envp->content;
-//	free(key);
-//	free(value);
+	env = make_env_node(key, val);
+	tmp->next = ft_lstnew(env);
+	free(key);
+	free(val);
 	return (0);
 }

@@ -85,13 +85,14 @@ void    exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
     if (i != 0 )
         ft_dup2(pfds[i - 2], 0);
 	cmd = cmds->content;
+	if(cmd->cmd == NULL)
+		exit(127);
 	my_redirect(cmd->redir);
     close_pfds(pfds, nbr_pipes);
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
-	if (is_builtin(cmd, envp))
+	if (exec_builtin(cmd, envp))
 		exit(0);
     execve(cmd_path, cmd->args, g_env);
-   // perror("execve: ");
     exit(127);
 }
 
@@ -112,6 +113,19 @@ int    create_childs(t_list *cmds, int *pfds, t_list *envp)
 	return (pid);//
 }
 
+void exec_builtin_parent(t_cmd *cmd, t_list *envp)
+{
+	int input;
+	int output;
+
+	input = dup(0);
+	output = dup(1);
+	my_redirect(cmd->redir);
+	exec_builtin(cmd, envp);
+	ft_dup2(input, 1);
+	ft_dup2(output,0);
+}
+
 int my_exec(t_list *cmds, t_list *envp)
 {
 	int		nbr_cmds;
@@ -121,20 +135,25 @@ int my_exec(t_list *cmds, t_list *envp)
 	int		status;
 
 	nbr_cmds = ft_lstsize(cmds);
-	if (nbr_cmds < 2 && is_builtin(cmds->content, envp))
-		return(0);
-	if (nbr_cmds > 1)//
-		pfds = create_pipes(nbr_cmds - 1);
-	pid = create_childs(cmds, pfds, envp);
-	if (nbr_cmds > 1)//
-		close_pfds(pfds, nbr_cmds - 1);
-	waitpid(pid,&status,0);//
-	if ( WIFEXITED(status) )
-    {
-        g_exit_status = WEXITSTATUS(status);        
-        printf("Exit status of the child was %d\n", 
-                                     g_exit_status);
-    }
-	wait_cmds(nbr_cmds);
-	return(0);
+	if (nbr_cmds == 1 && is_builtin(cmds->content))
+	{
+		exec_builtin_parent(cmds->content, envp);
+		return (0);
+	}
+	else if (nbr_cmds > 0)
+	{
+		if (nbr_cmds > 1)//
+			pfds = create_pipes(nbr_cmds - 1);
+		pid = create_childs(cmds, pfds, envp);
+		if (nbr_cmds > 1)//
+			close_pfds(pfds, nbr_cmds - 1);
+		waitpid(pid,&status,0);//
+		if ( WIFEXITED(status) )
+		{
+        	g_exit_status = WEXITSTATUS(status);        
+        	printf("Exit status of the child was %d\n", g_exit_status);
+    	}
+		wait_cmds(nbr_cmds);
+	}	
+	return (0);
 }

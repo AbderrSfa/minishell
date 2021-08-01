@@ -37,10 +37,24 @@ int	exec_cd(t_cmd *cmd, t_list *envp)
 	return (1);
 }
 
-int is_builtin(t_cmd *cmd, t_list *envp)
+int is_builtin(t_cmd *cmd)
+{
+	if ( ft_strncmp(cmd->cmd,"cd",3) == 0
+		|| ft_strncmp(cmd->cmd,"env",4) == 0
+		|| ft_strncmp(cmd->cmd,"pwd",4) == 0
+		|| ft_strncmp(cmd->cmd,"echo",5) == 0
+		|| ft_strncmp(cmd->cmd,"exit",5) == 0
+		|| ft_strncmp(cmd->cmd,"unset",6) == 0
+		|| ft_strncmp(cmd->cmd,"export",7) == 0)
+		return(1);
+	return (0);
+}
+
+int exec_builtin(t_cmd *cmd, t_list *envp)
 {
 	int i;
 	t_env *env;
+
 	if (ft_strncmp(cmd->cmd,"cd",3) == 0)
 	{
 		exec_cd(cmd, envp);
@@ -81,6 +95,11 @@ int is_builtin(t_cmd *cmd, t_list *envp)
 	else if (ft_strncmp(cmd->cmd,"export",7) == 0)
 	{
 		i = 1;
+		if(cmd->args[1] == NULL)
+		{
+			
+		}
+		return (1);
 		while(cmd->args[i] != NULL)
 		{
 			ft_export(envp, cmd->args[i]);
@@ -90,3 +109,4 @@ int is_builtin(t_cmd *cmd, t_list *envp)
 	}
 	return (0);
 }
+
