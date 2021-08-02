@@ -66,7 +66,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 	return (head);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	extern char **environ;
 	int		i;
@@ -125,9 +125,9 @@ int	main(void)
 	}
 	free_env_lst(env_lst);
 	return (0);
-}
+} */
 
-/* int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_list	*cmds;
@@ -153,4 +153,4 @@ int	main(void)
 	}
 	free_env_lst(envp);
 	return (0);
-} */
+}

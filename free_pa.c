@@ -14,16 +14,18 @@
 
 void	free_redirect(t_list *redir)
 {
+	t_list	*redir_temp;
 	t_redir	*temp;
 
 	while (redir != NULL)
 	{
+		redir_temp = redir;
 		temp = redir->content;
 		if (temp->file)
 			free(temp->file);
 		free(temp);
-		free(redir);
 		redir = redir->next;
+		free(redir_temp);
 	}
 }
 
