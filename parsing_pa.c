@@ -48,14 +48,16 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		while (s[prs->i] != ' ' && s[prs->i] != '"' && s[prs->i] != 39
 			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
 			prs->i++;
-		temp = env_var_checker(temp2 = ft_substr(s, j, prs->i - j), env_lst);
+		temp2 = ft_substr(s, j, prs->i - j);
+		temp = env_var_checker(temp2, env_lst);
 		free(temp2);
 		temp2 = new->args[prs->arg_num];
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
 	}
-	get_dbl_and_sgl_quotes(new, s, env_lst, prs);
+	if (s[prs->i] == '"' || s[prs->i] == '\'')
+		get_dbl_and_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
 	{
 		prs->arg_num++;

@@ -63,7 +63,8 @@ char	*env_var_checker(char *s, t_list *env_lst)
 		while (s[var.i] && s[var.i] != '$')
 			var.i++;
 		temp2 = var.result;
-		var.result = ft_strjoin(var.result, temp = ft_substr(s, j, var.i - j));
+		temp = ft_substr(s, j, var.i - j);
+		var.result = ft_strjoin(var.result, temp);
 		free(temp);
 		free(temp2);
 		if (s[var.i] == '$')
