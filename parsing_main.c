@@ -38,7 +38,7 @@ char	*change_pipe(char *s)
 	return (temp);
 }
 
-t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
+t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret)
 {
 	char	**commands;
 	t_cmd	*temp;
@@ -50,7 +50,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
-		temp = new_node(commands[i], env_lst);
+		temp = new_node(commands[i], env_lst, ret);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&head, new);
 		i++;
@@ -80,7 +80,9 @@ int	main(void)
 
 	t_list	*tempredir;
 	t_redir	*tempredir2;
+	int		ret;
 
+	ret = 0;
 	env_lst = NULL;
 	env_lst = prep_env_lst(env_lst, environ);
 	while (1)
@@ -91,7 +93,7 @@ int	main(void)
 			add_history(input);
 		temp = env_lst;
 		if (!check_syntax_errors(input))
-			cmds = split_by_pipes(cmds, input, temp);
+			cmds = split_by_pipes(cmds, input, temp, ret);
 		free(input);
 		i = 0;
 		int		j;

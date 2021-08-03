@@ -49,7 +49,7 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
 			prs->i++;
 		temp2 = ft_substr(s, j, prs->i - j);
-		temp = env_var_checker(temp2, env_lst);
+		temp = env_var_checker(temp2, env_lst, prs);
 		free(temp2);
 		temp2 = new->args[prs->arg_num];
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
@@ -100,7 +100,7 @@ void	echo_n_flag(t_cmd *new)
 	}
 }
 
-t_cmd	*new_node(char *s, t_list *env_lst)
+t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 {
 	t_prs	prs;
 	t_cmd	*new;
@@ -109,6 +109,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	prs.i = 0;
 	prs.arg_num = 0;
 	prs.ambigous = 0;
+	prs.ret_value = ret;
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
