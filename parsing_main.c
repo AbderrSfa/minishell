@@ -66,7 +66,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 	return (head);
 }
 
-/* int	main(void)
+int	main(void)
 {
 	extern char **environ;
 	int		i;
@@ -125,17 +125,18 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 	}
 	free_env_lst(env_lst);
 	return (0);
-} */
+}
 
-int	main(int argc, char **argv, char **env)
+/* int	main(void)
 {
-	char	*input;
-	t_list	*cmds;
-	t_list	*envp;
-	t_list	*temp;
+	extern char**	environ;
+	char			*input;
+	t_list			*cmds;
+	t_list			*envp;
+	t_list			*temp;
 
 	envp = NULL;
-	envp = prep_env_lst(envp, env);
+	envp = prep_env_lst(envp, environ);
 	while (1)
 	{
 		cmds = NULL;
@@ -153,4 +154,4 @@ int	main(int argc, char **argv, char **env)
 	}
 	free_env_lst(envp);
 	return (0);
-}
+} */

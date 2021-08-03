@@ -78,6 +78,26 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
+void	echo_n_flag(t_cmd *new)
+{
+	int		i;
+
+	if (new->args[1] == NULL)
+		return ;
+	if (new->args[1][0] != '-' || new->args[1][1] != 'n')
+		return ;
+	i = 2;
+	while (new->args[1][i] && new->args[1][i] == 'n')
+		i++;
+	if (new->args[1][i])
+		return ;
+	else
+	{
+		free(new->args[1]);
+		new->args[1] = ft_strdup("-n");
+	}
+}
+
 t_cmd	*new_node(char *s, t_list *env_lst)
 {
 	t_prs	prs;
@@ -104,14 +124,8 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 		i++;
 	}
 	if (prs.ambigous == 1)
-	{
 		new->cmd = NULL;
-/* 		i = 0;
-		while (new->args[i])
-		{
-			free(new->args[i]);
-			new->args[i++] = NULL;
-		} */
-	}
+	if (!ft_strcmp(new->cmd, "echo"))
+		echo_n_flag(new);
 	return (new);
 }
