@@ -78,20 +78,20 @@ void    exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
     int		nbr_pipes;
 	char	*cmd_path = NULL;
 	t_cmd	*cmd;
-
+	
     nbr_pipes = ft_lstsize(cmds) + i / 2 - 1;
     if (cmds->next)
         ft_dup2(pfds[i + 1], 1);
-    if (i != 0 )
+    if (i != 0)
         ft_dup2(pfds[i - 2], 0);
+    close_pfds(pfds, nbr_pipes);
 	cmd = cmds->content;
 	if(cmd->cmd == NULL)
-		exit(127);
+		exit(128);
 	my_redirect(cmd->redir);
-    close_pfds(pfds, nbr_pipes);
-	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
-	if (exec_builtin(cmd, envp))
+	if (exec_builtin(cmd, envp, is_builtin(cmd)))
 		exit(0);
+	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
     execve(cmd_path, cmd->args, g_env);
     exit(127);
 }
@@ -110,20 +110,29 @@ int    create_childs(t_list *cmds, int *pfds, t_list *envp)
         cmds = cmds->next;
         i += 2;
     }
-	return (pid);//
+	return (pid);
 }
 
-void exec_builtin_parent(t_cmd *cmd, t_list *envp)
+int builtin(t_cmd *cmd, t_list *envp, int status)
 {
 	int input;
 	int output;
-
-	input = dup(0);
-	output = dup(1);
-	my_redirect(cmd->redir);
-	exec_builtin(cmd, envp);
-	ft_dup2(input, 1);
-	ft_dup2(output,0);
+	
+	if (cmd->redir != NULL)
+	{
+		input = dup(0);
+		output = dup(1);
+		my_redirect(cmd->redir);
+	}
+	exec_builtin(cmd, envp, status);
+	if (cmd->redir != NULL)
+	{
+		ft_dup2(input, 1);
+		ft_dup2(output,0);
+		close(input);
+		close(output);
+	}
+	return (0);
 }
 
 int my_exec(t_list *cmds, t_list *envp)
@@ -135,25 +144,22 @@ int my_exec(t_list *cmds, t_list *envp)
 	int		status;
 
 	nbr_cmds = ft_lstsize(cmds);
-	if (nbr_cmds == 1 && is_builtin(cmds->content))
-	{
-		exec_builtin_parent(cmds->content, envp);
+	if (nbr_cmds < 1)
 		return (0);
-	}
-	else if (nbr_cmds > 0)
+	status = is_builtin(cmds->content);
+	if (nbr_cmds == 1 && status != 0)
+		status = builtin(cmds->content, envp, status);
+	else
 	{
-		if (nbr_cmds > 1)//
+		if (nbr_cmds > 1)
 			pfds = create_pipes(nbr_cmds - 1);
 		pid = create_childs(cmds, pfds, envp);
-		if (nbr_cmds > 1)//
+		if (nbr_cmds > 1)
 			close_pfds(pfds, nbr_cmds - 1);
-		waitpid(pid,&status,0);//
+		waitpid(pid,&status,0);
 		if ( WIFEXITED(status) )
-		{
-        	g_exit_status = WEXITSTATUS(status);        
-        	printf("Exit status of the child was %d\n", g_exit_status);
-    	}
+        	status = WEXITSTATUS(status);        
 		wait_cmds(nbr_cmds);
 	}	
-	return (0);
+	return (status);
 }
