@@ -72,7 +72,17 @@ char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 			var.i += 2;
 			var.result = ft_strjoin(var.result, ft_itoa(prs->ret_value));
 		}
-		else
+		else if (s[var.i] == '$' && s[var.i + 1] == '$')
+		{
+			var.i += 2;
+			var.result = ft_strjoin(var.result, ft_itoa(getpid()));
+		}
+		else if (s[var.i] == '$' && (s[var.i + 1] == ' ' || s[var.i + 1] == '\0'))
+		{
+			var.i++;
+			var.result = ft_strjoin(var.result, "$");
+		}
+		else if (s[var.i] == '$')
 			get_variable(s, env_lst, &var);
 	}
 	return (var.result);
