@@ -46,11 +46,11 @@ char	*single_quotes(char *s, t_prs *prs)
 char	get_redir_type(char first, char second)
 {
 	if (first == '>' && second != '>')
-		return ('G');
+		return ('O');
 	else if (first == '<' && second != '<')
-		return ('L');
+		return ('I');
 	else if (first == '>' && second == '>')
-		return ('D');
+		return ('A');
 	else if (first == '<' && second == '<')
 		return ('H');
 	return (0);
