@@ -48,14 +48,16 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		while (s[prs->i] != ' ' && s[prs->i] != '"' && s[prs->i] != 39
 			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
 			prs->i++;
-		temp = env_var_checker(temp2 = ft_substr(s, j, prs->i - j), env_lst);
+		temp2 = ft_substr(s, j, prs->i - j);
+		temp = env_var_checker(temp2, env_lst, prs);
 		free(temp2);
 		temp2 = new->args[prs->arg_num];
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
 	}
-	get_dbl_and_sgl_quotes(new, s, env_lst, prs);
+	if (s[prs->i] == '"' || s[prs->i] == '\'')
+		get_dbl_and_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
 	{
 		prs->arg_num++;
@@ -78,7 +80,27 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-t_cmd	*new_node(char *s, t_list *env_lst)
+void	echo_n_flag(t_cmd *new)
+{
+	int		i;
+
+	if (new->args[1] == NULL)
+		return ;
+	if (new->args[1][0] != '-' || new->args[1][1] != 'n')
+		return ;
+	i = 2;
+	while (new->args[1][i] && new->args[1][i] == 'n')
+		i++;
+	if (new->args[1][i])
+		return ;
+	else
+	{
+		free(new->args[1]);
+		new->args[1] = ft_strdup("-n");
+	}
+}
+
+t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 {
 	t_prs	prs;
 	t_cmd	*new;
@@ -87,6 +109,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	prs.i = 0;
 	prs.arg_num = 0;
 	prs.ambigous = 0;
+	prs.ret_value = ret;
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -104,14 +127,8 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 		i++;
 	}
 	if (prs.ambigous == 1)
-	{
 		new->cmd = NULL;
-/* 		i = 0;
-		while (new->args[i])
-		{
-			free(new->args[i]);
-			new->args[i++] = NULL;
-		} */
-	}
+	if (!ft_strcmp(new->cmd, "echo"))
+		echo_n_flag(new);
 	return (new);
 }

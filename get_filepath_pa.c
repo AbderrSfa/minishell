@@ -51,7 +51,7 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 			&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != 39)
 			prs->i++;
 		temp = ft_substr(s, j, prs->i - j);
-		temp2 = env_var_checker(temp, env_lst);
+		temp2 = env_var_checker(temp, env_lst, prs);
 		free(temp);
 		temp = redir->file;
 		redir->file = ft_strjoin(redir->file, temp2);

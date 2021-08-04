@@ -23,7 +23,7 @@ char	*double_quotes(char *s, t_list *env_lst, t_prs *prs)
 	while (s[prs->i] && s[prs->i] != '"')
 		prs->i++;
 	temp = ft_substr(s, j, prs->i - j);
-	file = env_var_checker(temp, env_lst);
+	file = env_var_checker(temp, env_lst, prs);
 	free(temp);
 	prs->i++;
 	return (file);

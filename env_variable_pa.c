@@ -47,7 +47,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 	free(temp2);
 }
 
-char	*env_var_checker(char *s, t_list *env_lst)
+char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
 	char	*temp;
@@ -63,10 +63,16 @@ char	*env_var_checker(char *s, t_list *env_lst)
 		while (s[var.i] && s[var.i] != '$')
 			var.i++;
 		temp2 = var.result;
-		var.result = ft_strjoin(var.result, temp = ft_substr(s, j, var.i - j));
+		temp = ft_substr(s, j, var.i - j);
+		var.result = ft_strjoin(var.result, temp);
 		free(temp);
 		free(temp2);
-		if (s[var.i] == '$')
+		if (s[var.i] == '$' && s[var.i + 1] == '?')
+		{
+			var.i += 2;
+			var.result = ft_strjoin(var.result, ft_itoa(prs->ret_value));
+		}
+		else
 			get_variable(s, env_lst, &var);
 	}
 	return (var.result);
