@@ -37,52 +37,61 @@ int	exec_cd(t_cmd *cmd, t_list *envp)
 	return (1);
 }
 
+
 int is_builtin(t_cmd *cmd)
 {
-	if ( ft_strncmp(cmd->cmd,"cd",3) == 0
-		|| ft_strncmp(cmd->cmd,"env",4) == 0
-		|| ft_strncmp(cmd->cmd,"pwd",4) == 0
-		|| ft_strncmp(cmd->cmd,"echo",5) == 0
-		|| ft_strncmp(cmd->cmd,"exit",5) == 0
-		|| ft_strncmp(cmd->cmd,"unset",6) == 0
-		|| ft_strncmp(cmd->cmd,"export",7) == 0)
-		return(1);
+	if (cmd->cmd == NULL)
+		return (0);
+	if (ft_strncmp(cmd->cmd,"cd",3) == 0)
+		return (1);
+	else if (ft_strncmp(cmd->cmd,"pwd",4) == 0)
+		return (2);
+	else if (ft_strncmp(cmd->cmd,"echo",5) == 0)
+		return (3);
+	else if (ft_strncmp(cmd->cmd,"env",4) == 0)
+		return (4);
+	else if (ft_strncmp(cmd->cmd,"exit",5) == 0)
+		return (5);
+	else if (ft_strncmp(cmd->cmd,"unset",6) == 0)
+		return (6);
+	else if (ft_strncmp(cmd->cmd,"export",7) == 0)
+		return (7);
 	return (0);
 }
 
-int exec_builtin(t_cmd *cmd, t_list *envp)
+int exec_builtin(t_cmd *cmd, t_list *envp, int status)
 {
 	int i;
 	t_env *env;
 
-	if (ft_strncmp(cmd->cmd,"cd",3) == 0)
+	if (status == 1)
 	{
 		exec_cd(cmd, envp);
 		return(1);
 	}
-	else if (ft_strncmp(cmd->cmd,"pwd",4) == 0)
+	else if (status == 2)
 	{
 		pwd();
 		return(1);
 	}
-	else if (ft_strncmp(cmd->cmd,"echo",5) == 0)
+	else if (status == 3)
 	{
-		if (ft_strncmp(cmd->args[1],"-n", 3) == 0)
+		if ( cmd->args[1] != NULL && ft_strncmp(cmd->args[1],"-n", 3) == 0)
 			echo(cmd->args + 2,'n');
 		else
 			echo(cmd->args + 1,' ');
 		return(1);
 	}
-	else if (ft_strncmp(cmd->cmd,"env",4) == 0)
+	else if (status == 4)
 	{
 		ft_env(envp);
 		return(1);
 	}
-	else if (ft_strncmp(cmd->cmd,"exit",5) == 0)
+	else if (status == 5)
 	{
-		ft_exit(g_exit_status);
+		ft_exit(status);
 	}
-	else if (ft_strncmp(cmd->cmd,"unset",6) == 0)
+	else if (status == 6)
 	{
 		i = 1;
 		while(cmd->args[i] != NULL)
@@ -92,14 +101,14 @@ int exec_builtin(t_cmd *cmd, t_list *envp)
 		}
 		return(1);
 	}
-	else if (ft_strncmp(cmd->cmd,"export",7) == 0)
+	else if (status == 7)
 	{
 		i = 1;
 		if(cmd->args[1] == NULL)
 		{
-			
+			ft_display_envp(envp);
+			return (1);
 		}
-		return (1);
 		while(cmd->args[i] != NULL)
 		{
 			ft_export(envp, cmd->args[i]);
