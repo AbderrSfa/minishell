@@ -96,7 +96,7 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 	}
 	if (!expanded)
 	{
-		ft_putstr("minishell-1.0$ ");
+		ft_putstr("minishell: ");
 		ft_putstr(joined);
 		ft_put_error(": ambiguous redirect");
 		free(joined);
