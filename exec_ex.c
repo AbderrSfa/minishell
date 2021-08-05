@@ -64,9 +64,9 @@ void my_redirect(t_list *redir)
 	while (redir != NULL)
 	{
 		redi = redir->content;
-		if (redi->type == 'G')
+		if (redi->type == 'O')
 			output_redirect(redi->file);
-		if (redi->type == 'D')
+		if (redi->type == 'A')
 			append_redirect(redi->file);
 		redir = redir->next;
 	}

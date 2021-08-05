@@ -50,7 +50,7 @@ int		exec_builtin(t_cmd *cmd, t_list *envp, int status);
 int		cd(char **pwd, char **oldpwd, char *dir, char *home);
 
 
-char **list_to_arr(t_list *lst);
+char	**list_to_arr(t_list *lst);
 int 	ft_display_envp(t_list *envp);
 
 #endif
