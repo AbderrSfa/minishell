@@ -78,7 +78,9 @@ void    exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
     int		nbr_pipes;
 	char	*cmd_path = NULL;
 	t_cmd	*cmd;
-	
+	char **tab;
+		
+	tab = list_to_arr(envp);
     nbr_pipes = ft_lstsize(cmds) + i / 2 - 1;
     if (cmds->next)
         ft_dup2(pfds[i + 1], 1);
@@ -92,7 +94,7 @@ void    exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 	if (exec_builtin(cmd, envp, is_builtin(cmd)))
 		exit(0);
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
-    execve(cmd_path, cmd->args, g_env);
+    execve(cmd_path, cmd->args, tab);
     exit(127);
 }
 
