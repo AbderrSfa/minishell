@@ -57,6 +57,7 @@ t_list	*prep_env_lst(t_list *env_lst, char **env)
 	t_env	*temp;
 	char	*key;
 	char	*value;
+	char	*tmp;
 	int		i;
 
 	temp = make_env_node("MINISHELL_VERSION", "1.0");
@@ -67,6 +68,12 @@ t_list	*prep_env_lst(t_list *env_lst, char **env)
 	{
 		key = get_key(env[i]);
 		value = get_value(env[i]);
+		if (!ft_strcmp(key, "SHLVL"))
+		{
+			tmp = value;
+			value = ft_strdup(ft_itoa(ft_atoi(value) + 1));
+			free(tmp);
+		}
 		temp = make_env_node(key, value);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&env_lst, new);
