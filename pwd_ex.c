@@ -12,15 +12,15 @@
 
 #include "exec.h"
 
-void pwd(void)
+void pwd(char *gpwd)
 {
-	if(g_pwd == NULL)
+	if(gpwd == NULL)
 	{
 		printf("error retrieving current directory: getcwd: cannot ");
 		printf("access parent directories: No such file or directory\n");
 	}
 	else
-		printf("%s\n",g_pwd);
+		printf("%s\n",gpwd);
 }
 
 void ft_exit(int status)
