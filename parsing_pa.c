@@ -124,16 +124,15 @@ t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 	initialize_node(new, s);
 	simple_cmd_parse(new, s, env_lst, &prs);
 	new->cmd = new->args[0];
-/* 	i = 0;
-	while (new->args[i])
+	i = get_size(s);
+	/// This part needs to be checked for leaks
+	while (i >= prs.arg_num)
 	{
-		if (!ft_strcmp(new->args[i], ""))
-		{
-			free(new->args[i]);
-			new->args[i] = NULL;
-		}
-		i++;
-	} */
+		free(new->args[i]);
+		new->args[i] = NULL;
+		i--;
+	}
+	///
 	if (prs.ambigous == 1)
 		new->cmd = NULL;
 	if (!ft_strcmp(new->cmd, "echo"))
