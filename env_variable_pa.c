@@ -36,7 +36,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 
 	var->i++;
 	j = var->i;
-	while (s[var->i] && s[var->i] != ' ' && s[var->i] != 39 && s[var->i] != '$')
+	while (s[var->i] && s[var->i] != ' ' && s[var->i] != '\'' && s[var->i] != '$')
 		var->i++;
 	temp2 = ft_substr(s, j, var->i - j);
 	temp = variable_expander(temp2, env_lst);

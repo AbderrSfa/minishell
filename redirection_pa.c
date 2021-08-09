@@ -36,7 +36,7 @@ char	*single_quotes(char *s, t_prs *prs)
 
 	prs->i++;
 	j = prs->i;
-	while (s[prs->i] && s[prs->i] != 39)
+	while (s[prs->i] && s[prs->i] != '\'')
 		prs->i++;
 	file = ft_substr(s, j, prs->i - j);
 	prs->i++;

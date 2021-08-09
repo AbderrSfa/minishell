@@ -30,9 +30,9 @@ int	skip_space_and_redir(char *s, int i)
 
 int	check_for_quote(char c, int quote)
 {
-	if ((c == '"' || c == 39) && quote == 0)
+	if ((c == '"' || c == '\'') && quote == 0)
 		quote = 1;
-	else if ((c == '"' || c == 39) && quote == 1)
+	else if ((c == '"' || c == '\'') && quote == 1)
 		quote = 0;
 	return (quote);
 }

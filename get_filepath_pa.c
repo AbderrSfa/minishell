@@ -27,7 +27,7 @@ void	file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		if (redir->file == NULL)
 			redir->file = ft_strdup("");
 	}
-	if (s[prs->i] == 39)
+	if (s[prs->i] == '\'')
 	{
 		temp = single_quotes(s, prs);
 		temp2 = redir->file;
@@ -44,11 +44,11 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	int		j;
 
 	j = prs->i;
-	if (s[prs->i] && s[prs->i] != '"' && s[prs->i] != 39
+	if (s[prs->i] && s[prs->i] != '"' && s[prs->i] != '\''
 		&& s[prs->i] != '>' && s[prs->i] != '<')
 	{
 		while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<'
-			&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != 39)
+			&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != '\'')
 			prs->i++;
 		temp = ft_substr(s, j, prs->i - j);
 		temp2 = env_var_checker(temp, env_lst, prs);
