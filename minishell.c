@@ -66,14 +66,16 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret)
 	return (head);
 }
 
+// Function is too long
+// Too many variables declared
 int	main(void)
 {
-	extern char **environ;
-	char	*input;
-	t_list	*cmds;
-	t_list	*envp;
-	t_list	*temp;
-	int		ret;
+	extern char	**environ;
+	char		*input;
+	t_list		*cmds;
+	t_list		*envp;
+	t_list		*temp;
+	int			ret;
 
 	ret = 0;
 	envp = NULL;

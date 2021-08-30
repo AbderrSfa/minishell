@@ -39,7 +39,8 @@ int	redirection_syntax_errors(char *str, int i)
 	if (!str[i] || str[i] == '|' || str[i] == '>' || str[i] == '<')
 	{
 		if (!str[i])
-			ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 1);
+			ft_putendl_fd
+				("minishell: syntax error near unexpected token `newline'", 1);
 		else
 		{
 			ft_putstr("minishell: syntax error near unexpected token `");

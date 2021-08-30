@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/29 15:52:28 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/30 13:26:50 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
+// Function is too long
+// Too many variables declared
 int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*var;
@@ -70,7 +72,7 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 	int		j;
 
 	var = NULL;
-	temp  = NULL;
+	temp = NULL;
 	expanded = NULL;
 	joined = NULL;
 	i = prs->i;

@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/29 14:15:44 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/30 13:27:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	get_dbl_and_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
+// Function is too long
 void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
@@ -64,7 +65,8 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	{
 		temp = ft_substr(s, j, prs->i - j);
 		prs->arg_num++;
-		if (!ft_strcmp(new->args[prs->arg_num - 1], "") && (temp[0] == '$' && !ft_strchr(temp, '"') && !ft_strchr(temp, '\'')))
+		if (!ft_strcmp(new->args[prs->arg_num - 1], "") && (temp[0] == '$'
+				&& !ft_strchr(temp, '"') && !ft_strchr(temp, '\'')))
 		{
 			prs->arg_num--;
 			free(new->args[prs->arg_num]);
@@ -108,6 +110,7 @@ void	echo_n_flag(t_cmd *new)
 	}
 }
 
+// Function is too long
 t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 {
 	t_prs	prs;

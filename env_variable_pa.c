@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/27 14:43:40 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/30 13:26:07 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 
 	var->i++;
 	j = var->i;
-	while (s[var->i] && s[var->i] != ' ' && s[var->i] != '\'' && s[var->i] != '$')
+	while (s[var->i] && s[var->i] != ' ' && s[var->i] != 39 && s[var->i] != '$')
 		var->i++;
 	temp2 = ft_substr(s, j, var->i - j);
 	temp = variable_expander(temp2, env_lst);
@@ -47,6 +47,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 	free(temp2);
 }
 
+// Function is too long
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
@@ -77,7 +78,8 @@ char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 			var.i += 2;
 			var.result = ft_strjoin(var.result, ft_itoa(getpid()));
 		}
-		else if (s[var.i] == '$' && (s[var.i + 1] == ' ' || s[var.i + 1] == '\0'))
+		else if (s[var.i] == '$' && (s[var.i + 1] == ' '
+				|| s[var.i + 1] == '\0'))
 		{
 			var.i++;
 			var.result = ft_strjoin(var.result, "$");

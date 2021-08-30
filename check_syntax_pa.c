@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/24 11:53:31 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/30 13:25:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	check_pipe_errors(char *s)
 			while (s[i] == ' ')
 				i++;
 			if (s[i] == '|')
-				return (ft_put_error("minishell: syntax error near unexpected token `|'"));
+				return (ft_put_error
+					("minishell: syntax error near unexpected token `|'"));
 		}
 		i++;
 	}
@@ -97,6 +98,7 @@ int	pipe_and_semi_errors(char *str)
 	return (0);
 }
 
+// Function is too long
 int	check_syntax_errors(char *s)
 {
 	char	*str;

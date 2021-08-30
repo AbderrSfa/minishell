@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 15:50:15 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/30 13:28:05 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_value(char *s)
 {
 	int		i;
 	char	*temp;
-	
+
 	temp = NULL;
 	i = 0;
 	while (s[i] != '=' && s[i])
@@ -51,6 +51,8 @@ t_env	*make_env_node(char *key, char *value)
 	return (new);
 }
 
+// Function is too long
+// Too many variables declared
 t_list	*prep_env_lst(t_list *env_lst, char **env)
 {
 	t_list	*new;
