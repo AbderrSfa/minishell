@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/13 15:11:30 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 12:21:48 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char		*env_var_checker(char *s, t_list *env_lst, t_prs *prs);
 t_list		*prep_env_lst(t_list *env_lst, char **env);
 int			redirection_syntax_errors(char *str, int i);
 char		*variable_expander(char *key, t_list *env_lst);
+void		check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs);
 void		get_variable(char *s, t_list *env_lst, t_var *var);
 char		*double_quotes(char *s, t_list *env_lst, t_prs *prs);
 void		get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);

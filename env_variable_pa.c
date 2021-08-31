@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/30 13:26:07 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 12:22:41 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,28 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 	free(temp2);
 }
 
-// Function is too long
+void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
+{
+	if (s[var->i] == '$' && s[var->i + 1] == '?')
+	{
+		var->i += 2;
+		var->result = ft_strjoin(var->result, ft_itoa(prs->ret_value));
+	}
+	else if (s[var->i] == '$' && s[var->i + 1] == '$')
+	{
+		var->i += 2;
+		var->result = ft_strjoin(var->result, ft_itoa(getpid()));
+	}
+	else if (s[var->i] == '$' && (s[var->i + 1] == ' '
+			|| s[var->i + 1] == '\0'))
+	{
+		var->i++;
+		var->result = ft_strjoin(var->result, "$");
+	}
+	else if (s[var->i] == '$')
+		get_variable(s, env_lst, var);
+}
+
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
@@ -68,24 +89,7 @@ char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 		var.result = ft_strjoin(var.result, temp);
 		free(temp);
 		free(temp2);
-		if (s[var.i] == '$' && s[var.i + 1] == '?')
-		{
-			var.i += 2;
-			var.result = ft_strjoin(var.result, ft_itoa(prs->ret_value));
-		}
-		else if (s[var.i] == '$' && s[var.i + 1] == '$')
-		{
-			var.i += 2;
-			var.result = ft_strjoin(var.result, ft_itoa(getpid()));
-		}
-		else if (s[var.i] == '$' && (s[var.i + 1] == ' '
-				|| s[var.i + 1] == '\0'))
-		{
-			var.i++;
-			var.result = ft_strjoin(var.result, "$");
-		}
-		else if (s[var.i] == '$')
-			get_variable(s, env_lst, &var);
+		check_var_edge_cases(s, &var, env_lst, prs);
 	}
 	return (var.result);
 }

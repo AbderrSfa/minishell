@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/30 13:25:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 12:14:32 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,13 @@ int	pipe_and_semi_errors(char *str)
 	return (0);
 }
 
-// Function is too long
 int	check_syntax_errors(char *s)
 {
 	char	*str;
 
 	str = ft_strtrim(s, " ");
-	if (pipe_and_semi_errors(str))
-	{
-		free(str);
-		return (1);
-	}
-	if (check_quote_errors(str))
-	{
-		free(str);
-		return (1);
-	}
-	if (check_redir_errors(str))
+	if (pipe_and_semi_errors(str) || check_quote_errors(str)
+		|| check_redir_errors(str))
 	{
 		free(str);
 		return (1);
