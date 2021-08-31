@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/30 13:26:50 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 12:03:58 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 		temp = joined;
 		joined = ft_strjoin(joined, "$");
 		free(temp);
+		temp = joined;
 		joined = ft_strjoin(joined, var);
+		free(temp);
 		expanded = variable_expander(var, env_lst);
 		free(var);
 	}

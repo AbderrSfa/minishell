@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/30 13:28:05 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:12:27 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list	*prep_env_lst(t_list *env_lst, char **env)
 		if (!ft_strcmp(key, "SHLVL"))
 		{
 			tmp = value;
-			value = ft_strdup(ft_itoa(ft_atoi(value) + 1));
+			value = ft_itoa(ft_atoi(value) + 1);
 			free(tmp);
 		}
 		temp = make_env_node(key, value);

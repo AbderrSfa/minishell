@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/30 13:27:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 12:05:36 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,12 @@ t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 	simple_cmd_parse(new, s, env_lst, &prs);
 	new->cmd = new->args[0];
 	i = get_size(s);
-	/// This part needs to be checked for leaks
 	while (i >= prs.arg_num)
 	{
 		free(new->args[i]);
 		new->args[i] = NULL;
 		i--;
 	}
-	///
 	if (prs.ambigous == 1)
 		new->cmd = NULL;
 	if (!ft_strcmp(new->cmd, "echo"))
