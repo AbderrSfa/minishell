@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/08 16:24:13 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:13:02 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,32 @@ void	initialize_env_node(t_env *new)
 {
 	new->key = NULL;
 	new->value = NULL;
+}
+
+void	initialize_prs_node(t_prs *prs, int ret)
+{
+	prs->i = 0;
+	prs->arg_num = 0;
+	prs->ambigous = 0;
+	prs->ret_value = ret;
+}
+
+void	echo_n_flag(t_cmd *new)
+{
+	int		i;
+
+	if (new->args[1] == NULL)
+		return ;
+	if (new->args[1][0] != '-' || new->args[1][1] != 'n')
+		return ;
+	i = 2;
+	while (new->args[1][i] && new->args[1][i] == 'n')
+		i++;
+	if (new->args[1][i])
+		return ;
+	else
+	{
+		free(new->args[1]);
+		new->args[1] = ft_strdup("-n");
+	}
 }

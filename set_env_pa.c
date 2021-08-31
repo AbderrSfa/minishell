@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 11:12:27 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:14:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,22 @@ t_env	*make_env_node(char *key, char *value)
 	return (new);
 }
 
-// Function is too long
-// Too many variables declared
+char	*increment_shell_level(char *value)
+{
+	char	*temp;
+
+	temp = value;
+	value = ft_itoa(ft_atoi(value) + 1);
+	free(temp);
+	return (value);
+}
+
 t_list	*prep_env_lst(t_list *env_lst, char **env)
 {
 	t_list	*new;
 	t_env	*temp;
 	char	*key;
 	char	*value;
-	char	*tmp;
 	int		i;
 
 	temp = make_env_node("MINISHELL_VERSION", "1.0");
@@ -71,11 +78,7 @@ t_list	*prep_env_lst(t_list *env_lst, char **env)
 		key = get_key(env[i]);
 		value = get_value(env[i]);
 		if (!ft_strcmp(key, "SHLVL"))
-		{
-			tmp = value;
-			value = ft_itoa(ft_atoi(value) + 1);
-			free(tmp);
-		}
+			value = increment_shell_level(value);
 		temp = make_env_node(key, value);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&env_lst, new);

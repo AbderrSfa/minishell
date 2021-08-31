@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 12:05:36 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:21:06 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	get_dbl_and_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
+void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*temp2;
@@ -37,7 +37,22 @@ void	get_dbl_and_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-// Function is too long
+void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
+{
+	char	*temp;
+
+	temp = ft_substr(s, j, prs->i - j);
+	prs->arg_num++;
+	if (!ft_strcmp(new->args[prs->arg_num - 1], "") && (temp[0] == '$'
+			&& !ft_strchr(temp, '"') && !ft_strchr(temp, '\'')))
+	{
+		prs->arg_num--;
+		free(new->args[prs->arg_num]);
+		new->args[prs->arg_num] = NULL;
+	}
+	free(temp);
+}
+
 void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
@@ -60,20 +75,9 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		free(temp);
 	}
 	if (s[prs->i] == '"' || s[prs->i] == '\'')
-		get_dbl_and_sgl_quotes(new, s, env_lst, prs);
+		get_dbl_or_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
-	{
-		temp = ft_substr(s, j, prs->i - j);
-		prs->arg_num++;
-		if (!ft_strcmp(new->args[prs->arg_num - 1], "") && (temp[0] == '$'
-				&& !ft_strchr(temp, '"') && !ft_strchr(temp, '\'')))
-		{
-			prs->arg_num--;
-			free(new->args[prs->arg_num]);
-			new->args[prs->arg_num] = NULL;
-		}
-		free(temp);
-	}
+		is_arg_empty(new, s, prs, j);
 }
 
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
@@ -90,37 +94,13 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-void	echo_n_flag(t_cmd *new)
-{
-	int		i;
-
-	if (new->args[1] == NULL)
-		return ;
-	if (new->args[1][0] != '-' || new->args[1][1] != 'n')
-		return ;
-	i = 2;
-	while (new->args[1][i] && new->args[1][i] == 'n')
-		i++;
-	if (new->args[1][i])
-		return ;
-	else
-	{
-		free(new->args[1]);
-		new->args[1] = ft_strdup("-n");
-	}
-}
-
-// Function is too long
 t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 {
 	t_prs	prs;
 	t_cmd	*new;
 	int		i;
 
-	prs.i = 0;
-	prs.arg_num = 0;
-	prs.ambigous = 0;
-	prs.ret_value = ret;
+	initialize_prs_node(&prs, ret);
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);

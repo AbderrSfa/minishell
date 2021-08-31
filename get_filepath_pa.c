@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 12:03:58 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:18:53 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	file_dbl_sgl_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
+void	get_file_quotes(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*temp2;
@@ -60,58 +60,6 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-// Function is too long
-// Too many variables declared
-int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
-{
-	char	*var;
-	char	*temp;
-	char	*expanded;
-	char	*joined;
-	int		i;
-	int		j;
-
-	var = NULL;
-	temp = NULL;
-	expanded = NULL;
-	joined = NULL;
-	i = prs->i;
-	while (!expanded && s[i] == '$')
-	{
-		i++;
-		j = i;
-		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i] != '$')
-			i++;
-		var = ft_substr(s, j, i - j);
-		if (ft_strchr(var, '"') || ft_strchr(var, '\''))
-		{
-			free(var);
-			free(joined);
-			return (0);
-		}
-		temp = joined;
-		joined = ft_strjoin(joined, "$");
-		free(temp);
-		temp = joined;
-		joined = ft_strjoin(joined, var);
-		free(temp);
-		expanded = variable_expander(var, env_lst);
-		free(var);
-	}
-	if (!expanded)
-	{
-		ft_putstr("minishell: ");
-		ft_putstr(joined);
-		ft_put_error(": ambiguous redirect");
-		free(joined);
-		prs->i = i;
-		return (-1);
-	}
-	free(joined);
-	free(expanded);
-	return (0);
-}
-
 void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	while (s[prs->i] == ' ')
@@ -122,7 +70,7 @@ void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	while (s[prs->i])
 	{
 		join_filepath(redir, s, env_lst, prs);
-		file_dbl_sgl_quote(redir, s, env_lst, prs);
+		get_file_quotes(redir, s, env_lst, prs);
 		if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>'
 			|| s[prs->i] == '<')
 			break ;
