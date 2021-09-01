@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 15:13:02 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/01 10:49:25 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	initialize_node(t_cmd *new, char *s)
+void	initialize_cmd_node(t_cmd *new, char *s)
 {
 	int		i;
 
