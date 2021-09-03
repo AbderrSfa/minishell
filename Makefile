@@ -31,11 +31,11 @@ all: $(NAME)
 $(NAME): $(OBJECT)
 	make bonus -sC libft/
 	ar rcs $(LIBNAME) $(OBJECT)
-	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME) -g
+	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME)
 
 parsing: $(PARSING_OBJ)
 	make bonus -sC libft/
-	gcc $(PARSING_OBJ) $(LIBFT) $(INCLUDES) -o parsing_mini -g
+	gcc $(PARSING_OBJ) $(LIBFT) $(INCLUDES) -o parsing_mini
 
 %.o:%.c
 	gcc -c $<

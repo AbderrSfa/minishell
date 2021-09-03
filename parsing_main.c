@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/03 12:21:30 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/03 13:58:37 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	main(void)
 	t_redir	*tempredir2;
 	int		ret;
 
-	sig.quit_flag = 0;
-	sig.interrupt_flag = 0;
-	signal(SIGQUIT, &sig_quit);
-	signal(SIGINT, &sig_int);
+	//sig.quit_flag = 0;
+	//sig.interrupt_flag = 0;
+	//signal(SIGQUIT, &sig_quit);
+	//signal(SIGINT, &sig_int);
 	ret = 0;
 	env_lst = NULL;
 	env_lst = prep_env_lst(env_lst, environ);
@@ -74,8 +74,8 @@ int	main(void)
 			templ = templ->next;
 		}
 		free_cmds(cmds);
-		sig.quit_flag = 0;
-		sig.interrupt_flag = 0;
+		//sig.quit_flag = 0;
+		//sig.interrupt_flag = 0;
 	}
 	free_env_lst(env_lst);
 	return (0);
