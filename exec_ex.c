@@ -68,6 +68,8 @@ void my_redirect(t_list *redir)
 			output_redirect(redi->file);
 		if (redi->type == 'A')
 			append_redirect(redi->file);
+		if (redi->type == 'I')
+			input_redirect(redi->file);
 		redir = redir->next;
 	}
 }
