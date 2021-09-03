@@ -23,12 +23,16 @@
  # include <sys/types.h>
  # include <sys/wait.h>
 
+#define BUFFER_SIZE 1
 int		my_exec(t_list *cmds, t_list *envp);
 
 void    ft_dup2(int fd1, int fd2);
 void    input_redirect(char *file);
 void    output_redirect(char *file);
 void    append_redirect(char *file);
+int		heredoc(char *limiter, int input);
+void	here_doc(t_list *redir, int input);
+void	here_redirect(char *limiter);
 
 char    **get_paths();
 char    *get_envp(t_list *envp, char *key);
@@ -50,5 +54,21 @@ int exec_cd(t_cmd *cmd, t_list *envp, char **gpwd);
 char	**list_to_arr(t_list *lst);
 int 	ft_display_envp(t_list *envp);
 int		ft_chdir(t_cmd *cmd, t_list *envp, char **path);
+
+typedef struct s_get   t_get;
+struct s_get
+{
+    char            *tab;
+    int             fd;
+    int             n;
+    int             i;
+    t_get          *next;
+};
+
+int                 get_next_line(int fd, char **line);
+int                 get(char **line, t_get *s, char *c, t_get **d);
+int                 free_list(t_get **d, t_get *f, int i);
+char                *ft_strjoin_free(char *a, char *b);
+
 
 #endif
