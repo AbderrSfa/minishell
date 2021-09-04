@@ -50,26 +50,34 @@ void	get_variable(char *s, t_list *env_lst, t_var *var)
 void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	
+	char	*tmp;
+
 	if (s[var->i] == '$' && s[var->i + 1] == '?')
 	{
+		tmp = var->result;
 		var->i += 2;
 		var->result = ft_strjoin(var->result, temp = ft_itoa(prs->ret_value));
+		free(temp);
+		free(tmp);
 	}
 	else if (s[var->i] == '$' && s[var->i + 1] == '$')
 	{
+		tmp = var->result;
 		var->i += 2;
 		var->result = ft_strjoin(var->result, temp = ft_itoa(getpid()));
+		free(temp);
+		free(tmp);
 	}
 	else if (s[var->i] == '$' && (s[var->i + 1] == ' '
 			|| s[var->i + 1] == '\0'))
 	{
+		tmp = var->result;
 		var->i++;
 		var->result = ft_strjoin(var->result, "$");
+		free(tmp);
 	}
 	else if (s[var->i] == '$')
 		get_variable(s, env_lst, var);
-	free(temp);
 }
 
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
