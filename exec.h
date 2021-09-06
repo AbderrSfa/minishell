@@ -30,7 +30,7 @@ void    ft_dup2(int fd1, int fd2);
 void    input_redirect(char *file);
 void    output_redirect(char *file);
 void    append_redirect(char *file);
-
+void	heredoc(t_list *cmds);
 char    **get_paths();
 char    *get_envp(t_list *envp, char *key);
 char    *get_cmd_path(char *cmd, char **paths);
