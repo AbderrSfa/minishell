@@ -40,6 +40,7 @@ void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 {
 	char	*temp;
+	int		i;
 
 	temp = ft_substr(s, j, prs->i - j);
 	prs->arg_num++;
@@ -49,6 +50,15 @@ void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 		prs->arg_num--;
 		free(new->args[prs->arg_num]);
 		new->args[prs->arg_num] = NULL;
+	}
+	if (prs->extra_args)
+	{
+		i = 1;
+		while (prs->extra_args[i])
+		{
+			new->args[prs->arg_num++] = prs->extra_args[i++];
+		}
+		prs->extra_args = NULL;
 	}
 	free(temp);
 }
@@ -66,6 +76,7 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		while (s[prs->i] != ' ' && s[prs->i] != '"' && s[prs->i] != '\''
 			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
 			prs->i++;
+		prs->outside_quote = 1;
 		temp2 = ft_substr(s, j, prs->i - j);
 		temp = env_var_checker(temp2, env_lst, prs);
 		free(temp2);
@@ -73,6 +84,7 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
 		free(temp2);
 		free(temp);
+		prs->outside_quote = 0;
 	}
 	if (s[prs->i] == '"' || s[prs->i] == '\'')
 		get_dbl_or_sgl_quotes(new, s, env_lst, prs);
@@ -100,7 +112,7 @@ t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 	t_cmd	*new;
 	int		i;
 
-	initialize_prs_node(&prs, ret);
+	initialize_prs_node(&prs, ret, s);
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);

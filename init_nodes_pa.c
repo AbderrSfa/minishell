@@ -35,12 +35,14 @@ void	initialize_env_node(t_env *new)
 	new->value = NULL;
 }
 
-void	initialize_prs_node(t_prs *prs, int ret)
+void	initialize_prs_node(t_prs *prs, int ret, char *s)
 {
 	prs->i = 0;
 	prs->arg_num = 0;
 	prs->ambigous = 0;
 	prs->ret_value = ret;
+	prs->outside_quote = 0;
+	prs->extra_args = NULL;
 }
 
 void	echo_n_flag(t_cmd *new)

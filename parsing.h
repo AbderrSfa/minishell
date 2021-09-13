@@ -40,6 +40,9 @@ struct					s_prs
 	int					i;
 	int					ambigous;
 	int					ret_value;
+	char				**extra_args;
+	int					outside_quote;
+
 };
 
 typedef struct s_env	t_env;
@@ -96,7 +99,7 @@ int		ft_put_error(char *error);
 t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret);
 char	*change_pipe(char *s);
 t_cmd	*new_node(char *s, t_list *env_lst, int ret);
-void	initialize_prs_node(t_prs *prs, int ret);
+void	initialize_prs_node(t_prs *prs, int ret, char *s);
 void	initialize_cmd_node(t_cmd *new, char *s);
 void	allocate_args(char *s, t_cmd *cmd);
 int		get_size(char *s);
@@ -114,7 +117,7 @@ void	echo_n_flag(t_cmd *new);
 /* Expand environment variables */
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs);
 void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs);
-void	get_variable(char *s, t_list *env_lst, t_var *var);
+void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs);
 char	*variable_expander(char *key, t_list *env_lst);
 
 /* Parse redirections */

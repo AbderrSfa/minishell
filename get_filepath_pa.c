@@ -50,6 +50,7 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<'
 			&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != '\'')
 			prs->i++;
+		prs->outside_quote = 1;
 		temp = ft_substr(s, j, prs->i - j);
 		temp2 = env_var_checker(temp, env_lst, prs);
 		free(temp);
@@ -57,6 +58,7 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		redir->file = ft_strjoin(redir->file, temp2);
 		free(temp2);
 		free(temp);
+		prs->outside_quote = 0;
 	}
 }
 
