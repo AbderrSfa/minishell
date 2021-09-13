@@ -70,8 +70,8 @@ void my_redirect(t_list *redir)
 			append_redirect(redi->file);
 		if (redi->type == 'I')
 			input_redirect(redi->file);
-//		if (redi->type == 'H')
-//			here_redirect(redi->file);
+		if (redi->type == 'H')
+			input_redirect("/tmp/file1");
 		redir = redir->next;
 	}
 }
@@ -103,18 +103,6 @@ void    exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
     exit(127);
 }
 
-void    here_docs(t_list *cmds)
-{
-	t_cmd		*cmd;
-
-    while (cmds)
-    {
-		cmd = cmds->content;
-		if (cmd->redir != NULL)
-			here_doc(cmd->redir, 0);
-        cmds = cmds->next;
-    }
-}
 int    create_childs(t_list *cmds, int *pfds, t_list *envp)
 {
     int         i;
@@ -170,7 +158,7 @@ int my_exec(t_list *cmds, t_list *envp)
 		status = builtin(cmds->content, envp, status);
 	else
 	{
-	//	here_docs(cmds);
+		heredoc(cmds);
 		if (nbr_cmds > 1)
 			pfds = create_pipes(nbr_cmds - 1);
 		pid = create_childs(cmds, pfds, envp);
