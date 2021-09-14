@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/03 12:08:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:11:39 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ struct					s_prs
 	int					ret_value;
 	char				**extra_args;
 	int					outside_quote;
-
 };
 
 typedef struct s_env	t_env;
@@ -100,8 +99,8 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret);
 char	*change_pipe(char *s);
 t_cmd	*new_node(char *s, t_list *env_lst, int ret);
 void	initialize_prs_node(t_prs *prs, int ret, char *s);
-void	initialize_cmd_node(t_cmd *new, char *s);
-void	allocate_args(char *s, t_cmd *cmd);
+void	initialize_cmd_node(t_cmd *new, char *s, t_list *env_lst);
+void	allocate_args(char *s, t_cmd *cmd, t_list *env_lst);
 int		get_size(char *s);
 int		skip_space_and_redir(char *s, int i);
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
