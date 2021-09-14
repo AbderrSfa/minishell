@@ -50,6 +50,6 @@ fclean: clean
 	/bin/rm -f parsing_mini
 	/bin/rm -f parsing_main.o
 	/bin/rm -f ../test/$(NAME)
-	/bin/rm -rf a.out.dSYM/
+	/bin/rm -rf parsing_mini.dSYM/
 
 re: fclean all
