@@ -68,6 +68,7 @@ void	allocate_args(char *s, t_cmd *cmd)
 
 	j = 0;
 	ret = get_size(s);
+	/// Account for extra variables
 	cmd->args = malloc(sizeof(char *) * (ret + 1));
 	i = 0;
 	while (i <= ret)

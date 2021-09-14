@@ -34,7 +34,7 @@ int	main(void)
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		temp = envp;
-		if (!check_syntax_errors(input))
+		if (input != NULL && !check_syntax_errors(input))
 		{
 			cmds = split_by_pipes(cmds, input, temp, ret);
 			ret = my_exec(cmds, envp);
