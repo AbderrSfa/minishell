@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:51:28 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:06:00 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:14:03 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	args_counter(char *s)
 int	count_extra_args(char *s, int i, int j, t_list *env_lst)
 {
 	char	*temp;
-	char	*temp2;
+	char	*tmp;
 	int		ret;
 
 	ret = 0;
@@ -53,11 +53,11 @@ int	count_extra_args(char *s, int i, int j, t_list *env_lst)
 				&& s[i] != '\'' && s[i] != '$')
 				i++;
 			temp = ft_substr(s, j, i - j);
-			temp2 = variable_expander(temp, env_lst);
+			tmp = variable_expander(temp, env_lst);
 			free(temp);
-			if (ft_strchr(temp2, ' '))
-				ret += args_counter(temp2);
-			free(temp2);
+			if (ft_strchr(tmp, ' '))
+				ret += args_counter(tmp);
+			free(tmp);
 		}
 	}
 	return (ret);
@@ -114,12 +114,12 @@ void	add_extra_args(t_cmd *new, t_prs *prs)
 
 void	fill_arg(char *temp, t_cmd *new, t_list *env_lst, t_prs *prs)
 {
-	char	*temp2;
+	char	*tmp;
 
-	temp = env_var_checker(temp2, env_lst, prs);
-	free(temp2);
-	temp2 = new->args[prs->arg_num];
+	temp = env_var_checker(tmp, env_lst, prs);
+	free(tmp);
+	tmp = new->args[prs->arg_num];
 	new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
-	free(temp2);
+	free(tmp);
 	free(temp);
 }

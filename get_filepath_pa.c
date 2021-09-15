@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:09:34 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:11:13 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,32 @@
 void	get_file_quotes(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	char	*temp2;
+	char	*tmp;
 
 	if (s[prs->i] == '"')
 	{
 		temp = double_quotes(s, env_lst, prs);
-		temp2 = redir->file;
+		tmp = redir->file;
 		redir->file = ft_strjoin(redir->file, temp);
 		free(temp);
-		free(temp2);
+		free(tmp);
 		if (redir->file == NULL)
 			redir->file = ft_strdup("");
 	}
 	if (s[prs->i] == '\'')
 	{
 		temp = single_quotes(s, prs);
-		temp2 = redir->file;
+		tmp = redir->file;
 		redir->file = ft_strjoin(redir->file, temp);
 		free(temp);
-		free(temp2);
+		free(tmp);
 	}
 }
 
 void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	char	*temp2;
+	char	*tmp;
 	int		j;
 
 	j = prs->i;
@@ -53,11 +53,11 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		////
 		prs->outside_quote = 1;
 		temp = ft_substr(s, j, prs->i - j);
-		temp2 = env_var_checker(temp, env_lst, prs);
+		tmp = env_var_checker(temp, env_lst, prs);
 		free(temp);
 		temp = redir->file;
-		redir->file = ft_strjoin(redir->file, temp2);
-		free(temp2);
+		redir->file = ft_strjoin(redir->file, tmp);
+		free(tmp);
 		free(temp);
 		prs->outside_quote = 0;
 		////

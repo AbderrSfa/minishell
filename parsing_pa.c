@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:05:56 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:13:08 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	char	*temp2;
+	char	*tmp;
 
 	if (s[prs->i] == '"')
 	{
 		temp = double_quotes(s, env_lst, prs);
-		temp2 = new->args[prs->arg_num];
+		tmp = new->args[prs->arg_num];
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
-		free(temp2);
+		free(tmp);
 		free(temp);
 		if (new->args[prs->arg_num] == NULL)
 			new->args[prs->arg_num] = ft_strdup("");
@@ -30,9 +30,9 @@ void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	if (s[prs->i] == '\'')
 	{
 		temp = single_quotes(s, prs);
-		temp2 = new->args[prs->arg_num];
+		tmp = new->args[prs->arg_num];
 		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
-		free(temp2);
+		free(tmp);
 		free(temp);
 	}
 }

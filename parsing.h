@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 15:58:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:16:31 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ void	free_cmds(t_list *cmd);
 void	free_redirect(t_list *redir);
 void	free_env_lst(t_list *env_lst);
 
-
+/* Signal handling */
 void	sig_quit(int signal);
 void	sig_int(int signal);
+
 #endif
