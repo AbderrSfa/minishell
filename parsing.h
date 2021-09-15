@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:16:31 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:23:56 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ struct					s_prs
 	int					ret_value;
 	char				**extra_args;
 	int					outside_quote;
+	t_var				var;
 };
 
 typedef struct s_env	t_env;
@@ -109,6 +110,8 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
 
 /* Get command args */
 void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
+void	fill_arg(char *temp, t_cmd *new, t_list *env_lst, t_prs *prs);
+void	add_extra_args(t_cmd *new, t_prs *prs);
 void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
 char	*double_quotes(char *s, t_list *env_lst, t_prs *prs);
 char	*single_quotes(char *s, t_prs *prs);
@@ -117,8 +120,9 @@ void	echo_n_flag(t_cmd *new);
 
 /* Expand environment variables */
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs);
-void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs);
-void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs);
+void	check_var_edge_cases(char *s, t_list *env_lst, t_prs *prs);
+void	var_edge_cases(char *s, t_prs *prs);
+void	get_variable(char *s, t_list *env_lst, t_prs *prs);
 char	*variable_expander(char *key, t_list *env_lst);
 char	*remove_spaces(char *s);
 

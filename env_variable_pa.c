@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:14:20 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:27:21 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,18 @@ char	*variable_expander(char *key, t_list *env_lst)
 	return (expanded);
 }
 
-void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs)
+void	get_variable(char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
 	char	*temp;
 	char	*tmp;
 
-	var->i++;
-	j = var->i;
-	while (s[var->i] && s[var->i] != ' ' && s[var->i] != 39 && s[var->i] != '$')
-		var->i++;
-	tmp = ft_substr(s, j, var->i - j);
+	prs->var.i++;
+	j = prs->var.i;
+	while (s[prs->var.i] && s[prs->var.i] != ' ' && s[prs->var.i] != 39
+		&& s[prs->var.i] != '$')
+		prs->var.i++;
+	tmp = ft_substr(s, j, prs->var.i - j);
 	temp = variable_expander(tmp, env_lst);
 	if (prs->outside_quote && ft_strchr(temp, ' '))
 	{
@@ -48,51 +49,52 @@ void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs)
 		temp = prs->extra_args[0];
 	}
 	free(tmp);
-	tmp = var->result;
-	var->result = ft_strjoin(var->result, temp);
+	tmp = prs->var.result;
+	prs->var.result = ft_strjoin(prs->var.result, temp);
 	free(temp);
 	free(tmp);
 }
 
-void	var_edge_cases(char *s, t_var *var, t_prs *prs)
+void	var_edge_cases(char *s, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
 
-	if (s[var->i] == '$' && s[var->i + 1] == '?')
+	if (s[prs->var.i] == '$' && s[prs->var.i + 1] == '?')
 	{
-		tmp = var->result;
-		var->i += 2;
-		var->result = ft_strjoin(var->result, temp = ft_itoa(prs->ret_value));
+		tmp = prs->var.result;
+		prs->var.i += 2;
+		prs->var.result = ft_strjoin(prs->var.result,
+				temp = ft_itoa(prs->ret_value));
 		free(temp);
 		free(tmp);
 	}
-	if (s[var->i] == '$' && s[var->i + 1] == '$')
+	if (s[prs->var.i] == '$' && s[prs->var.i + 1] == '$')
 	{
-		tmp = var->result;
-		var->i += 2;
-		var->result = ft_strjoin(var->result, temp = ft_itoa(getpid()));
+		tmp = prs->var.result;
+		prs->var.i += 2;
+		prs->var.result = ft_strjoin(prs->var.result, temp = ft_itoa(getpid()));
 		free(temp);
 		free(tmp);
 	}
 }
 
-void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
+void	check_var_edge_cases(char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
 
-	var_edge_cases(s, var, prs);
-	if (s[var->i] == '$' && (s[var->i + 1] == ' '
-			|| s[var->i + 1] == '\0'))
+	var_edge_cases(s, prs);
+	if (s[prs->var.i] == '$' && (s[prs->var.i + 1] == ' '
+			|| s[prs->var.i + 1] == '\0'))
 	{
-		tmp = var->result;
-		var->i++;
-		var->result = ft_strjoin(var->result, "$");
+		tmp = prs->var.result;
+		prs->var.i++;
+		prs->var.result = ft_strjoin(prs->var.result, "$");
 		free(tmp);
 	}
-	else if (s[var->i] == '$')
-		get_variable(s, env_lst, var, prs);
+	else if (s[prs->var.i] == '$')
+		get_variable(s, env_lst, prs);
 }
 
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
@@ -100,22 +102,21 @@ char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs)
 	int		j;
 	char	*temp;
 	char	*tmp;
-	t_var	var;
 
-	var.result = NULL;
+	prs->var.result = NULL;
 	temp = NULL;
-	var.i = 0;
-	while (s[var.i])
+	prs->var.i = 0;
+	while (s[prs->var.i])
 	{
-		j = var.i;
-		while (s[var.i] && s[var.i] != '$')
-			var.i++;
-		tmp = var.result;
-		temp = ft_substr(s, j, var.i - j);
-		var.result = ft_strjoin(var.result, temp);
+		j = prs->var.i;
+		while (s[prs->var.i] && s[prs->var.i] != '$')
+			prs->var.i++;
+		tmp = prs->var.result;
+		temp = ft_substr(s, j, prs->var.i - j);
+		prs->var.result = ft_strjoin(prs->var.result, temp);
 		free(temp);
 		free(tmp);
-		check_var_edge_cases(s, &var, env_lst, prs);
+		check_var_edge_cases(s, env_lst, prs);
 	}
-	return (var.result);
+	return (prs->var.result);
 }
