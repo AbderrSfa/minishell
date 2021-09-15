@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/03 14:15:38 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:53:04 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,41 +28,11 @@ char	*variable_expander(char *key, t_list *env_lst)
 	return (expanded);
 }
 
-char	*remove_spaces(char *s)
-{
-	char	*res;
-	char	*temp;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	if (s == NULL)
-		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (res == NULL)
-		return (NULL);
-	temp = s;
-	s = ft_strtrim(s, " ");
-	free(temp);
-	while (s[i])
-	{
-		if (s[i] == ' ' && s[i + 1] == ' ')
-			i++;
-		else
-			res[j++] = s[i++];
-	}
-	res[j] = '\0';
-	free(s);
-	return (res);
-}
-
 void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs)
 {
 	int		j;
 	char	*temp;
 	char	*temp2;
-	int		i = 0;
 
 	var->i++;
 	j = var->i;
@@ -76,10 +46,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs)
 		prs->extra_args = ft_split(temp, ' ');
 		free(temp);
 		temp = prs->extra_args[0];
-
-		/// Put rest as separate args but in parsing_pa
 	}
-
 	free(temp2);
 	temp2 = var->result;
 	var->result = ft_strjoin(var->result, temp);
@@ -87,7 +54,7 @@ void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs)
 	free(temp2);
 }
 
-void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
+void	var_edge_cases(char *s, t_var *var, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
@@ -100,7 +67,7 @@ void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
 		free(temp);
 		free(tmp);
 	}
-	else if (s[var->i] == '$' && s[var->i + 1] == '$')
+	if (s[var->i] == '$' && s[var->i + 1] == '$')
 	{
 		tmp = var->result;
 		var->i += 2;
@@ -108,7 +75,15 @@ void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
 		free(temp);
 		free(tmp);
 	}
-	else if (s[var->i] == '$' && (s[var->i + 1] == ' '
+}
+
+void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs)
+{
+	char	*temp;
+	char	*tmp;
+
+	var_edge_cases(s, var, prs);
+	if (s[var->i] == '$' && (s[var->i + 1] == ' '
 			|| s[var->i + 1] == '\0'))
 	{
 		tmp = var->result;

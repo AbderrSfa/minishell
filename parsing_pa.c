@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/14 16:10:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:05:56 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 {
 	char	*temp;
-	int		i;
 
 	temp = ft_substr(s, j, prs->i - j);
 	prs->arg_num++;
@@ -51,22 +50,13 @@ void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 		free(new->args[prs->arg_num]);
 		new->args[prs->arg_num] = NULL;
 	}
-	if (prs->extra_args)
-	{
-		i = 1;
-		while (prs->extra_args[i])
-		{
-			new->args[prs->arg_num++] = prs->extra_args[i++];
-		}
-		prs->extra_args = NULL;
-	}
 	free(temp);
 }
 
 void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	char	*temp2;
+	int		i;
 	int		j;
 
 	j = prs->i;
@@ -77,13 +67,10 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 			&& s[prs->i] && s[prs->i] != '<' && s[prs->i] != '>')
 			prs->i++;
 		prs->outside_quote = 1;
-		temp2 = ft_substr(s, j, prs->i - j);
-		temp = env_var_checker(temp2, env_lst, prs);
-		free(temp2);
-		temp2 = new->args[prs->arg_num];
-		new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
-		free(temp2);
-		free(temp);
+		temp = ft_substr(s, j, prs->i - j);
+		fill_arg(temp, new, env_lst, prs);
+		if (prs->extra_args)
+			add_extra_args(new, prs);
 		prs->outside_quote = 0;
 	}
 	if (s[prs->i] == '"' || s[prs->i] == '\'')
@@ -112,7 +99,7 @@ t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 	t_cmd	*new;
 	int		i;
 
-	initialize_prs_node(&prs, ret, s);
+	initialize_prs_node(&prs, ret);
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
@@ -120,6 +107,7 @@ t_cmd	*new_node(char *s, t_list *env_lst, int ret)
 	simple_cmd_parse(new, s, env_lst, &prs);
 	new->cmd = new->args[0];
 	i = get_size(s);
+	i += count_extra_args(s, 0, 0, env_lst);
 	while (i >= prs.arg_num)
 	{
 		free(new->args[i]);

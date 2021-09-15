@@ -43,6 +43,7 @@ int envp_sort(char **tab, int size)
 	}
 	envp_sort(tab, wall - 1);
 	envp_sort(tab + wall - 1, size - wall + 1);
+	return (0);
 }
 
 int ft_display_envp(t_list *envp)

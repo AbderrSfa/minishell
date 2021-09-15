@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/14 16:11:39 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:58:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,13 @@ int		ft_put_error(char *error);
 t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret);
 char	*change_pipe(char *s);
 t_cmd	*new_node(char *s, t_list *env_lst, int ret);
-void	initialize_prs_node(t_prs *prs, int ret, char *s);
+void	initialize_prs_node(t_prs *prs, int ret);
 void	initialize_cmd_node(t_cmd *new, char *s, t_list *env_lst);
 void	allocate_args(char *s, t_cmd *cmd, t_list *env_lst);
 int		get_size(char *s);
 int		skip_space_and_redir(char *s, int i);
+int		count_extra_args(char *s, int i, int j, t_list *env_lst);
+int		args_counter(char *s);
 void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs);
 
 /* Get command args */
@@ -118,6 +120,7 @@ char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs);
 void	check_var_edge_cases(char *s, t_var *var, t_list *env_lst, t_prs *prs);
 void	get_variable(char *s, t_list *env_lst, t_var *var, t_prs *prs);
 char	*variable_expander(char *key, t_list *env_lst);
+char	*remove_spaces(char *s);
 
 /* Parse redirections */
 t_list	*redirections(t_list *redir, char *s, t_list *env_lst, t_prs *prs);
