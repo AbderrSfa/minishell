@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 14:20:42 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/14 16:33:36 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/15 11:44:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int	skip_space_and_redir(char *s, int i)
 
 int	check_for_quote(char c, int quote)
 {
-	if ((c == '"' || c == '\'') && quote == 0)
+	if (c == '"' && quote == 0)
+		quote = 2;
+	else if (c == '\'' && quote == 0)
 		quote = 1;
-	else if ((c == '"' || c == '\'') && quote == 1)
+	else if ((c == '"' && quote == 2) || (c == '\'' && quote == 1))
 		quote = 0;
 	return (quote);
 }
