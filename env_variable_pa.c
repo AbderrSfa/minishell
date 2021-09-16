@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:27:21 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:46:40 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	var_edge_cases(char *s, t_prs *prs)
 
 void	check_var_edge_cases(char *s, t_list *env_lst, t_prs *prs)
 {
-	char	*temp;
 	char	*tmp;
 
 	var_edge_cases(s, prs);

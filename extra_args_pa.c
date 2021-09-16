@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:51:28 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:22:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:44:48 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	fill_arg(char *temp, t_cmd *new, t_list *env_lst, t_prs *prs)
 {
 	char	*tmp;
 
-	temp = env_var_checker(tmp, env_lst, prs);
-	free(tmp);
-	tmp = new->args[prs->arg_num];
-	new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], temp);
-	free(tmp);
+	tmp = env_var_checker(temp, env_lst, prs);
 	free(temp);
+	temp = new->args[prs->arg_num];
+	new->args[prs->arg_num] = ft_strjoin(new->args[prs->arg_num], tmp);
+	free(temp);
+	free(tmp);
 }

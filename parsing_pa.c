@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:13:08 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:47:00 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
-	int		i;
 	int		j;
 
 	j = prs->i;
