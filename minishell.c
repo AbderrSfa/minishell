@@ -24,6 +24,10 @@ int	main(void)
 	t_list		*temp;
 	int			ret;
 
+	sig.quit_flag = 0;
+	sig.interrupt_flag = 0;
+	signal(SIGQUIT, &sig_quit);
+	signal(SIGINT, &sig_int);
 	ret = 0;
 	envp = NULL;
 	envp = prep_env_lst(envp, environ);
@@ -41,6 +45,8 @@ int	main(void)
 		}
 		free(input);
 		free_cmds(cmds);
+		sig.quit_flag = 0;
+		sig.interrupt_flag = 0;
 	}
 	free_env_lst(envp);
 	return (0);
