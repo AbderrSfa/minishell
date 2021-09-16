@@ -17,6 +17,12 @@ PARSING_SRC = allocate_pa.c signals_pa.c ambigous_redir_pa.c check_syntax_pa.c e
 
 FLAGS = -Wall -Wextra -Werror
 
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+RESET = \033[0m
+
 #################
 # USE FLAGS
 # LINK HEADERS
@@ -26,12 +32,14 @@ OBJECT = $(SRC:.c=.o)
 
 PARSING_OBJ = $(PARSING_SRC:.c=.o)
 
-all: $(NAME)
+all: credit $(NAME)
 
 $(NAME): $(OBJECT)
-	make bonus -sC libft/
-	ar rcs $(LIBNAME) $(OBJECT)
-	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME)
+	@echo "\n$(YELLOW)█████████████████████████████████████████████████ libft █████████████████████████████████████████████████$(RESET)"
+	@make bonus -C libft/
+	@ar rcs $(LIBNAME) $(OBJECT)
+	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME)
+	@echo "\n$(GREEN)████████████████████████████████████████████ Done compiling █████████████████████████████████████████████$(RESET)"
 
 parsing: $(PARSING_OBJ)
 	make bonus -sC libft/
@@ -41,15 +49,42 @@ parsing: $(PARSING_OBJ)
 	gcc -c $<
 
 clean:
-	make -sC libft/ clean
-	/bin/rm -f $(OBJECT)
+	@echo "$(RED)Deleting object files...$(RESET) "
+	@make -sC libft/ clean
+	@/bin/rm -f $(OBJECT)
 
 fclean: clean
-	make -sC libft/ fclean
-	/bin/rm -f $(LIBNAME)
-	/bin/rm -f parsing_mini
-	/bin/rm -f parsing_main.o
-	/bin/rm -f ../test/$(NAME)
-	/bin/rm -rf parsing_mini.dSYM/
+	@echo "$(RED)Deleting libraries, and executables...$(RESET) "
+	@make -sC libft/ fclean
+	@/bin/rm -f $(LIBNAME)
+	@/bin/rm -f ../test/$(NAME)
 
 re: fclean all
+
+credit:
+	@echo "$(GREEN)"
+	@echo "█████████████████████████████████████████████████████████████████████████████████████████████████████████"
+	@echo "█												      	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄⠀⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⣸⣿⡏⠀⠀⠀⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⢰⣿⣿⣯⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⡄⠀	█"
+	@echo "█									⠀⠀⣀⣤⣴⣶⣶⣿⡟⠀⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⠀	█"
+	@echo "█									⠀⢰⣿⡟⠋⠉⣹⣿⡇⠀⠀⠀⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿⣿⣿⠀	█"
+	@echo "█   ███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░	⠀⢸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀	█"
+	@echo "█   ████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░	⠀⣸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻⣿⡇⠀⠀	█"
+	@echo "█   ██╔████╔██║██║██╔██╗██║██║╚█████╗░███████║█████╗░░██║░░░░░██║░░░░░	⠀⣿⣿⠁⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⠀⠀	█"
+	@echo "█   ██║╚██╔╝██║██║██║╚████║██║░╚═══██╗██╔══██║██╔══╝░░██║░░░░░██║░░░░░	⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀	█"
+	@echo "█   ██║░╚═╝░██║██║██║░╚███║██║██████╔╝██║░░██║███████╗███████╗███████╗	⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀	█"
+	@echo "█   ╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝	⠀⢿⣿⡆⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀	█"
+	@echo "█   	⠀								 ⠸⣿⣧⡀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃⠀⠀	█"
+	@echo "█									⠀⠀⠛⢿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⣰⣿⣿⣷⣶⣶⣶⣶⠶⠀⢠⣿⣿⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀	█"
+	@echo "█									⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀	█"
+	@echo "█												      	█"
+	@echo "█████████████████████████████████████████████████████████████████████████████████████████████████████████"
+	@echo "$(RESET)"
+	@echo "\n$(BLUE)███████████████████████████████████████████████ minishell ███████████████████████████████████████████████$(RESET)"

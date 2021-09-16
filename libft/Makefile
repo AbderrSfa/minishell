@@ -6,7 +6,7 @@
 #    By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/28 16:36:22 by asfaihi           #+#    #+#              #
-#    Updated: 2021/07/27 14:44:49 by asfaihi          ###   ########.fr        #
+#    Updated: 2021/09/16 16:20:17 by asfaihi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJECT)
-	ar rc $(NAME) $(OBJECT)
+	@ar rc $(NAME) $(OBJECT)
 
 bonus: $(NAME) $(OBJECT_BONUS)
-	ar rc $(NAME) $(OBJECT_BONUS)
+	@ar rc $(NAME) $(OBJECT_BONUS)
 
 %.o:%.c
 	gcc $(FLAGS) -c $<
