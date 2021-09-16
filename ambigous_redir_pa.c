@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:44:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 14:48:33 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:20:23 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_ambigous_var_valid(char *var, char *joined)
 
 int	ambigous_error_message(char *expanded, char *joined, t_prs *prs, int i)
 {
-	if (!expanded)
+	if (!expanded || ft_strchr(expanded, ' '))
 	{
 		ft_putstr("minishell: ");
 		ft_putstr(joined);

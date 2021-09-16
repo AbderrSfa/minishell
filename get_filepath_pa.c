@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:11:13 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/16 12:26:59 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		while (s[prs->i] && s[prs->i] != ' ' && s[prs->i] != '<'
 			&& s[prs->i] != '>' && s[prs->i] != '"' && s[prs->i] != '\'')
 			prs->i++;
-		////
-		prs->outside_quote = 1;
 		temp = ft_substr(s, j, prs->i - j);
 		tmp = env_var_checker(temp, env_lst, prs);
 		free(temp);
@@ -59,8 +57,6 @@ void	join_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 		redir->file = ft_strjoin(redir->file, tmp);
 		free(tmp);
 		free(temp);
-		prs->outside_quote = 0;
-		////
 	}
 }
 
