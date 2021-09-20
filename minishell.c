@@ -35,6 +35,11 @@ int	main(void)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
+		if (input == NULL && !sig.interrupt_flag && !sig.quit_flag)
+		{
+			ft_putstr("\b\bexit\n");
+			exit(EXIT_SUCCESS);
+		}
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		temp = envp;

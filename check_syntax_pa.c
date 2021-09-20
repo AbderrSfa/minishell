@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/03 12:21:53 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/20 15:45:15 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	check_pipe_errors(char *s)
 
 int	pipe_and_semi_errors(char *str)
 {
+	if (str == NULL)
+		return (0);
 	if (str[0] == '|')
 	{
 		if (str[1] == '|')
