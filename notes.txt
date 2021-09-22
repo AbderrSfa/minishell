@@ -1,5 +1,4 @@
 [minishell] Hey we are having trouble with the readline function. Whenever we call readline in a subfunction for example for unfinished quotes or for heredoc and we press ctrl + c we get some problems with new signals. If ctrl + c is called again there is always one empty line between the prompts. We dont know if thats our fault or if readline weirdly safes a \n somewhere. we tried rl_replace_line but this didnt work. It works again when readline gets some input like a command or a return. Does someone have an idea how to fix this?
-
 try printing a baskspace followed by a whitespace character to remove the newline
 
-If env_var contains spaces and is not wrapped in double quotes, It should be split into individual args 
+

@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 10:28:45 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/20 16:06:29 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/22 12:16:21 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	sig_int(int signal)
 	}
 	else if (signal == SIGINT && sig.interrupt_flag == 1)
 		ft_putstr("\b\b  \b\b\nminishell-1.0$ ");
+	sig.ret = 1;
 }

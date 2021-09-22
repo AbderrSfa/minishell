@@ -22,36 +22,40 @@ int	main(void)
 	t_list		*cmds;
 	t_list		*envp;
 	t_list		*temp;
-	int			ret;
 
 	sig.quit_flag = 0;
 	sig.interrupt_flag = 0;
 	signal(SIGQUIT, &sig_quit);
 	signal(SIGINT, &sig_int);
-	ret = 0;
+	sig.ret = 0;
 	envp = NULL;
 	envp = prep_env_lst(envp, environ);
 	while (1)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
-		if (input == NULL && !sig.interrupt_flag && !sig.quit_flag)
+		//printf("{%s}\n", input);
+		//printf("INT {%d} -- QUIT {%d}\n", sig.interrupt_flag, sig.quit_flag);
+		if (input == NULL && (!sig.interrupt_flag || !sig.quit_flag))
 		{
-			ft_putstr("\b\bexit\n");
-			exit(EXIT_SUCCESS);
+			if (!sig.interrupt_flag && !sig.quit_flag)
+				ft_putstr("\b\bexit\n");
+			else
+				ft_putstr("exit\n");
+			exit(sig.ret);
 		}
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		temp = envp;
 		if (input != NULL && !check_syntax_errors(input))
 		{
-			cmds = split_by_pipes(cmds, input, temp, ret);
-			ret = my_exec(cmds, envp);
+			cmds = split_by_pipes(cmds, input, temp, sig.ret);
+			sig.ret = my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);
-		sig.quit_flag = 0;
 		sig.interrupt_flag = 0;
+		sig.quit_flag = 0;
 	}
 	free_env_lst(envp);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/20 12:29:47 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/22 12:07:47 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ struct					s_redir
 typedef struct s_sig	t_sig;
 struct					s_sig
 {
+	int					ret;
 	int					quit_flag;
 	int					interrupt_flag;
 };
