@@ -13,7 +13,20 @@
 #include "parsing.h"
 #include "exec.h"
 
-// Function is too long
+char	*ft_read_input(char *input, t_list *envp)
+{
+	input = readline("minishell-1.0$ ");
+	if (input == NULL)
+	{
+		ft_putstr_fd("exit\n", 1);
+		free_env_lst(envp);
+		exit(g_sig.ret);
+	}
+	if (ft_strcmp(input, ""))
+		add_history(input);
+	return (input);
+}
+
 int	main(void)
 {
 	extern char	**environ;
@@ -24,26 +37,17 @@ int	main(void)
 
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &sig_int);
-	sig.ret = 0;
-	envp = NULL;
 	envp = prep_env_lst(envp, environ);
+	g_sig.ret = 0;
 	while (1)
 	{
 		cmds = NULL;
-		input = readline("minishell-1.0$ ");
-		if (input == NULL)
-		{
-			ft_putstr_fd("exit\n", 1);
-			free_env_lst(envp);
-			exit(sig.ret);
-		}
-		if (ft_strcmp(input, ""))
-			add_history(input);
+		input = ft_read_input(input, envp);
 		temp = envp;
 		if (input != NULL && !check_syntax_errors(input))
 		{
-			cmds = split_by_pipes(cmds, input, temp, sig.ret);
-			sig.ret = my_exec(cmds, envp);
+			cmds = split_by_pipes(cmds, input, temp, g_sig.ret);
+			g_sig.ret = my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);

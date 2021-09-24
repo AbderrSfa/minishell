@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/24 14:21:29 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/24 15:17:31 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,61 +21,55 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define GREEN	"\033[1;32m"
-# define RED	"\033[0;31m"
-# define WHITE	"\033[0m"
-# define BLUE "\033[0;34m"
 
-typedef struct s_var	t_var;
-struct					s_var
+typedef struct s_var		t_var;
+struct						s_var
 {
-	int					i;
-	char				*result;
+	int						i;
+	char					*result;
 };
 
-typedef struct s_prs	t_prs;
-struct					s_prs
+typedef struct s_prs		t_prs;
+struct						s_prs
 {
-	int					arg_num;
-	int					i;
-	int					ambigous;
-	int					ret_value;
-	char				**extra_args;
-	int					outside_quote;
-	t_var				var;
+	int						arg_num;
+	int						i;
+	int						ambigous;
+	int						ret_value;
+	char					**extra_args;
+	int						outside_quote;
+	t_var					var;
 };
 
-typedef struct s_env	t_env;
-struct					s_env
+typedef struct s_env		t_env;
+struct						s_env
 {
-	char				*key;
-	char				*value;
+	char					*key;
+	char					*value;
 };
 
-typedef struct s_cmd	t_cmd;
-struct					s_cmd
+typedef struct s_cmd		t_cmd;
+struct						s_cmd
 {
-	char				*cmd;
-	char				**args;
-	t_list				*redir;
+	char					*cmd;
+	char					**args;
+	t_list					*redir;
 };
 
-
-typedef struct s_redir	t_redir;
-struct					s_redir
+typedef struct s_redir		t_redir;
+struct						s_redir
 {
-	char				type;
-	char				*file;
+	char					type;
+	char					*file;
 };
 
 typedef struct s_sig_ret	t_sig_ret;
-struct					s_sig_ret
+struct						s_sig_ret
 {
-	int					ret;
+	int						ret;
 };
 
-t_sig_ret	sig;
-
+t_sig_ret					g_sig;
 
 /* Prep environment variables */
 t_list	*prep_env_lst(t_list *env_lst, char **env);
@@ -148,7 +142,6 @@ void	free_redirect(t_list *redir);
 void	free_env_lst(t_list *env_lst);
 
 /* Signal handling */
-void	sig_quit(int signal);
 void	sig_int(int signal);
 
 #endif

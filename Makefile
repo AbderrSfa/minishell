@@ -34,7 +34,7 @@ SRC = allocate_pa.c \
 	unset_ex.c \
 
 FLAGS = -Wall -Wextra -Werror
-HEADERFILES = parsing.h exec.h
+HEADERFILES = parsing.h exec.h libft/libft.h
 
 RED = \033[1;31m
 GREEN = \033[1;32m
@@ -44,7 +44,6 @@ RESET = \033[0m
 
 #################
 # USE FLAGS
-# LINK HEADERS
 #################
 
 OBJECT = $(SRC:.c=.o)
@@ -56,7 +55,7 @@ $(NAME): $(OBJECT)
 	@echo "\n$(YELLOW)█████████████████████████████████████████████████ libft █████████████████████████████████████████████████$(RESET)"
 	@make bonus -C libft/
 	@ar rcs $(LIBNAME) $(OBJECT)
-	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -I parsing.h -I exec.h -o ../test/$(NAME)
+	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -o ../test/$(NAME)
 	@echo "\n$(GREEN)████████████████████████████████████████████ Done compiling █████████████████████████████████████████████$(RESET)"
 
 %.o:%.c $(HEADERFILES)
