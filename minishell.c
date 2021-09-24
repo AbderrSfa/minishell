@@ -25,7 +25,7 @@ int	main(void)
 
 	sig.quit_flag = 0;
 	sig.interrupt_flag = 0;
-	signal(SIGQUIT, &sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &sig_int);
 	sig.ret = 0;
 	envp = NULL;
@@ -34,14 +34,20 @@ int	main(void)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
-		//printf("{%s}\n", input);
-		//printf("INT {%d} -- QUIT {%d}\n", sig.interrupt_flag, sig.quit_flag);
-		if (input == NULL && (!sig.interrupt_flag || !sig.quit_flag))
+		
+/* 		printf("{%s}\n", input);
+		printf("INT {%d} -- QUIT {%d}\n", sig.interrupt_flag, sig.quit_flag); */
+/* 		if (input == NULL && (!sig.interrupt_flag || !sig.quit_flag))
 		{
 			if (!sig.interrupt_flag && !sig.quit_flag)
 				ft_putstr("\b\bexit\n");
 			else
 				ft_putstr("exit\n");
+			exit(sig.ret);
+		} */
+		if (input == NULL)
+		{
+			ft_putstr("exit\n");
 			exit(sig.ret);
 		}
 		if (ft_strcmp(input, ""))

@@ -72,7 +72,7 @@ $(NAME): $(OBJECT)
 	@echo "\n$(YELLOW)█████████████████████████████████████████████████ libft █████████████████████████████████████████████████$(RESET)"
 	@make bonus -C libft/
 	@ar rcs $(LIBNAME) $(OBJECT)
-	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) -o ../test/$(NAME)
+	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -o ../test/$(NAME)
 	@echo "\n$(GREEN)████████████████████████████████████████████ Done compiling █████████████████████████████████████████████$(RESET)"
 
 parsing: $(PARSING_OBJ)
@@ -80,7 +80,7 @@ parsing: $(PARSING_OBJ)
 	gcc $(PARSING_OBJ) $(LIBFT) $(INCLUDES) -o parsing_mini
 
 %.o:%.c
-	gcc -c $<
+	gcc -c $< $(CPPFLAGS)
 
 clean:
 	@echo "$(RED)Deleting object files...$(RESET) "
