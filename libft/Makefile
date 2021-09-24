@@ -6,7 +6,7 @@
 #    By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/28 16:36:22 by asfaihi           #+#    #+#              #
-#    Updated: 2021/09/16 16:20:17 by asfaihi          ###   ########.fr        #
+#    Updated: 2021/09/24 14:35:01 by asfaihi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,16 +29,24 @@ OBJECT_BONUS = $(SRC_BONUS:%.c=%.o)
 
 FLAGS = -Wall -Wextra -Werror
 
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+RESET = \033[0m
+
 all: $(NAME)
 
 $(NAME): $(OBJECT)
 	@ar rc $(NAME) $(OBJECT)
 
 bonus: $(NAME) $(OBJECT_BONUS)
+	@echo "$(YELLOW)█████████████████████████████████████████████████████████████████████████████████████████████████████████$(RESET)"
 	@ar rc $(NAME) $(OBJECT_BONUS)
 
 %.o:%.c
-	gcc $(FLAGS) -c $<
+	@echo "$(YELLOW)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(YELLOW)█$(RESET)"
+	@gcc $(FLAGS) -c $<
 
 clean:
 	/bin/rm -f $(OBJECT) $(OBJECT_BONUS)

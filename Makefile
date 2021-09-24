@@ -51,25 +51,29 @@ OBJECT = $(SRC:.c=.o)
 
 all: credit $(NAME)
 
-$(NAME): $(OBJECT) $(HEADERFILES)
+$(NAME): $(OBJECT)
+	@echo "$(BLUE)█████████████████████████████████████████████████████████████████████████████████████████████████████████$(RESET)"
 	@echo "\n$(YELLOW)█████████████████████████████████████████████████ libft █████████████████████████████████████████████████$(RESET)"
 	@make bonus -C libft/
-	ar rcs $(LIBNAME) $(OBJECT)
-	gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -o ../test/$(NAME)
+	@ar rcs $(LIBNAME) $(OBJECT)
+	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -I parsing.h -I exec.h -o ../test/$(NAME)
 	@echo "\n$(GREEN)████████████████████████████████████████████ Done compiling █████████████████████████████████████████████$(RESET)"
 
-%.o:%.c
-	gcc -c $< $(CPPFLAGS)
+%.o:%.c $(HEADERFILES)
+	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
+	@gcc -c $< $(CPPFLAGS)
 
 clean:
-	@echo "$(RED)Deleting object files...$(RESET) "
+	@echo "$(RED)Deleting:$(RESET) object files..."
 	@make -sC libft/ clean
 	@/bin/rm -f $(OBJECT)
 
 fclean: clean
-	@echo "$(RED)Deleting libraries, and executables...$(RESET) "
+	@echo "$(RED)Deleting:$(RESET) $(LIBFT)..."
 	@make -sC libft/ fclean
+	@echo "$(RED)Deleting:$(RESET) $(LIBNAME)..."
 	@/bin/rm -f $(LIBNAME)
+	@echo "$(RED)Deleting:$(RESET) $(NAME)..."
 	@/bin/rm -f ../test/$(NAME)
 
 re: fclean all

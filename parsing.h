@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/24 12:14:52 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/24 14:21:29 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct					s_cmd
 	char				**args;
 	t_list				*redir;
 };
+
 
 typedef struct s_redir	t_redir;
 struct					s_redir
