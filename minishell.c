@@ -14,7 +14,6 @@
 #include "exec.h"
 
 // Function is too long
-// Too many variables declared
 int	main(void)
 {
 	extern char	**environ;
@@ -23,8 +22,6 @@ int	main(void)
 	t_list		*envp;
 	t_list		*temp;
 
-	sig.quit_flag = 0;
-	sig.interrupt_flag = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &sig_int);
 	sig.ret = 0;
@@ -34,20 +31,10 @@ int	main(void)
 	{
 		cmds = NULL;
 		input = readline("minishell-1.0$ ");
-		
-/* 		printf("{%s}\n", input);
-		printf("INT {%d} -- QUIT {%d}\n", sig.interrupt_flag, sig.quit_flag); */
-/* 		if (input == NULL && (!sig.interrupt_flag || !sig.quit_flag))
-		{
-			if (!sig.interrupt_flag && !sig.quit_flag)
-				ft_putstr("\b\bexit\n");
-			else
-				ft_putstr("exit\n");
-			exit(sig.ret);
-		} */
 		if (input == NULL)
 		{
-			ft_putstr("exit\n");
+			ft_putstr_fd("exit\n", 1);
+			free_env_lst(envp);
 			exit(sig.ret);
 		}
 		if (ft_strcmp(input, ""))
@@ -60,8 +47,6 @@ int	main(void)
 		}
 		free(input);
 		free_cmds(cmds);
-		sig.interrupt_flag = 0;
-		sig.quit_flag = 0;
 	}
 	free_env_lst(envp);
 	return (0);

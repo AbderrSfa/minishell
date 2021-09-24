@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:55:26 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/24 10:51:55 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/24 12:14:52 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,14 @@ struct					s_redir
 	char				*file;
 };
 
-typedef struct s_sig	t_sig;
-struct					s_sig
+typedef struct s_sig_ret	t_sig_ret;
+struct					s_sig_ret
 {
 	int					ret;
-	int					quit_flag;
-	int					interrupt_flag;
 };
 
-t_sig	sig;
+t_sig_ret	sig;
+
 
 /* Prep environment variables */
 t_list	*prep_env_lst(t_list *env_lst, char **env);
