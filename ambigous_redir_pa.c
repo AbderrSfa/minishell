@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:44:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:14:00 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:27:43 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_ambigous_var_valid(char *var, char *joined)
 	return (1);
 }
 
-static int	ambigous_error_message(char *expanded, char *joined, t_prs *prs, int i)
+static int	ambigous_err_msg(char *expanded, char *joined, t_prs *prs, int i)
 {
 	if (!expanded || ft_strchr(expanded, ' '))
 	{
@@ -77,7 +77,7 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 		expanded = variable_expander(var, env_lst);
 		free(var);
 	}
-	if (!ambigous_error_message(expanded, joined, prs, i))
+	if (!ambigous_err_msg(expanded, joined, prs, i))
 		return (0);
 	return (-1);
 }

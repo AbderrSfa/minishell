@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:47:17 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/28 12:17:53 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:30:18 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static void	get_file_quotes(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
+static void	get_file_quote(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
@@ -70,7 +70,7 @@ void	get_filepath(t_redir *redir, char *s, t_list *env_lst, t_prs *prs)
 	while (s[prs->i])
 	{
 		join_filepath(redir, s, env_lst, prs);
-		get_file_quotes(redir, s, env_lst, prs);
+		get_file_quote(redir, s, env_lst, prs);
 		if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>'
 			|| s[prs->i] == '<')
 			break ;

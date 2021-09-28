@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/28 14:09:17 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:30:10 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
+static void	get_dbl_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
@@ -73,7 +73,7 @@ static void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		prs->outside_quote = 0;
 	}
 	if (s[prs->i] == '"' || s[prs->i] == '\'')
-		get_dbl_or_sgl_quotes(new, s, env_lst, prs);
+		get_dbl_sgl_quotes(new, s, env_lst, prs);
 	if (!s[prs->i] || s[prs->i] == ' ' || s[prs->i] == '>' || s[prs->i] == '<')
 		is_arg_empty(new, s, prs, j);
 }
@@ -115,7 +115,7 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	}
 	if (prs.ambigous == 1)
 		new->cmd = NULL;
-	if (!ft_strcmp(new->cmd, "echo"))
+	if (new->args[0] && !ft_strcmp(new->cmd, "echo"))
 		echo_n_flag(new);
 	return (new);
 }
