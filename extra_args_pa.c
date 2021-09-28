@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:51:28 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/16 12:44:48 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:16:44 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	args_counter(char *s)
+static int	args_counter(char *s)
 {
 	int		i;
 	int		ret;

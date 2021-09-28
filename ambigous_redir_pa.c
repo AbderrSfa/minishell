@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 14:44:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/16 12:20:23 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:14:00 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	is_ambigous_var_valid(char *var, char *joined)
+static int	is_ambigous_var_valid(char *var, char *joined)
 {
 	if (ft_strchr(var, '"') || ft_strchr(var, '\''))
 	{
@@ -23,7 +23,7 @@ int	is_ambigous_var_valid(char *var, char *joined)
 	return (1);
 }
 
-int	ambigous_error_message(char *expanded, char *joined, t_prs *prs, int i)
+static int	ambigous_error_message(char *expanded, char *joined, t_prs *prs, int i)
 {
 	if (!expanded || ft_strchr(expanded, ' '))
 	{
@@ -39,7 +39,7 @@ int	ambigous_error_message(char *expanded, char *joined, t_prs *prs, int i)
 	return (0);
 }
 
-char	*get_ambigous_var(char *joined, char *var)
+static char	*get_ambigous_var(char *joined, char *var)
 {
 	char	*temp;
 

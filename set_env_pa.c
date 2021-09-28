@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 11:43:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/08/31 15:14:35 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:28:57 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env	*make_env_node(char *key, char *value)
 	return (new);
 }
 
-char	*increment_shell_level(char *value)
+static char	*increment_shell_level(char *value)
 {
 	char	*temp;
 

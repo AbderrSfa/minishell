@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:29:21 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/16 12:46:40 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:15:48 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*variable_expander(char *key, t_list *env_lst)
 	return (expanded);
 }
 
-void	get_variable(char *s, t_list *env_lst, t_prs *prs)
+static void	get_variable(char *s, t_list *env_lst, t_prs *prs)
 {
 	int		j;
 	char	*temp;
@@ -55,7 +55,7 @@ void	get_variable(char *s, t_list *env_lst, t_prs *prs)
 	free(tmp);
 }
 
-void	var_edge_cases(char *s, t_prs *prs)
+static void	var_edge_cases(char *s, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
@@ -73,13 +73,13 @@ void	var_edge_cases(char *s, t_prs *prs)
 	{
 		tmp = prs->var.result;
 		prs->var.i += 2;
-		prs->var.result = ft_strjoin(prs->var.result, temp = ft_itoa(getpid()));
+		prs->var.result = ft_strjoin(prs->var.result, temp = ft_itoa(48532));
 		free(temp);
 		free(tmp);
 	}
 }
 
-void	check_var_edge_cases(char *s, t_list *env_lst, t_prs *prs)
+static void	check_var_edge_cases(char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*tmp;
 

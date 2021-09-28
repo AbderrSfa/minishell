@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 14:20:42 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 15:59:36 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:22:43 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	skip_space_and_redir(char *s, int i)
+static int	skip_space_and_redir(char *s, int i)
 {
 	while (s[i] == ' ')
 		i++;

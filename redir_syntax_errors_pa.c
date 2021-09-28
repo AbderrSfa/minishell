@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 15:53:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/24 12:35:17 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:24:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	skip_quotes(char *str, int i)
+static int	skip_quotes(char *str, int i)
 {
 	if (str[i] == '"')
 	{
@@ -27,7 +27,7 @@ int	skip_quotes(char *str, int i)
 	return (i + 1);
 }
 
-int	redirection_syntax_errors(char *str, int i)
+static int	redirection_syntax_errors(char *str, int i)
 {
 	if ((str[i] == '>' && str[i + 1] == '>')
 		|| (str[i] == '<' && str[i + 1] == '<'))

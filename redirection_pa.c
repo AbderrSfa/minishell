@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:39:41 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 13:31:26 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:19:41 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*single_quotes(char *s, t_prs *prs)
 	return (file);
 }
 
-char	get_redir_type(char first, char second)
+static char	get_redir_type(char first, char second)
 {
 	if (first == '>' && second != '>')
 		return ('O');
@@ -56,7 +56,7 @@ char	get_redir_type(char first, char second)
 	return (0);
 }
 
-t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
+static t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
 {
 	t_redir	*new;
 

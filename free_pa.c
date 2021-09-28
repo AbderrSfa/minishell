@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:02 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 16:13:50 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 12:17:11 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	free_redirect(t_list *redir)
+static void	free_redirect(t_list *redir)
 {
 	t_list	*redir_temp;
 	t_redir	*temp;

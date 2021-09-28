@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 12:54:59 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/20 15:45:15 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:16:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_put_error(char *error)
 	return (1);
 }
 
-int	check_quote_errors(char *s)
+static int	check_quote_errors(char *s)
 {
 	int		i;
 
@@ -46,7 +46,7 @@ int	check_quote_errors(char *s)
 	return (0);
 }
 
-int	check_pipe_errors(char *s)
+static int	check_pipe_errors(char *s)
 {
 	int		i;
 	int		quote;
@@ -58,7 +58,7 @@ int	check_pipe_errors(char *s)
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
-			check_for_quote(s[i++], quote);
+			quote = check_for_quote(s[i++], quote);
 		if (s[i] == '|' && !quote)
 		{
 			i++;
@@ -73,7 +73,7 @@ int	check_pipe_errors(char *s)
 	return (0);
 }
 
-int	pipe_and_semi_errors(char *str)
+static int	pipe_and_semi_errors(char *str)
 {
 	if (str == NULL)
 		return (0);

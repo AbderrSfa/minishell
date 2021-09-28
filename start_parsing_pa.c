@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 12:03:52 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/01 12:07:15 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:08:54 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	*change_pipe(char *s)
+static char	*change_pipe(char *s)
 {
 	int		i;
 	int		quote;
@@ -38,7 +38,7 @@ char	*change_pipe(char *s)
 	return (temp);
 }
 
-t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret)
+t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst)
 {
 	char	**commands;
 	t_cmd	*temp;
@@ -50,7 +50,7 @@ t_list	*split_by_pipes(t_list *head, char *input, t_list *env_lst, int ret)
 	commands = ft_split(input, -124);
 	while (commands[i])
 	{
-		temp = new_node(commands[i], env_lst, ret);
+		temp = new_node(commands[i], env_lst);
 		new = ft_lstnew(temp);
 		ft_lstadd_back(&head, new);
 		i++;

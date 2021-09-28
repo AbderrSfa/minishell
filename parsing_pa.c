@@ -6,13 +6,13 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:31 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/16 12:47:00 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:09:17 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
+static void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	char	*tmp;
@@ -37,7 +37,7 @@ void	get_dbl_or_sgl_quotes(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
+static void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 {
 	char	*temp;
 
@@ -53,7 +53,7 @@ void	is_arg_empty(t_cmd *new, char *s, t_prs *prs, int j)
 	free(temp);
 }
 
-void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
+static void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*temp;
 	int		j;
@@ -78,7 +78,7 @@ void	get_arg(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 		is_arg_empty(new, s, prs, j);
 }
 
-void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
+static void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 {
 	while (s[prs->i])
 	{
@@ -92,13 +92,13 @@ void	simple_cmd_parse(t_cmd *new, char *s, t_list *env_lst, t_prs *prs)
 	}
 }
 
-t_cmd	*new_node(char *s, t_list *env_lst, int ret)
+t_cmd	*new_node(char *s, t_list *env_lst)
 {
 	t_prs	prs;
 	t_cmd	*new;
 	int		i;
 
-	initialize_prs_node(&prs, ret);
+	initialize_prs_node(&prs);
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);

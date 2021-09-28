@@ -20,7 +20,7 @@ char	*ft_read_input(char *input, t_list *envp)
 	{
 		ft_putstr_fd("exit\n", 1);
 		free_env_lst(envp);
-		exit(g_sig.ret);
+		exit(exit_status);
 	}
 	if (ft_strcmp(input, ""))
 		add_history(input);
@@ -38,7 +38,7 @@ int	main(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &sig_int);
 	envp = prep_env_lst(envp, environ);
-	g_sig.ret = 0;
+	exit_status = 0;
 	while (1)
 	{
 		cmds = NULL;
@@ -46,8 +46,8 @@ int	main(void)
 		temp = envp;
 		if (input != NULL && !check_syntax_errors(input))
 		{
-			cmds = split_by_pipes(cmds, input, temp, g_sig.ret);
-			g_sig.ret = my_exec(cmds, envp);
+			cmds = split_by_pipes(cmds, input, temp);
+			exit_status = my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);

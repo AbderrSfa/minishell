@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 17:26:25 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/15 14:54:59 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/28 14:09:33 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	initialize_env_node(t_env *new)
 	new->value = NULL;
 }
 
-void	initialize_prs_node(t_prs *prs, int ret)
+void	initialize_prs_node(t_prs *prs)
 {
 	prs->i = 0;
 	prs->arg_num = 0;
 	prs->ambigous = 0;
-	prs->ret_value = ret;
+	prs->ret_value = exit_status;
 	prs->outside_quote = 0;
 	prs->extra_args = NULL;
 }
