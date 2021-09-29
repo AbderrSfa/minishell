@@ -111,6 +111,6 @@ void	free_cmds(t_list *cmd);
 void	free_env_lst(t_list *env_lst);
 
 /* Signal handling */
-void	sig_int(void);
+void	sig_int(int signal);
 
 #endif

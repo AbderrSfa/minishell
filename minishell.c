@@ -13,13 +13,16 @@
 #include "parsing.h"
 #include "exec.h"
 
-void	sig_int(void)
+void	sig_int(int signal)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-	g_exit_status = 1;
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+		g_exit_status = 1;
+	}
 }
 
 static char	*ft_read_input(char *input, t_list *envp)
