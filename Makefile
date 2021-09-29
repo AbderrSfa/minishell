@@ -6,34 +6,36 @@ LIBFT = libft/libft.a
 
 INCLUDES = -lreadline
 
-SRC = allocate_pa.c \
-	ambigous_redir_pa.c \
-	builtin_ex.c \
+SRC =	builtin_ex.c \
 	chdir_ex.c \
-	check_syntax_pa.c \
-	echo_ex.c \
-	env_ex.c \
-	env_variable_pa.c \
 	envp_ex.c \
 	exec_ex.c \
+	path_ex.c \
+	pwd_ex.c \
+	unset_ex.c \
+	heredoc_ex.c \
+	cmd_ex.c \
+	allocate_pa.c \
+	ambigous_redir_pa.c \
+	check_syntax_pa.c \
+	env_variable_pa.c \
 	extra_args_pa.c \
 	free_pa.c \
 	get_filepath_pa.c \
-	heredoc_ex.c \
 	init_nodes_pa.c \
 	minishell.c \
 	parsing_pa.c \
-	path_ex.c \
-	pwd_ex.c \
 	redir_syntax_errors_pa.c \
 	redirection_ex.c \
 	redirection_pa.c \
 	set_env_pa.c \
 	signals_pa.c \
 	start_parsing_pa.c \
-	unset_ex.c \
 
 FLAGS = -Wall -Wextra -Werror
+LDFLAGS="-L/Users/yabdelgh/.brew/opt/readline/lib"
+CPPFLAGS="-I/Users/yabdelgh/.brew/opt/readline/include"
+
 HEADERFILES = parsing.h exec.h libft/libft.h
 
 RED = \033[1;31m

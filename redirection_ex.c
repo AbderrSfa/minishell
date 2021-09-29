@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:33:00 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/13 17:54:01 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:53:30 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,23 @@ void	append_redirect(char *file)
 	}
 	ft_dup2(fd, 1);
 	close(fd);
+}
+
+void my_redirect(t_list *redir)
+{
+	t_redir *redi;
+
+	while (redir != NULL)
+	{
+		redi = redir->content;
+		if (redi->type == 'O')
+			output_redirect(redi->file);
+		if (redi->type == 'A')
+			append_redirect(redi->file);
+		if (redi->type == 'I')
+			input_redirect(redi->file);
+		if (redi->type == 'H')
+			input_redirect("/tmp/file1");
+		redir = redir->next;
+	}
 }
