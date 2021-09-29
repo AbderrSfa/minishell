@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 17:33:21 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 16:24:26 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:44:04 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_valid_env_name(char *value)
 		if (value[i] != '_' && !ft_isalnum(value[i]))
 		{
 			printf("minishell: '%s': not a valid identifier\n", value);
+			g_exit_status = 1;
 			return (0);
 		}
 		i++;

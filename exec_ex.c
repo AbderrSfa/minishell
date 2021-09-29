@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:01:39 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:50:56 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 	cmd = cmds->content;
 	if (cmd->cmd == NULL)
 		exit(128);
-	my_redirect(cmd->redir);
-	if (exec_builtin(cmd, envp, is_builtin(cmd)))
-		exit(0);
+	if (my_redirect(cmd->redir) || exec_builtin(cmd, envp, is_builtin(cmd)))
+		exit(1);
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
 	execve(cmd_path, cmd->args, tab);
 	exit(127);
@@ -44,12 +43,13 @@ void	my_exec(t_list *cmds, t_list *envp)
 	int	*pfds;
 	int	pid;
 
+	pfds = NULL;
 	nbr_cmds = ft_lstsize(cmds);
 	if (nbr_cmds > 0)
 	{
 		g_exit_status = is_builtin(cmds->content);
 		if (nbr_cmds == 1 && g_exit_status != 0)
-			g_exit_status = ft_builtin(cmds->content, envp, g_exit_status);
+			ft_builtin(cmds->content, envp, g_exit_status);
 		else
 		{
 			ft_heredoc(cmds);

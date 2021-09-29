@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 16:41:13 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:46:32 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,17 @@ int	ft_builtin(t_cmd *cmd, t_list *envp, int status)
 {
 	int	input;
 	int	output;
+	int	i;
 
+	i = 0;
 	if (cmd->redir != NULL)
 	{
 		input = dup(0);
 		output = dup(1);
-		my_redirect(cmd->redir);
+		i = my_redirect(cmd->redir);
 	}
-	exec_builtin(cmd, envp, status);
+	if (i == 0)
+		exec_builtin(cmd, envp, status);
 	if (cmd->redir != NULL)
 	{
 		ft_dup2(input, 1);

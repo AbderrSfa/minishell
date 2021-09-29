@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:00:53 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:52:50 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	my_exec(t_list *cmds, t_list *envp);
 
 // redirection_ex.c
 void    ft_dup2(int fd1, int fd2);
-void	my_redirect(t_list *redir);
+int		my_redirect(t_list *redir);
 int		input_redirect(char *file);
 int		output_redirect(char *file);
 int		append_redirect(char *file);
 
 
 void	ft_heredoc(t_list *cmds);
-char    **get_paths();
+char    **get_paths(t_list *envp);
 char    *get_envp(t_list *envp, char *key);
 char    *get_cmd_path(char *cmd, char **paths);
 
