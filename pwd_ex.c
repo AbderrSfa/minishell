@@ -6,13 +6,45 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/29 13:42:24 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:46:57 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void pwd(char *gpwd)
+int ft_echo(char **argv, char option)
+{
+	int i;
+
+	i = 0;
+	while (argv[i] != NULL)
+	{
+		write(1, argv[i], ft_strlen(argv[i]));
+		i++;
+		if (argv[i] != NULL)
+			write(1, " ", 1);
+	}
+	if (option != 'n')
+		write(1, "\n", 1);
+	return (0);
+}
+
+int ft_env(t_list *envp)
+{
+	t_env *env;
+
+	envp = envp->next;
+	while (envp)
+	{
+		env = envp->content;
+		if(env->value != NULL)
+			printf("%s=%s\n",env->key, env->value);
+		envp = envp->next;
+	}
+	return (0);
+}
+
+int ft_pwd(char *gpwd)
 {
 	if(gpwd == NULL)
 	{
@@ -21,6 +53,7 @@ void pwd(char *gpwd)
 	}
 	else
 		printf("%s\n",gpwd);
+	return (0);
 }
 
 void ft_exit(int status)

@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/29 20:04:27 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:00:10 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ int exec_builtin(t_cmd *cmd, t_list *envp, int status)
 	}
 	else if (status == 2)
 	{
-		pwd(gpwd);
+		ft_pwd(gpwd);
 		return(1);
 	}
 	else if (status == 3)
 	{
 		if ( cmd->args[1] != NULL && ft_strncmp(cmd->args[1],"-n", 3) == 0)
-			echo(cmd->args + 2,'n');
+			ft_echo(cmd->args + 2,'n');
 		else
-			echo(cmd->args + 1,' ');
+			ft_echo(cmd->args + 1,' ');
 		return(1);
 	}
 	else if (status == 4)
@@ -92,6 +92,28 @@ int exec_builtin(t_cmd *cmd, t_list *envp, int status)
 			i++;
 		}
 		return(1);
+	}
+	return (0);
+}
+
+int ft_builtin(t_cmd *cmd, t_list *envp, int status)
+{
+	int input;
+	int output;
+
+	if (cmd->redir != NULL)
+	{
+		input = dup(0);
+		output = dup(1);
+		my_redirect(cmd->redir);
+	}
+	exec_builtin(cmd, envp, status);
+	if (cmd->redir != NULL)
+	{
+		ft_dup2(input, 1);
+		ft_dup2(output,0);
+		close(input);
+		close(output);
 	}
 	return (0);
 }

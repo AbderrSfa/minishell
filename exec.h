@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/29 20:21:50 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:01:10 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,34 @@ char    *get_cmd_path(char *cmd, char **paths);
 
 void	my_redirect(t_list *redir);
 
-void	pwd(char *gpwd);
 int		ft_export(t_list *envp, char *arg);
 int		ft_unset(t_list *envp, char *value);
-void	ft_env(t_list *envp);
-int		echo(char **argv, char option);
-void	ft_exit(int status);
 int		is_builtin(t_cmd *cmd);
 int		exec_builtin(t_cmd *cmd, t_list *envp, int status);
-int		cd(char **pwd, char **oldpwd, char *dir, char *home, char **gpwd);
-int		exec_cd(t_cmd *cmd, t_list *envp, char **gpwd);
 
 char	**list_to_arr(t_list *lst);
 int 	ft_display_envp(t_list *envp);
+
+// chdir_ex.c
 int		ft_chdir(t_cmd *cmd, t_list *envp, char **path);
+
+// builins_ex.c
+int ft_echo (char **argv, char option);
+int ft_env(t_list *envp);
+int ft_pwd(char *gpwd);
+void ft_exit(int status);
+
+// builtin_ex.c
+int ft_builtin(t_cmd *cmd, t_list *envp, int status);
+
+// cmd_ex.c
+void	wait_cmds(int nbr_cmds);
+void	close_pfds(int *pfds, int nbr);
+
+int		*create_pipes(int nbr_pipes);
+int		create_childs(t_list *cmds, int *pfds, t_list *envp);
+
+//exec_ex.c
+void exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i);
 
 #endif
