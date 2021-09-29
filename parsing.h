@@ -21,7 +21,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
 typedef struct s_var		t_var;
 struct						s_var
 {
@@ -63,7 +62,7 @@ struct						s_cmd
 	t_list					*redir;
 };
 
-int							exit_status;
+int							g_exit_status;
 
 /* Prep environment variables */
 t_list	*prep_env_lst(t_list *env_lst, char **env);
@@ -112,6 +111,6 @@ void	free_cmds(t_list *cmd);
 void	free_env_lst(t_list *env_lst);
 
 /* Signal handling */
-void	sig_int(int signal);
+void	sig_int(void);
 
 #endif
