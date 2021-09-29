@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:49:53 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 19:17:11 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_swap(char **a, char **b)
 	*b = tmp;
 }
 
-int	envp_sort(char **tab, int size)
+static int	envp_sort(char **tab, int size)
 {
 	int		len;
 	int		wall;

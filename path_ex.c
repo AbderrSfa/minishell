@@ -6,13 +6,13 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:32:32 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:52:48 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 19:13:56 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-char	*get_envp(t_list *envp, char *key)
+static char	*get_envp(t_list *envp, char *key)
 {
 	t_env	*env;
 
