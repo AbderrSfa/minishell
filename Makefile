@@ -33,8 +33,8 @@ SRC =	builtin_ex.c \
 	start_parsing_pa.c \
 
 FLAGS = -Wall -Wextra -Werror
-LDFLAGS="-L/Users/yabdelgh/.brew/opt/readline/lib"
-CPPFLAGS="-I/Users/yabdelgh/.brew/opt/readline/include"
+LDFLAGS="-L$(HOME)/.brew/opt/readline/lib"
+CPPFLAGS="-I$(HOME)/.brew/opt/readline/include"
 
 HEADERFILES = parsing.h exec.h libft/libft.h
 

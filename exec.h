@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 15:01:10 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:38:50 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,12 @@ void	close_pfds(int *pfds, int nbr);
 int		*create_pipes(int nbr_pipes);
 int		create_childs(t_list *cmds, int *pfds, t_list *envp);
 
-//exec_ex.c
+// exec_ex.c
 void exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i);
+
+// unset_ex.c
+int ft_unset(t_list *envp, char *value);
+int ft_export(t_list *envp, char *arg);
+int	ft_valid_env_name(char *value);
 
 #endif

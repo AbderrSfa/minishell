@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 15:00:10 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:39:50 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,66 +33,56 @@ int is_builtin(t_cmd *cmd)
 	return (0);
 }
 
-int exec_builtin(t_cmd *cmd, t_list *envp, int status)
+static int exec_un_ex(t_cmd *cmd, t_list *envp, int status)
 {
 	int i;
-	t_env *env;
+
+	if (status == 6)
+	{
+		i = 1;
+		while(cmd->args[i] != NULL && ft_valid_env_name(cmd->args[i]))
+		{
+			ft_unset(envp, cmd->args[i]);
+			i++;
+		}
+	}
+	else if (status == 7)
+	{
+		if(cmd->args[1] == NULL)
+			ft_display_envp(envp);
+		i = 1;
+		while(cmd->args[i] != NULL && ft_valid_env_name(cmd->args[i]))
+		{
+			ft_export(envp, cmd->args[i]);
+			i++;
+		}
+	}
+	return(0);
+}
+
+int exec_builtin(t_cmd *cmd, t_list *envp, int status)
+{
 	static char *gpwd;
 
 	if (gpwd == NULL)
 		gpwd = getcwd(NULL,0);	
 	if (status == 1)
-	{
-		ft_chdir(cmd, envp, &gpwd);
-		return(1);
-	}
+		exit_status = ft_chdir(cmd, envp, &gpwd);
 	else if (status == 2)
-	{
-		ft_pwd(gpwd);
-		return(1);
-	}
+		exit_status = ft_pwd(gpwd);
 	else if (status == 3)
 	{
 		if ( cmd->args[1] != NULL && ft_strncmp(cmd->args[1],"-n", 3) == 0)
-			ft_echo(cmd->args + 2,'n');
+			exit_status = ft_echo(cmd->args + 2,'n');
 		else
-			ft_echo(cmd->args + 1,' ');
-		return(1);
+			exit_status = ft_echo(cmd->args + 1,' ');
 	}
 	else if (status == 4)
-	{
-		ft_env(envp);
-		return(1);
-	}
+		exit_status = ft_env(envp);
 	else if (status == 5)
-	{
 		ft_exit(status);
-	}
-	else if (status == 6)
-	{
-		i = 1;
-		while(cmd->args[i] != NULL)
-		{
-			ft_unset(envp, cmd->args[i]);
-			i++;
-		}
-		return(1);
-	}
-	else if (status == 7)
-	{
-		i = 1;
-		if(cmd->args[1] == NULL)
-		{
-			ft_display_envp(envp);
-			return (1);
-		}
-		while(cmd->args[i] != NULL)
-		{
-			ft_export(envp, cmd->args[i]);
-			i++;
-		}
-		return(1);
-	}
+	if (status == 6 || status == 7)
+		exec_un_ex(cmd , envp, status);
 	return (0);
 }
 
