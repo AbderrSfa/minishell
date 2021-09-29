@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 16:36:56 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:01:39 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	my_exec(t_list *cmds, t_list *envp)
 			g_exit_status = ft_builtin(cmds->content, envp, g_exit_status);
 		else
 		{
-			heredoc(cmds);
+			ft_heredoc(cmds);
 			if (nbr_cmds > 1)
 				pfds = create_pipes(nbr_cmds - 1);
 			pid = create_childs(cmds, pfds, envp);

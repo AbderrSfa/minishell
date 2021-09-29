@@ -29,7 +29,6 @@ SRC =	builtin_ex.c \
 	redirection_ex.c \
 	redirection_pa.c \
 	set_env_pa.c \
-	signals_pa.c \
 	start_parsing_pa.c \
 
 FLAGS = -Wall -Wextra -Werror
@@ -62,7 +61,7 @@ $(NAME): $(OBJECT)
 
 %.o:%.c $(HEADERFILES)
 	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
-	@gcc -c $< $(CPPFLAGS) $(FLAGS)
+	@gcc -c $< $(CPPFLAGS)
 
 clean:
 	@echo "$(RED)Deleting:$(RESET) object files..."

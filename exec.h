@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 16:32:06 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:00:53 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@
  # include <sys/types.h>
  # include <sys/wait.h>
 
-#define BUFFER_SIZE 1
-
 //	exec_ex.c
 void	my_exec(t_list *cmds, t_list *envp);
 
-//
+// redirection_ex.c
 void    ft_dup2(int fd1, int fd2);
-void    input_redirect(char *file);
-void    output_redirect(char *file);
-void    append_redirect(char *file);
-void	heredoc(t_list *cmds);
+void	my_redirect(t_list *redir);
+int		input_redirect(char *file);
+int		output_redirect(char *file);
+int		append_redirect(char *file);
+
+
+void	ft_heredoc(t_list *cmds);
 char    **get_paths();
 char    *get_envp(t_list *envp, char *key);
 char    *get_cmd_path(char *cmd, char **paths);
 
-void	my_redirect(t_list *redir);
 
 int		ft_export(t_list *envp, char *arg);
 int		ft_unset(t_list *envp, char *value);

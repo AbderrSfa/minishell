@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 18:52:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 16:24:08 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:10:23 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_error(int index, char *dir)
 	if (index == 1)
 		printf("minishell: cd: too many arguments\n");
 	else if (index == 2)
-		printf("minishell: cd: %s: %s\n",dir, strerror(errno));
+		printf("minishell: cd: %s: %s\n", dir, strerror(errno));
 	else
 	{
 		printf("cd: error retrieving current directory: getcwd:");
@@ -34,39 +34,39 @@ static char	*ft_get_dir(char *dir, t_list *envp)
 	home = NULL;
 	if (dir != NULL)
 		return (dir);
-	while(envp != NULL)
+	while (envp != NULL)
 	{
 		env = envp->content;
-		if (ft_strncmp(env->key,"HOME",5) == 0)
+		if (ft_strncmp(env->key, "HOME", 5) == 0)
 			home = env->value;
 		envp = envp->next;
 	}
 	return (home);
 }
 
-static void ft_swap(t_list *envp, char **gpwd)
+static void	ft_swap(t_list *envp, char **gpwd)
 {
 	char	**pwd;
 	char	**oldpwd;
 	t_env	*env;
 
-	while(envp != NULL)
+	while (envp != NULL)
 	{
 		env = envp->content;
-		if (ft_strncmp(env->key,"PWD",4) == 0)
+		if (ft_strncmp(env->key, "PWD", 4) == 0)
 			pwd = &env->value;
-		else if (ft_strncmp(env->key,"OLDPWD", 7) == 0)
+		else if (ft_strncmp(env->key, "OLDPWD", 7) == 0)
 			oldpwd = &env->value;
 		envp = envp->next;
 	}
 	free(*oldpwd);
 	*oldpwd = *pwd;
-	*pwd = ft_strjoin(*gpwd,"");
+	*pwd = ft_strjoin(*gpwd, "");
 }
 
 static void	ft_change(char *str, char *dir, char **gpwd, t_list *envp)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (str == NULL)
 	{
@@ -88,7 +88,7 @@ static void	ft_change(char *str, char *dir, char **gpwd, t_list *envp)
 	ft_swap(envp, gpwd);
 }
 
-int ft_chdir(t_cmd *cmd, t_list *envp, char **path)
+int	ft_chdir(t_cmd *cmd, t_list *envp, char **path)
 {
 	int		i;
 	char	*str;

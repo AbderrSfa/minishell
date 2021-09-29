@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:32:32 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/18 15:09:45 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:52:30 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*get_envp(t_list *envp, char *key)
 {
-	t_env *env;
+	t_env	*env;
 
-	while(envp != NULL)
+	while (envp != NULL)
 	{
 		env = envp->content;
 		if (strcmp(key, env->key) == 0)
@@ -46,7 +46,7 @@ char	*get_cmd_path(char *cmd, char **paths)
 	j = open(cmd, O_RDONLY);
 	if (j != -1 && j != 13)
 		return (cmd);
-	cmd = ft_strjoin("/",cmd);
+	cmd = ft_strjoin("/", cmd);
 	i = 0;
 	while (paths[i] != NULL)
 	{

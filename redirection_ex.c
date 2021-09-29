@@ -6,11 +6,12 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:33:00 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 14:53:30 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:07:31 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
 void	ft_dup2(int fd1, int fd2)
 {
 	int	i;
@@ -23,7 +24,7 @@ void	ft_dup2(int fd1, int fd2)
 	}
 }
 
-void	input_redirect(char *file)
+int	input_redirect(char *file)
 {
 	int	fd;
 
@@ -31,13 +32,14 @@ void	input_redirect(char *file)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(0);
+		return (1);
 	}
 	ft_dup2(fd, 0);
 	close(fd);
+	return (0);
 }
 
-void	output_redirect(char *file)
+int	output_redirect(char *file)
 {
 	int	fd;
 
@@ -45,13 +47,14 @@ void	output_redirect(char *file)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(0);
+		return (1);
 	}
 	ft_dup2(fd, 1);
 	close(fd);
+	return (0);
 }
 
-void	append_redirect(char *file)
+int	append_redirect(char *file)
 {
 	int	fd;
 
@@ -59,15 +62,16 @@ void	append_redirect(char *file)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(0);
+		return (1);
 	}
 	ft_dup2(fd, 1);
 	close(fd);
+	return (0);
 }
 
-void my_redirect(t_list *redir)
+void	my_redirect(t_list *redir)
 {
-	t_redir *redi;
+	t_redir	*redi;
 
 	while (redir != NULL)
 	{
