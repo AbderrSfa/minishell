@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 18:52:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 14:52:07 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:24:08 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ static void ft_swap(t_list *envp, char **gpwd)
 
 static void	ft_change(char *str, char *dir, char **gpwd, t_list *envp)
 {
-	char **pwd;
-	char **oldpwd;
 	char *tmp;
 
 	if (str == NULL)

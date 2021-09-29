@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/07/29 19:54:21 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:26:44 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int envp_sort(char **tab, int size)
 {
-	int		i;
 	int		wall;
 	int		current;
 	char	*pivot;
