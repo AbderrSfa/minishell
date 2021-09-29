@@ -40,7 +40,7 @@ void	initialize_prs_node(t_prs *prs)
 	prs->i = 0;
 	prs->arg_num = 0;
 	prs->ambigous = 0;
-	prs->ret_value = exit_status;
+	prs->ret_value = g_exit_status;
 	prs->outside_quote = 0;
 	prs->extra_args = NULL;
 }
