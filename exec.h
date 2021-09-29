@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 15:01:10 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:32:06 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@
  # include <sys/wait.h>
 
 #define BUFFER_SIZE 1
-int		my_exec(t_list *cmds, t_list *envp);
 
+//	exec_ex.c
+void	my_exec(t_list *cmds, t_list *envp);
+
+//
 void    ft_dup2(int fd1, int fd2);
 void    input_redirect(char *file);
 void    output_redirect(char *file);
@@ -52,6 +55,7 @@ int		ft_chdir(t_cmd *cmd, t_list *envp, char **path);
 int ft_echo (char **argv, char option);
 int ft_env(t_list *envp);
 int ft_pwd(char *gpwd);
+
 void ft_exit(int status);
 
 // builtin_ex.c
@@ -64,7 +68,12 @@ void	close_pfds(int *pfds, int nbr);
 int		*create_pipes(int nbr_pipes);
 int		create_childs(t_list *cmds, int *pfds, t_list *envp);
 
-//exec_ex.c
+// exec_ex.c
 void exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i);
+
+// unset_ex.c
+int ft_unset(t_list *envp, char *value);
+int ft_export(t_list *envp, char *arg);
+int	ft_valid_env_name(char *value);
 
 #endif

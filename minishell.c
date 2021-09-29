@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/07/29 11:14:46 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/09/29 16:30:25 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(void)
 		if (input != NULL && !check_syntax_errors(input))
 		{
 			cmds = split_by_pipes(cmds, input, temp);
-			g_exit_status = my_exec(cmds, envp);
+			my_exec(cmds, envp);
 		}
 		free(input);
 		free_cmds(cmds);

@@ -33,8 +33,8 @@ SRC =	builtin_ex.c \
 	start_parsing_pa.c \
 
 FLAGS = -Wall -Wextra -Werror
-LDFLAGS="-L/Users/yabdelgh/.brew/opt/readline/lib"
-CPPFLAGS="-I/Users/yabdelgh/.brew/opt/readline/include"
+LDFLAGS="-L$(HOME)/.brew/opt/readline/lib"
+CPPFLAGS="-I$(HOME)/.brew/opt/readline/include"
 
 HEADERFILES = parsing.h exec.h libft/libft.h
 
@@ -62,7 +62,7 @@ $(NAME): $(OBJECT)
 
 %.o:%.c $(HEADERFILES)
 	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
-	@gcc -c $< $(CPPFLAGS)
+	@gcc -c $< $(CPPFLAGS) $(FLAGS)
 
 clean:
 	@echo "$(RED)Deleting:$(RESET) object files..."
