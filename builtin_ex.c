@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 19:14:44 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:05:12 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ int	exec_builtin(t_cmd *cmd, t_list *envp, int status)
 		g_exit_status = ft_env(envp);
 	else if (status == 5)
 		ft_exit(status);
-	if (status == 6 || status == 7)
+	else if (status == 6 || status == 7)
 		exec_un_ex(cmd, envp, status);
-	return (0);
+	else
+		return (0);
+	return (1);
 }
 
 int	ft_builtin(t_cmd *cmd, t_list *envp, int status)

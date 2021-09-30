@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 19:23:11 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:23:33 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "libft/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 //	exec_ex.c
 void	my_exec(t_list *cmds, t_list *envp);
