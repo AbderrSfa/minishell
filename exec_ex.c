@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/30 19:00:46 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/01 14:59:49 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 		ft_dup2(pfds[i - 2], 0);
 	close_pfds(pfds, nbr_pipes);
 	cmd = cmds->content;
-//	if (cmd->cmd == NULL)
-//		exit(128);
 	if (my_redirect(cmd->redir) || exec_builtin(cmd, envp, is_builtin(cmd)))
 		exit(1);
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
 	execve(cmd_path, cmd->args, tab);
-	perror("bash");
+	if (errno != 14)
+		perror("bash");
 	exit(127);
 }
 

@@ -46,7 +46,8 @@ int	output_redirect(char *file)
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if (fd == -1)
 	{
-		perror(file);
+		if (errno != 14)
+			perror(file);
 		return (1);
 	}
 	ft_dup2(fd, 1);
