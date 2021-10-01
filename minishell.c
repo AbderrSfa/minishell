@@ -6,7 +6,7 @@
 /*   By: asfaihi <asfaihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 17:31:14 by asfaihi           #+#    #+#             */
-/*   Updated: 2021/09/29 16:30:25 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/01 18:11:06 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,12 @@ int	main(void)
 	t_list		*envp;
 	t_list		*temp;
 
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &sig_int);
-	g_exit_status = 0;
-	envp = NULL;
 	input = NULL;
-	envp = prep_env_lst(envp, environ);
+	envp = prep_env_lst(NULL, environ);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &sig_int);
 		cmds = NULL;
 		input = ft_read_input(input, envp);
 		temp = envp;

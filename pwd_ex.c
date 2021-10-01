@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:06:44 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/01 18:11:22 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,18 @@ int	ft_pwd(char *gpwd)
 	return (0);
 }
 
-void	ft_exit(int status)
+void	ft_exit(char **args)
 {
-	exit(status);
+	int	i;
+
+	i = 0;
+	if (args[1] == NULL)
+		exit(0);
+	if (args[2] == NULL)
+	{
+		if (args[1] != NULL)
+			i = ft_atoi(args[1]);
+		exit(i);
+	}
+	printf("minishell: exit: too many arguments\n");
 }

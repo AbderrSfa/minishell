@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:32:32 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/30 19:00:33 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/01 18:10:12 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,21 @@ char	*get_cmd_path(char *cmd, char **paths)
 	int		j;
 	char	*str;
 
-	if (cmd[0] == '.' && cmd[1] == '/')
-		return (cmd);
-	cmd = ft_strjoin("/", cmd);
-	i = 0;
-	while (paths[i] != NULL)
+	if (cmd[0] != '\0')
 	{
-		str = ft_strjoin(paths[i], cmd);
-		j = open(str, O_RDONLY);
-		if (j != -1 && j != 13)
-			return (str);
-		free(str);
-		i++;
+		if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
+			return (cmd);
+		cmd = ft_strjoin("/", cmd);
+		i = 0;
+		while (paths[i] != NULL)
+		{
+			str = ft_strjoin(paths[i], cmd);
+			j = open(str, O_RDONLY);
+			if (j != -1 && j != 13)
+				return (str);
+			free(str);
+			i++;
+		}
 	}
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": command not found\n", 2);

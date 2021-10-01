@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/30 12:23:33 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/01 15:47:25 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_echo(char **argv, char option);
 int		ft_env(t_list *envp);
 int		ft_pwd(char *gpwd);
 
-void	ft_exit(int status);
+void	ft_exit(char **args);
 
 // builtin_ex.c
 int		is_builtin(t_cmd *cmd);

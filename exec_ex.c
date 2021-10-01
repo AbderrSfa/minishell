@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/01 14:59:49 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/10/01 18:04:35 by asfaihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,27 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
 	execve(cmd_path, cmd->args, tab);
 	if (errno != 14)
-		perror("bash");
+		perror("minishell");
 	exit(127);
+}
+
+static void	ft_child_sig(int signal)
+{
+	if (signal == SIGINT)
+		printf("\n");
+}
+
+static void	ft_set_exit_status(int nbr_cmds)
+{
+	if (WIFEXITED(g_exit_status))
+		g_exit_status = WEXITSTATUS(g_exit_status);
+	else if (WIFSIGNALED(g_exit_status))
+	{
+		if (WTERMSIG(g_exit_status) == SIGQUIT)
+			write(1, "Quit: 3\n", 8);
+		g_exit_status = 128 + WTERMSIG(g_exit_status);
+	}
+	wait_cmds(nbr_cmds);
 }
 
 void	my_exec(t_list *cmds, t_list *envp)
@@ -43,6 +62,8 @@ void	my_exec(t_list *cmds, t_list *envp)
 	int	*pfds;
 	int	pid;
 
+	signal(SIGQUIT, &ft_child_sig);
+	signal(SIGINT, &ft_child_sig);
 	pfds = NULL;
 	nbr_cmds = ft_lstsize(cmds);
 	if (nbr_cmds > 0)
@@ -59,9 +80,7 @@ void	my_exec(t_list *cmds, t_list *envp)
 			if (nbr_cmds > 1)
 				close_pfds(pfds, nbr_cmds - 1);
 			waitpid(pid, &g_exit_status, 0);
-			if (WIFEXITED(g_exit_status))
-				g_exit_status = WEXITSTATUS(g_exit_status);
-			wait_cmds(nbr_cmds);
+			ft_set_exit_status(nbr_cmds);
 		}	
 	}
 }
