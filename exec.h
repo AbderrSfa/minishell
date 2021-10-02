@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 10:03:57 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:33:50 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_display_envp(t_list *envp);
 int		ft_chdir(t_cmd *cmd, t_list *envp, char **path);
 
 // builins_ex.c
-int		ft_echo(char **argv, char option);
+int		ft_echo(char **argv);
 int		ft_env(t_list *envp);
 int		ft_pwd(char *gpwd);
 

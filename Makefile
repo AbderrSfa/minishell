@@ -61,7 +61,7 @@ $(NAME): $(OBJECT)
 
 %.o:%.c $(HEADERFILES)
 	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
-	@gcc -c $< $(CPPFLAGS) $(FLAGS)
+	@gcc -c $< $(CPPFLAGS)
 
 clean:
 	@echo "$(RED)Deleting:$(RESET) object files..."

@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 10:02:47 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:41:51 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,7 @@ int	exec_builtin(t_cmd *cmd, t_list *envp, int status)
 	else if (status == 2)
 		g_exit_status = ft_pwd(gpwd);
 	else if (status == 3)
-	{
-		if (cmd->args[1] != NULL && ft_strncmp(cmd->args[1], "-n", 3) == 0)
-			g_exit_status = ft_echo(cmd->args + 2, 'n');
-		else
-			g_exit_status = ft_echo(cmd->args + 1, ' ');
-	}
+		g_exit_status = ft_echo(cmd->args + 1);
 	else if (status == 4)
 		g_exit_status = ft_env(envp);
 	else if (status == 5)

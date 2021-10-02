@@ -6,25 +6,50 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/01 18:11:22 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/10/02 17:57:00 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	ft_echo(char **argv, char option)
+static int	ignore_n(char **argv)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (argv[i] != NULL)
+	while (argv[i] != NULL && argv[i][0] == '-' && argv[i][1] == 'n')
 	{
-		write(1, argv[i], ft_strlen(argv[i]));
+		j = 1;
+		while (argv[i][j] != '\0')
+		{
+			if (argv[i][j] != 'n')
+				return (i);
+			j++;
+		}
 		i++;
-		if (argv[i] != NULL)
-			write(1, " ", 1);
 	}
-	if (option != 'n')
+	return (i);
+}
+
+int	ft_echo(char **argv)
+{
+	int	i;
+	int	j;
+
+	if (argv[0] != NULL)
+	{
+		j = ignore_n(argv);
+		i = j;
+		while (argv[i] != NULL)
+		{
+			write(1, argv[i], ft_strlen(argv[i]));
+			i++;
+			if (argv[i] != NULL)
+				write(1, " ", 1);
+		}
+	}
+	if (j == 0)
 		write(1, "\n", 1);
 	return (0);
 }
