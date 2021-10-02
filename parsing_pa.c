@@ -115,7 +115,5 @@ t_cmd	*new_node(char *s, t_list *env_lst)
 	}
 	if (prs.ambigous == 1)
 		new->cmd = NULL;
-	if (new->args[0] && !ft_strcmp(new->cmd, "echo"))
-		echo_n_flag(new);
 	return (new);
 }

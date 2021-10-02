@@ -44,23 +44,3 @@ void	initialize_prs_node(t_prs *prs)
 	prs->outside_quote = 0;
 	prs->extra_args = NULL;
 }
-
-void	echo_n_flag(t_cmd *new)
-{
-	int		i;
-
-	if (new->args[1] == NULL)
-		return ;
-	if (new->args[1][0] != '-' || new->args[1][1] != 'n')
-		return ;
-	i = 2;
-	while (new->args[1][i] && new->args[1][i] == 'n')
-		i++;
-	if (new->args[1][i])
-		return ;
-	else
-	{
-		free(new->args[1]);
-		new->args[1] = ft_strdup("-n");
-	}
-}

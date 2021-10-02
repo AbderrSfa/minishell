@@ -91,7 +91,6 @@ void	fill_arg(char *temp, t_cmd *new, t_list *env_lst, t_prs *prs);
 void	add_extra_args(t_cmd *new, t_prs *prs);
 char	*double_quotes(char *s, t_list *env_lst, t_prs *prs);
 char	*single_quotes(char *s, t_prs *prs);
-void	echo_n_flag(t_cmd *new);
 
 /* Expand environment variables */
 char	*env_var_checker(char *s, t_list *env_lst, t_prs *prs);
