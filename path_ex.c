@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:32:32 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/01 18:10:12 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/10/02 10:48:10 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ char	*get_cmd_path(char *cmd, char **paths)
 	int		j;
 	char	*str;
 
-	if (cmd[0] != '\0')
+	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
+		return (cmd);
+	if (cmd[0] != '\0' && paths != NULL)
 	{
-		if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
-			return (cmd);
 		cmd = ft_strjoin("/", cmd);
 		i = 0;
 		while (paths[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/17 12:06:10 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/01 18:06:42 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/10/02 10:02:47 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	is_builtin(t_cmd *cmd)
 
 static int	exec_un_ex(t_cmd *cmd, t_list *envp, int status)
 {
-	int	i;
+	int		i;
+	char	*key;
 
 	if (status == 6)
 	{
@@ -51,9 +52,10 @@ static int	exec_un_ex(t_cmd *cmd, t_list *envp, int status)
 		if (cmd->args[1] == NULL)
 			g_exit_status = ft_display_envp(envp);
 		i = 1;
-		while (cmd->args[i] != NULL && ft_valid_env_name(cmd->args[i]))
+		while (cmd->args[i] != NULL)
 		{
-			g_exit_status = ft_export(envp, cmd->args[i]);
+			key = get_key(cmd->args[i]);
+			g_exit_status = ft_export(envp, key, cmd->args[i]);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 17:33:21 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:44:04 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/02 10:04:33 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ int	ft_unset(t_list *envp, char *value)
 	return (0);
 }
 
-int	ft_export(t_list *envp, char *arg)
+int	ft_export(t_list *envp,	char *key, char *arg)
 {
-	char	*key;
 	char	*val;
 	t_env	*env;
 	t_list	*tmp;
 
-	key = get_key(arg);
+	if (!ft_valid_env_name(key))
+		return (1);
 	val = get_value(arg);
 	while (envp != NULL)
 	{
