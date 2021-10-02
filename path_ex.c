@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 18:32:32 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 10:48:10 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/02 18:38:37 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,27 @@ char	**get_paths(t_list *envp)
 	return (NULL);
 }
 
+static char	*ft_local_cmd(char *str, char *cmd)
+{
+	int	j;
+
+	j = open(str, O_RDONLY);
+	if (j != -1 && j != 13)
+		return (str);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	return (NULL);
+}
+
 char	*get_cmd_path(char *cmd, char **paths)
 {
 	int		i;
 	int		j;
 	char	*str;
+	char	*str2;
 
-	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
+	str2 = cmd;
+	if (cmd[0] == '.' || cmd[0] == '/')
 		return (cmd);
 	if (cmd[0] != '\0' && paths != NULL)
 	{
@@ -62,7 +76,5 @@ char	*get_cmd_path(char *cmd, char **paths)
 			i++;
 		}
 	}
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": command not found\n", 2);
-	return (NULL);
+	return (ft_local_cmd(str2, cmd));
 }
