@@ -6,11 +6,19 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 10:45:01 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/02 19:12:57 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void	ft_execve(char *path, char **args, char **tab)
+{
+	execve(path, args, tab);
+	if (errno != 14)
+		perror("minishell");
+	exit(127);
+}
 
 void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 {
@@ -28,13 +36,12 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 		ft_dup2(pfds[i - 2], 0);
 	close_pfds(pfds, nbr_pipes);
 	cmd = cmds->content;
-	if (my_redirect(cmd->redir) || exec_builtin(cmd, envp, is_builtin(cmd)))
-		exit(1);
+	if (my_redirect(cmd->redir))
+		exit (1);
+	if (exec_builtin(cmd, envp, is_builtin(cmd)))
+		exit(g_exit_status);
 	cmd_path = get_cmd_path(cmd->cmd, get_paths(envp));
-	execve(cmd_path, cmd->args, tab);
-	if (errno != 14)
-		perror("minishell");
-	exit(127);
+	ft_execve(cmd_path, cmd->args, tab);
 }
 
 static void	ft_child_sig(int signal)
@@ -68,9 +75,9 @@ void	my_exec(t_list *cmds, t_list *envp)
 	nbr_cmds = ft_lstsize(cmds);
 	if (nbr_cmds > 0)
 	{
-		g_exit_status = is_builtin(cmds->content);
-		if (nbr_cmds == 1 && g_exit_status != 0)
-			ft_builtin(cmds->content, envp, g_exit_status);
+		pid = is_builtin(cmds->content);
+		if (nbr_cmds == 1 && pid != 0)
+			ft_builtin(cmds->content, envp, pid);
 		else
 		{
 			ft_heredoc(cmds);
