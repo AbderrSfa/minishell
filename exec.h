@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/01 15:47:25 by asfaihi          ###   ########.fr       */
+/*   Updated: 2021/10/02 10:03:57 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ void	ft_heredoc(t_list *cmds);
 char	**get_paths(t_list *envp);
 char	*get_cmd_path(char *cmd, char **paths);
 
-// unset_ex.c
-
-int		ft_export(t_list *envp, char *arg);
-int		ft_unset(t_list *envp, char *value);
-
 //	envp_ex.c
 char	**list_to_arr(t_list *lst);
 int		ft_display_envp(t_list *envp);
@@ -77,7 +72,7 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i);
 
 // unset_ex.c
 int		ft_unset(t_list *envp, char *value);
-int		ft_export(t_list *envp, char *arg);
+int		ft_export(t_list *envp, char *key, char *arg);
 int		ft_valid_env_name(char *value);
 
 #endif
