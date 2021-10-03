@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/03 19:32:09 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 20:15:24 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_echo(char **argv)
 	int	i;
 	int	j;
 
+	j = 0;
 	if (argv[0] != NULL)
 	{
 		j = ignore_n(argv);
