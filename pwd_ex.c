@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 18:57:27 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 19:32:09 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_pwd(char *gpwd)
 void	ft_exit(char **args)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	if (args[1] == NULL)
@@ -92,6 +93,17 @@ void	ft_exit(char **args)
 	{
 		if (args[1] != NULL)
 			i = ft_atoi(args[1]);
+		j = 0;
+		while (args[1][j] != '\0')
+		{
+			if (!ft_isdigit(args[1][j]))
+			{
+				printf("minishell: exit: %s:", args[1]);
+				printf("numeric argument required\n");
+				exit(255);
+			}
+			j++;
+		}
 		exit(i);
 	}
 	printf("minishell: exit: too many arguments\n");

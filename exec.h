@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:14:01 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 17:33:50 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:53:43 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/stat.h>
 
 //	exec_ex.c
-void	my_exec(t_list *cmds, t_list *envp);
+int		my_exec(t_list *cmds, t_list *envp);
 
 // redirection_ex.c
 void	ft_dup2(int fd1, int fd2);
@@ -35,7 +35,7 @@ int		output_redirect(char *file);
 int		append_redirect(char *file);
 
 // heredoc_ex.c
-void	ft_heredoc(t_list *cmds);
+int		ft_heredoc(t_list *cmds);
 
 //path_ex.c
 char	**get_paths(t_list *envp);

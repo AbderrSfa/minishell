@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/02 19:16:53 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 19:09:40 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	exec_cmd(t_list *cmds, int *pfds, t_list *envp, int i)
 	ft_execve(cmd_path, cmd->args, tab);
 }
 
-static void	ft_child_sig(int signal)
-{
-	if (signal == SIGINT)
-		printf("\n");
-}
-
 static void	ft_set_exit_status(int nbr_cmds)
 {
 	if (WIFEXITED(g_exit_status))
@@ -63,16 +57,16 @@ static void	ft_set_exit_status(int nbr_cmds)
 	wait_cmds(nbr_cmds);
 }
 
-void	my_exec(t_list *cmds, t_list *envp)
+int	my_exec(t_list *cmds, t_list *envp)
 {
 	int	nbr_cmds;
 	int	*pfds;
 	int	pid;
 
-	signal(SIGQUIT, &ft_child_sig);
-	signal(SIGINT, &ft_child_sig);
 	pfds = NULL;
 	nbr_cmds = ft_lstsize(cmds);
+	if (ft_heredoc(cmds))
+		return (1);
 	if (nbr_cmds > 0)
 	{
 		pid = is_builtin(cmds->content);
@@ -80,7 +74,6 @@ void	my_exec(t_list *cmds, t_list *envp)
 			ft_builtin(cmds->content, envp, pid);
 		else
 		{
-			ft_heredoc(cmds);
 			if (nbr_cmds > 1)
 				pfds = create_pipes(nbr_cmds - 1);
 			pid = create_childs(cmds, pfds, envp);
@@ -90,4 +83,5 @@ void	my_exec(t_list *cmds, t_list *envp)
 			ft_set_exit_status(nbr_cmds);
 		}	
 	}
+	return (0);
 }
