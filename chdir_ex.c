@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 18:52:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 18:22:13 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 15:09:38 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	ft_error(int index, char *dir)
 {
-	if (index == 1)
+	if (index == 0)
+		printf("minishell: cd: HOME not set\n");
+	else if (index == 1)
 		printf("minishell: cd: too many arguments\n");
 	else if (index == 2)
 		printf("minishell: cd: %s: %s\n", dir, strerror(errno));
@@ -95,6 +97,8 @@ int	ft_chdir(t_cmd *cmd, t_list *envp, char **path)
 	char	*dir;
 
 	dir = ft_get_dir(cmd->args[1], envp);
+	if (dir == NULL)
+		return (ft_error(0, NULL));
 	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
 		return (ft_error(1, NULL));
 	i = chdir(dir);
