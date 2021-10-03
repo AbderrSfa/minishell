@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/09/29 19:17:11 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/03 14:56:50 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ int	ft_display_envp(t_list *envp)
 	return (0);
 }
 
+static char	*ft_join(t_env *env)
+{
+	char	*tab;
+	char	*tmp;
+
+	if (env->value != NULL)
+	{
+		tab = ft_strjoin(env->key, "=\"");
+		tmp = ft_strjoin(tab, env->value);
+		free(tab);
+		tab = ft_strjoin(tmp, "\"");
+		free(tmp);
+		return (tab);
+	}
+	return (env->key);
+}
+
 char	**list_to_arr(t_list *lst)
 {
 	int		i;
@@ -80,9 +97,7 @@ char	**list_to_arr(t_list *lst)
 	while (i < size - 1)
 	{
 		env = lst->content;
-		tmp = ft_strjoin(env->key, "=");
-		tab[i] = ft_strjoin(tmp, env->value);
-		free(tmp);
+		tab[i] = ft_join(env);
 		lst = lst->next;
 		i++;
 	}
