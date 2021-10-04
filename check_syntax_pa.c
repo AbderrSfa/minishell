@@ -14,7 +14,7 @@
 
 int	ft_put_error(char *error)
 {
-	ft_putendl_fd(error, 1);
+	ft_putendl_fd(error, 2);
 	return (1);
 }
 

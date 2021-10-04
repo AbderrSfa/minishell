@@ -67,7 +67,7 @@ static t_redir	*new_redirection_node(char *s, t_list *env_lst, t_prs *prs)
 	while (s[prs->i] == ' ')
 		prs->i++;
 	new->type = get_redir_type(s[prs->i], s[prs->i + 1]);
-	if (new->type == 'G' || new->type == 'L')
+	if (new->type == 'O' || new->type == 'I')
 	{
 		prs->i++;
 		get_filepath(new, s, env_lst, prs);

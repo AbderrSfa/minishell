@@ -27,8 +27,8 @@ static int	ambigous_err_msg(char *expanded, char *joined, t_prs *prs, int i)
 {
 	if (!expanded || ft_strchr(expanded, ' '))
 	{
-		ft_putstr("minishell: ");
-		ft_putstr(joined);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(joined, 2);
 		ft_put_error(": ambiguous redirect");
 		free(joined);
 		prs->i = i;
