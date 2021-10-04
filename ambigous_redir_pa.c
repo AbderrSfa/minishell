@@ -68,8 +68,11 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 	{
 		i++;
 		j = i;
-		while (s[i] && s[i] != ' ' && s[i] != '>' && s[i] != '<' && s[i] != '$')
+		if (ft_isdigit(s[i]))
 			i++;
+		else
+			while (ft_isalnum(s[i]) || s[i] == '_')
+				i++;
 		var = ft_substr(s, j, i - j);
 		if (!is_ambigous_var_valid(var, joined))
 			return (0);
