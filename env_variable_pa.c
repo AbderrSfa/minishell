@@ -36,9 +36,11 @@ static void	get_variable(char *s, t_list *env_lst, t_prs *prs)
 
 	prs->var.i++;
 	j = prs->var.i;
-	while (s[prs->var.i] && s[prs->var.i] != ' ' && s[prs->var.i] != 39
-		&& s[prs->var.i] != '$')
+	if (ft_isdigit(s[prs->var.i]))
 		prs->var.i++;
+	else
+		while (ft_isalnum(s[prs->var.i]) || s[prs->var.i] == '_')
+			prs->var.i++;
 	tmp = ft_substr(s, j, prs->var.i - j);
 	temp = variable_expander(tmp, env_lst);
 	if (prs->outside_quote && ft_strchr(temp, ' '))
