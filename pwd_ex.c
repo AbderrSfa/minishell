@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/03 20:15:24 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:25:05 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ void	ft_exit(char **args)
 		if (args[1] != NULL)
 			i = ft_atoi(args[1]);
 		j = 0;
+		if (args[1][0] == '-')
+			j = 1;
 		while (args[1][j] != '\0')
 		{
 			if (!ft_isdigit(args[1][j]))
 			{
 				printf("minishell: exit: %s:", args[1]);
-				printf("numeric argument required\n");
+				printf(" numeric argument required\n");
 				exit(255);
 			}
 			j++;
