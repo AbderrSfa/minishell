@@ -43,10 +43,6 @@ YELLOW = \033[1;33m
 BLUE = \033[1;34m
 RESET = \033[0m
 
-#################
-# USE FLAGS
-#################
-
 OBJECT = $(SRC:.c=.o)
 
 all: credit $(NAME)
@@ -61,7 +57,7 @@ $(NAME): $(OBJECT)
 
 %.o:%.c $(HEADERFILES)
 	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
-	@gcc -c $< $(CPPFLAGS)
+	@gcc -c $< $(CPPFLAGS) $(FLAGS)
 
 clean:
 	@echo "$(RED)Deleting:$(RESET) object files..."

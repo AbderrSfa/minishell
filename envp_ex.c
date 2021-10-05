@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/05 11:57:11 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:28:36 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char	**list_to_arr(t_list *lst)
 {
 	int		i;
 	int		size;
-	char	*tmp;
 	char	**tab;
 	t_env	*env;
 

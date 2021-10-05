@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:52:52 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/05 10:33:07 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:29:26 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	ft_here_sig(int signal)
 {
-	exit(1);
+	if (signal == SIGINT)
+		exit(1);
 }
 
 static void	ft_child_sig(int signal)
