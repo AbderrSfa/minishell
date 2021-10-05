@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 19:55:15 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/05 10:25:05 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:51:17 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ void	ft_exit(char **args)
 		exit(g_exit_status);
 	if (args[2] == NULL)
 	{
-		if (args[1] != NULL)
-			i = ft_atoi(args[1]);
+		i = ft_atoi(args[1]);
 		j = 0;
 		if (args[1][0] == '-')
 			j = 1;
