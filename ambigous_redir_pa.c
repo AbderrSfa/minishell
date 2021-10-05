@@ -53,6 +53,16 @@ static char	*get_ambigous_var(char *joined, char *var)
 	return (joined);
 }
 
+static int	find_end_of_var(char *s, int i)
+{
+	if (ft_isdigit(s[i]))
+		i++;
+	else
+		while (ft_isalnum(s[i]) || s[i] == '_')
+			i++;
+	return (i);
+}
+
 int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 {
 	char	*var;
@@ -68,11 +78,7 @@ int	check_ambigous_redirect(char *s, t_list *env_lst, t_prs *prs)
 	{
 		i++;
 		j = i;
-		if (ft_isdigit(s[i]))
-			i++;
-		else
-			while (ft_isalnum(s[i]) || s[i] == '_')
-				i++;
+		i = find_end_of_var(s, i);
 		var = ft_substr(s, j, i - j);
 		if (!is_ambigous_var_valid(var, joined))
 			return (0);
