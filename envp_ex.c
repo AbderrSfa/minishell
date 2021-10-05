@@ -6,7 +6,7 @@
 /*   By: yabdelgh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 17:06:42 by yabdelgh          #+#    #+#             */
-/*   Updated: 2021/10/03 14:56:50 by yabdelgh         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:57:11 by yabdelgh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	envp_sort(char **tab, int size)
 int	ft_display_envp(t_list *envp)
 {
 	int		i;
+	int		j;
 	char	**tab;
 
 	envp = envp->next;
@@ -60,7 +61,17 @@ int	ft_display_envp(t_list *envp)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf("declare -x %s\n", tab[i]);
+		ft_putstr_fd("declare -x ", 1);
+		j = 0;
+		while (tab[i][j] != '=' && tab[i][j] != '\0')
+		{
+			ft_putchar(tab[i][j]);
+			j++;
+		}
+		if (tab[i][j] != '\0')
+			printf("=\"%s\"\n", &tab[i][j + 1]);
+		else
+			ft_putchar('\n');
 		i++;
 	}
 	return (0);
@@ -73,10 +84,8 @@ static char	*ft_join(t_env *env)
 
 	if (env->value != NULL)
 	{
-		tab = ft_strjoin(env->key, "=\"");
-		tmp = ft_strjoin(tab, env->value);
-		free(tab);
-		tab = ft_strjoin(tmp, "\"");
+		tmp = ft_strjoin(env->key, "=");
+		tab = ft_strjoin(tmp, env->value);
 		free(tmp);
 		return (tab);
 	}
