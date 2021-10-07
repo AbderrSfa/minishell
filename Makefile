@@ -52,8 +52,9 @@ $(NAME): $(OBJECT)
 	@echo "\n$(YELLOW)█████████████████████████████████████████████████ libft █████████████████████████████████████████████████$(RESET)"
 	@make bonus -C libft/
 	@ar rcs $(LIBNAME) $(OBJECT)
-	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -o ../test/$(NAME)
-	@echo "\n$(GREEN)████████████████████████████████████████████ Done compiling █████████████████████████████████████████████$(RESET)"
+	@mkdir -p ./output
+	@gcc $(LIBNAME) $(LIBFT) $(INCLUDES) $(LDFLAGS) -o ./output/$(NAME)
+	@echo "\n$(GREEN)██████████████████████████████ Done compiling (minishell in output folder) ██████████████████████████████$(RESET)"
 
 %.o:%.c $(HEADERFILES)
 	@echo "$(BLUE)█$(RESET) compiling $< ... \r\t\t\t\t\t\t\t\t\t\t\t\t\t$(BLUE)█$(RESET)"
@@ -70,7 +71,7 @@ fclean: clean
 	@echo "$(RED)Deleting:$(RESET) $(LIBNAME)..."
 	@/bin/rm -f $(LIBNAME)
 	@echo "$(RED)Deleting:$(RESET) $(NAME)..."
-	@/bin/rm -f ../test/$(NAME)
+	@/bin/rm -rf ./output
 
 re: fclean all
 
