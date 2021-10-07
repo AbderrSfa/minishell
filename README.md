@@ -1,8 +1,9 @@
 # minishell
 As beautiful as a shell
+![595142](https://user-images.githubusercontent.com/58333462/136381042-5ee383b7-5c66-4b2f-821a-e48a30f67e44.jpg)
 
 ## 🧐 Description:
-A miniture clone of bash.
+A miniature clone of bash.
 
 ### Features:
 - minishell can run executables from an absolute `/bin/ls`, relative `../../../../../bin/ls`, or environment PATH `ls` with arguments.
