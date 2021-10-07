@@ -1,6 +1,6 @@
 # minishell
 As beautiful as a shell
-![595142](https://user-images.githubusercontent.com/58333462/136422079-01f0646e-a3a4-4523-957e-7d0c3d525e81.jpg)
+![minishell](https://user-images.githubusercontent.com/58333462/136422079-01f0646e-a3a4-4523-957e-7d0c3d525e81.jpg)
 ## 🧐 Description:
 A miniature clone of bash.
 
