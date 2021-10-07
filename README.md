@@ -29,7 +29,7 @@ cd output
 <img width="1149" alt="Screen Shot 2021-10-07 at 12 41 16 PM" src="https://user-images.githubusercontent.com/58333462/136377318-c9cc52d2-a4ea-4170-96b7-470c172a1300.png">
 
 ### Credit
-was a two person project done with [yabdelgh](https://github.com/yabdelgh)
+minishell was a two person project done with [yabdelgh](https://github.com/yabdelgh)
 
 I was responsible for reading input, the lexer, parser, environment variables, signal handling and command history.
 
