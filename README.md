@@ -1,11 +1,10 @@
 # minishell
 As beautiful as a shell
-![595142](https://user-images.githubusercontent.com/58333462/136381042-5ee383b7-5c66-4b2f-821a-e48a30f67e44.jpg)
-
+![595142](https://user-images.githubusercontent.com/58333462/136422079-01f0646e-a3a4-4523-957e-7d0c3d525e81.jpg)
 ## 🧐 Description:
 A miniature clone of bash.
 
-### Features:
+### 🎲 Features:
 - minishell can run executables from an absolute `/bin/ls`, relative `../../../../../bin/ls`, or environment PATH `ls` with arguments.
 - Environment variables are also handled including the return code `$?`.
 - You can use redirections `> >> < <<` and pipes `|`.
@@ -29,7 +28,7 @@ cd output
 ```
 <img width="1149" alt="Screen Shot 2021-10-07 at 12 41 16 PM" src="https://user-images.githubusercontent.com/58333462/136377318-c9cc52d2-a4ea-4170-96b7-470c172a1300.png">
 
-### Credit
+### ✅ Credit
 minishell was a two person project done with [yabdelgh](https://github.com/yabdelgh)
 
 I was responsible for reading input, the lexer, parser, environment variables, signal handling and command history.
