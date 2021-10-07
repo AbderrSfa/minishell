@@ -31,6 +31,6 @@ cd output
 ### Credit
 was a two person project done with [yabdelgh](https://github.com/yabdelgh)
 
-I was responsible for reading input, lexer, parser, environment variable, signals and history.
+I was responsible for reading input, the lexer, parser, environment variables, signal handling and command history.
 
-While yabdelgh took care of command execution.
+While yabdelgh took care of command execution, pipes, redirections and signal handling inside child processes.
