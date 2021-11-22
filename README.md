@@ -34,4 +34,4 @@ minishell was a two person project done with [yabdelgh](https://github.com/yabde
 
 I was responsible for reading input, the lexer, parser, environment variables, signal handling and command history.
 
-While yabdelgh took care of command execution, pipes, redirections and signal handling inside child processes.
+While [yabdelgh](https://github.com/yabdelgh) took care of command execution, pipes, redirections and signal handling inside child processes.
